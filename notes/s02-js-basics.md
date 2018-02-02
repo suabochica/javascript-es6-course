@@ -48,3 +48,23 @@ JavaScript have a feature called *dynamic typing*. this means that the programme
 Variable Mutation and Type Coercion
 -----------------------------------
 
+A *type coercion* is a feature of javascript related with *dynamic typing*. Basically means, when you have different data types and you mix them together, JavaScripts tries to automatically figure out which of the variables it has to convert, and then converts them all to the same data type. Check the next examples:
+
+```javascript
+var name = 'Edward'
+var age = 20
+
+console.log(name + age) //-> 'Edward20' Applies type coercion over the age int data type and convert it into a string
+console.log(age + age) //-> 40
+```
+
+*Variable mutation* is as his name says, change the value of a variable. consider the next example as continue of the code above:
+
+```javascript
+age = 'twenty'
+
+console.log(age) //-> 'Twenty'
+```
+
+in this code you change the values of the variable `age` from `20` to `twenty`. Notice that you didn't use the `var`keyword, because is only used to declare the variables in the first time. It is important know that the JavaScript compiler reads our code in a sequence of instructions line to line from up to down.
+
