@@ -86,3 +86,7 @@ var randomOperationValue = 3 + 5 * 5 - 2
 console.log(randomOperationValue) //-> '26'
 ```
 
+If/Else Statement
+-----------------
+
+JavaScript like most of the other programming languages has a couple of *control structures*. These are features that allow us to execute only certain parts of our code –if/else statements– or to execute some parts even multiple times –loops–. The *if/else statements* allows us to make decisions with our code depending on some condition. An important aspect of the control structures is the *condition*. To avoid misunderstandings in JavaScript at the moment of defining a condition, you should understand the difference between the `==` and `===` operators. The main difference is that `==` is type coercion and `===` isn't. Is a good practice use `===` to have control over the type coercion feature of JavaScript.
