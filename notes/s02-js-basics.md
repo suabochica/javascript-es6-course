@@ -90,3 +90,62 @@ If/Else Statement
 -----------------
 
 JavaScript like most of the other programming languages has a couple of *control structures*. These are features that allow us to execute only certain parts of our code –if/else statements– or to execute some parts even multiple times –loops–. The *if/else statements* allows us to make decisions with our code depending on some condition. An important aspect of the control structures is the *condition*. To avoid misunderstandings in JavaScript at the moment of defining a condition, you should understand the difference between the `==` and `===` operators. The main difference is that `==` is type coercion and `===` isn't. Is a good practice use `===` to have control over the type coercion feature of JavaScript.
+
+Boolean Logic and Switch Statement
+----------------------------------
+
+*Boolean Logic* is a branch of the computer science which deals with the `true` and `false` values. To achieve this, you have to use several logical operators (AND `&&`, OR `||` and NOT `!`). Learn it, help you to master the if and else statements in programming languages. Below you can see the respective _truth tables_ of AND and OR logical operators. The truth tables allow us to see see the outcome of the operators at the moment of evaluating variables.
+
+|*AND*  |True    |False  |
+|-------|--------|-------|
+|True   |True    |False  |
+|False  |False   |False  |
+
+- AND `&&` => True if *all* are true
+
+
+|*OR*   |True   |False  |
+|-------|-------|-------|
+|True   |True   |True   |
+|False  |True   |False  |
+
+- OR `||` => True if *one* is true
+- NOT `!` => Inverts true/false value
+ 
+According we the next explanation we have the next examples:
+
+```javascript
+var age = 16;
+
+age >= 20;      //-> False
+age < 30;       //-> True
+!(age < 30)     //-> False
+
+age >= 20 && age < 30; //-> False
+age >= 20 || age < 30; //-> True
+
+```
+
+The `switch` statement is another way to take decisions in JavaScript. It is proper to use when you have a lot of different cases for one variable, avoiding the abuse of `if/else if/else` statements. Below a switch statement example:
+
+```javascript
+var job = 'teacher';
+
+switch:
+    case 'teacher':
+        console.log('Hohenheim teaches kids.');
+        break;
+    case 'driver':
+        console.log('Hohenheim drives a car in Amestris.');
+        break;
+    case 'cop':
+        console.log('Hohenheim fights crime.');
+        break;
+    default:
+        console.log('Hohenheim does something else.');
+        break;
+```
+
+JavaScript will now look at each of these cases one-by-one and decide which one is the correct one. The `break` keyword is needed in case that JavaScript decides that this is the correct case, then after this, it needs to break out and to finish the switch statement without a look at the other different cases.
+
+
