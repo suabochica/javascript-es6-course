@@ -181,4 +181,36 @@ yearsUntileRetirement('Alphonse', 2002); //-> 'Alphonse retires in 49 years'
 yearsUntileRetirement('Hohenheim', 1900); //-> 'Hohenheim is already retired'
 ```
 
+Statements and Expressions
+--------------------------
+
+Before to continue, it is a good idea understand that in JavaScript the functions could be defined in terms of *expressions* or *statements*. The difference between a statement and expressions is that an expression produces a value, an outcome. While a statement just performs an action. Below you can see examples of each one:
+
+```javascript
+// Expressions
+
+var x = 3;
+3 + 2
+
+// Statements
+if (x === 5) {
+    //Do something ...
+}
+
+```
+
+In JavaScript you can identify if a function is defined in term of expression or statement according to the used syntax:
+
+```javascript
+function fnStatement() {
+    // code
+}
+
+var fnExpression = function() {
+    // code
+}
+```
+
+
+
 
