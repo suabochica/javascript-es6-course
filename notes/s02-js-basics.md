@@ -184,7 +184,7 @@ yearsUntileRetirement('Hohenheim', 1900); //-> 'Hohenheim is already retired'
 Statements and Expressions
 --------------------------
 
-Before to continue, it is a good idea understand that in JavaScript the functions could be defined in terms of *expressions* or *statements*. The difference between a statement and expressions is that an expression produces a value, an outcome. While a statement just performs an action. Below you can see examples of each one:
+Before to continue, it is a good idea understand that in JavaScript the functions could be defined in terms of *expressions* or *statements*. The difference between a statement and expressions is that an expression produces a value, an immediately outcome. While a statement just performs an action. Below you can see examples of each one:
 
 ```javascript
 // Expressions
@@ -211,6 +211,22 @@ var fnExpression = function() {
 }
 ```
 
+Arrays
+------
 
+In the previous notes, inside the examples, we use different variables for different persons. These variables could be bundle all in one single variable. JavaScript have different ways to group data and one of them is *arrays*. The next code shows an array of names and an array of years:
 
+```javascript
+var names = ['Edward', 'Alphonse', 'Hohenheim'];
+var years = new Array(2000, 2002, 1900);
 
+console.log(names) //-> ['Edward', 'Alphonse', 'Hohenheim']
+console.log(namesp[1]) //-> Alphonse
+```
+
+As you can see, exist two ways to define an array. The most commonly used is the first one. An array can hold as many different data types as we want. To access to an element of an array you should use the `index`. In JavaScript, the arrays are zero-based indexed, so the first element of the array has as the index the `0`. Also, JavaScript offers a set of functions to add/remove elements in an array, changing the original array:
+
+- `.push(element)`: Adds an element in the last position of the array.
+- `.unshift(element)`: Adds an element in the first position of the array.
+- `.pop(element)`: Removes an element in the last position of the array.
+- `.shift()`: Removes an element in the first position of the array.
