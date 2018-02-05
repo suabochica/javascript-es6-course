@@ -149,3 +149,36 @@ switch:
 JavaScript will now look at each of these cases one-by-one and decide which one is the correct one. The `break` keyword is needed in case that JavaScript decides that this is the correct case, then after this, it needs to break out and to finish the switch statement without a look at the other different cases.
 
 
+Functions
+---------
+
+Imagine that you have a piece of code that you want to run a lot of times. Also, you want to use over and over again in our code. You can put this piece of code into a *function* instead of writing it over and over again. So functions are containers that hold a couple of lines of code. In these containers, you can pass arguments into them because the function can have some information from the outside and finally the function can return a result. You can think of functions like a machine that receives some inputs, do some stuff with it and generates an output. Functions are a very important tool to fight against the programming principle DRY (Don't Repeat Yourself). So in order to avoid repetition of code we usually use functions. In the next example we use functions to calculate an age and a retirement time:
+
+```javascript
+function calculateAge(yearOfBirth) {
+    var age = 2018 - yearOfBirth;
+    
+    return age;
+}
+
+var ageEdward = calculateAge(2000); //-> 18
+var ageAlphonse = calculateAge(2002); //->16
+var ageHohenheim = calculateAge(1900); //-> 118
+
+
+function yearsUntileRetirement(name, year) {
+    var age = calculateAge(year),
+        retirement = 65 -age;
+    if(retirement > 0) {
+        console.log(name + ' retires in ' + retirement + ' years');
+    } else {
+        console.log(name + ' is already retired');
+    }
+}
+
+yearsUntileRetirement('Edward', 2000); //-> 'Edward retires in 47 years'
+yearsUntileRetirement('Alphonse', 2002); //-> 'Alphonse retires in 49 years'
+yearsUntileRetirement('Hohenheim', 1900); //-> 'Hohenheim is already retired'
+```
+
+
