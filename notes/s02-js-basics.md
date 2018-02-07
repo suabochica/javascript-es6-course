@@ -221,7 +221,7 @@ var names = ['Edward', 'Alphonse', 'Hohenheim'];
 var years = new Array(2000, 2002, 1900);
 
 console.log(names) //-> ['Edward', 'Alphonse', 'Hohenheim']
-console.log(namesp[1]) //-> Alphonse
+console.log(names[1]) //-> Alphonse
 ```
 
 As you can see, exist two ways to define an array. The most commonly used is the first one. An array can hold as many different data types as we want. To access to an element of an array you should use the `index`. In JavaScript, the arrays are zero-based indexed, so the first element of the array has as the index the `0`. Also, JavaScript offers a set of functions to add/remove elements in an array, changing the original array:
@@ -230,3 +230,85 @@ As you can see, exist two ways to define an array. The most commonly used is the
 - `.unshift(element)`: Adds an element in the first position of the array.
 - `.pop(element)`: Removes an element in the last position of the array.
 - `.shift()`: Removes an element in the first position of the array.
+- `.indexOf(element)`: Returns the index element passed as parameter.
+
+Objects
+-------
+
+*Objects* is probably the most important subject in JavaScript. Similar to arrays, objects allow us to store several variables in a single variable. A difference between object and arrays is the way to access the elements. In an array, you use an order number and in an object, you use a specific name –a key–. In objects, you have a *key/value* pairs which mean that each value has a key. You use objects to group together different variables which have no particular order. In the next example we will use an object to define the data associated to a person:
+
+```javascript
+var edward = {
+    name: 'Edward',
+    lastName: 'Elric',
+    yearOfBirth: 2000,
+    job: 'Alchemist',
+    isMarried: true
+};
+
+
+console.log(edward) //-> Prints the edward object
+console.log(edward.job) //-> 'Alchemist'. To access the edward object you can use the dot notation
+console.log(edward['yearOfBirth']) //-> 2000. To access the edward object you can also use the brackets notation
+
+var alphonse =  new Object();
+
+alphonse.name = 'Alphonse';
+alphonse.lastName = 'Elric';
+alphonse.yearOfBirth = 2002;
+alphonse.job = 'Alchemist';
+alphonse.isMarried = false;
+```
+
+As you can see, exist two ways to define an object. The most commonly used is the first one. Also, we have two ways to access the properties of an object: *dot notation* and *brackets notation*. Object mutation is done through the access property, similar to the array mutation.
+
+> *What is the difference between a Class and Object*
+> An object is a collection of related data. Object can have properties (variables that belong to object) and methods (functions that belong to object). We can access them using dot or bracket notation.
+> Class works like function constructor plus you can define methods inside of a class and they will be inherited by instances of this class.
+
+
+Objects and Methods
+------------------
+
+*Object methods* is a specific object's feature in JavaScript. As you can see and object can hold different types of data such and int, a string, a boleean and inclusively an array. But, that's not all an object can hold, so objects can also have other objects or functions. Below you ca see and code example of an object that hold an array and a function expression:
+
+```javascript
+var edward = {
+    name: 'Edward',
+    lastName: 'Elric',
+    yearOfBirth: 2000,
+    job: 'Alchemist',
+    isMarried: true
+    family: ['Trisha', 'Hohenheim', 'Alphonse'],
+    calculateAge: function(yearOfBirth) {
+        return 2018 - yearOfBirth;
+    }
+};
+
+console.log(edward); //-> Prints the edward object
+console.log(edward.family); //-> ['Trisha', 'Hohenheim', 'Alphonse']
+console.log(edward.family[2]); //-> 'Alphonse'
+console.log(edward.calculateAge(2000)); //-> 18
+
+```
+
+The `calculateAge` key inside the edward object is just a variable, then you assign a function to it. To access the `calculateAge` function you can use the dot notation. So, objects can contain functions, and these functions are called methods. With this context, you can say that the functions `push(element)` and `pop()` are methods of the `Array` object. Now, you can improve the `calculateAge()` function expression because you could use the `yearOfBirth` property inside the edward object to calculate the age. To achieve that we can use the `this` keyword:
+
+```javascript
+var edward = {
+    name: 'Edward',
+    lastName: 'Elric',
+    yearOfBirth: 2000,
+    job: 'Alchemist',
+    isMarried: true
+    family: ['Trisha', 'Hohenheim', 'Alphonse'],
+    calculateAge: function() {
+        this.age = 2018 - this.yearOfBirth;
+    }
+};
+edward.calculateAge();
+console.log(edward); //-> Pritnst the edward object with the age property
+
+```
+
+The `this` in this example will refer to the object edward. So, edward is the object that has the `calculateAge()` method and the `yearOfBirth` property, and the `this` keyword is able to retrieve these values rigth off it's own object. In the other hand, you can automatically store the `calculateAge()` result into the edward object. The `this.age` property allow us to achieve that. In `calculateAge()` method you are creating a new property, calculate the age and assign the calculated age to this property. The profit with this structure and the use of `this` is flexibility, because if you create another object with a different `yearOfBirth` the age will be calculated with this value, excluding the context of the edward object.
