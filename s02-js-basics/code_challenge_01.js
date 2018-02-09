@@ -1,5 +1,5 @@
 //-------------------------------------
-// Coding Challange
+// Coding Challange One
 //-------------------------------------
 /**
  * John and a friend invented a simple game where the player with the highest value of his heigh (in centimeters)
@@ -11,6 +11,10 @@
  * 4. Extra: Add a third player and now decide who wins.
  * 
  */
+ 
+ console.log('-------------------------------------------------')
+ console.log('Coding Challenge One - Start')
+ console.log('-------------------------------------------------')
  
  var scorePlayerOne,
      scorePlayerTwo,
@@ -38,3 +42,7 @@ if (playerThree) {
         console.log('Player two wins with a score of ' + scorePlayerTwo);
     }
 }
+
+console.log('-------------------------------------------------')
+console.log('Coding Challenge One - End')
+console.log('-------------------------------------------------')
