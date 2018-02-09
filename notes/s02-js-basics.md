@@ -312,3 +312,68 @@ console.log(edward); //-> Pritnst the edward object with the age property
 ```
 
 The `this` in this example will refer to the object edward. So, edward is the object that has the `calculateAge()` method and the `yearOfBirth` property, and the `this` keyword is able to retrieve these values rigth off it's own object. In the other hand, you can automatically store the `calculateAge()` result into the edward object. The `this.age` property allow us to achieve that. In `calculateAge()` method you are creating a new property, calculate the age and assign the calculated age to this property. The profit with this structure and the use of `this` is flexibility, because if you create another object with a different `yearOfBirth` the age will be calculated with this value, excluding the context of the edward object.
+
+Loops
+-----
+
+*Loops* are another family of control structures in JavaScript. Loops are a very important aspect of any programming language, because they help to the programmer to handle repetitive task. Then instead of write ten lines of code to execute the same task, just have to follow the loop structure to achieve the same result with few lines of code. Loops structure is compose of: a _counter_, a _condition_ and an _action to update the counter_. JavaScript has two popular types of loops: `while` and `for`.
+
+###While Loop
+
+Below you see a `while` loop structure for a task that prints the numbers from 0 to 9:
+
+```javascript
+var i = 0; // The counter
+
+while (i < 10) { // The condition
+    console.log(i);
+    i++; // Action to update the counter
+}
+```
+
+###For Loop
+
+Below you see a `for` loop structure to accomplish the same task:
+
+```javascript
+for (var i = 0; i < 10; i++) { // All the elements of a loop are in this line
+    console.log(i);
+}
+```
+
+Loops are a good control structure to interact with arrays:
+
+```javascript
+names = ['Edward', 'Alphonse', 'Trisha', 'Hohenheim'];
+
+for (var i = 0; i < names.length; i++) { // .length() is a method of the array object that returns the length of the array
+    console.log(names[i]);
+}
+
+// To go through the array from the last to the first element
+for (var i = names.length - 1; i >= 0; i--) {
+    console.log(names[i]);
+}
+```
+
+Also the for loop have mechanism to given a condition `break` or `continue` the flow of the loop. The next example print the number from 1 to 5 less the 3:
+
+```javascript
+for (var i = 0; i < 5; i++) {
+    console.log(i);
+
+    if (i === 3)
+        break;
+}
+
+for (var i = 0; i < 5; i++) {
+    if (i === 3)
+        continue;
+
+    console.log(i);
+}
+```
+
+
+
+
