@@ -43,7 +43,7 @@ The *data type* of a value is an attribute that tells what kind of data that val
 - *Null*: Also means _non-existent_.
 - 
 
-JavaScript has a feature called *dynamic typing*. This means that the programmer doesn't have to manually define the data type of the variable. JavaScript figures out the data type of a variable on its own, meaning that we can even change the data type of a variable later in our code. So, this can be very useful, but it can also be the source of some difficult to find bugs. Exist a wrapper to avoid dynamic typing in JavaScript called *TypeScript*.
+JavaScript has a feature called *dynamic typing*. This means that the programmer doesn't have to manually define the data type of the variable. JavaScript figures out the data type of a variable on it's own, meaning that we can even change the data type of a variable later in our code. So, this can be very useful, but it can also be the source of some difficult to find bugs. Exist a wrapper to avoid dynamic typing in JavaScript called *TypeScript*.
 
 Variable Mutation and Type Coercion
 -----------------------------------
@@ -228,7 +228,7 @@ As you can see, exist two ways to define an array. The most commonly used is the
 
 - `.push(element)`: Adds an element in the last position of the array.
 - `.unshift(element)`: Adds an element in the first position of the array.
-- `.pop(element)`: Removes an element in the last position of the array.
+- `.pop()`: Removes an element in the last position of the array.
 - `.shift()`: Removes an element in the first position of the array.
 - `.indexOf(element)`: Returns the index element passed as parameter.
 
@@ -374,6 +374,22 @@ for (var i = 0; i < 5; i++) {
 }
 ```
 
+Important Note: ES5, ES6/ES2015 and ES2016
+------------------------------------------
 
+It's important to talk about JavaScript version because every modern developer should know where is the context in the JavaScript community and how the language programming is adapting the changes of several topics today. The next list is a very short history of JavaScript:
+
+- **1996**: Change from LiveScript to JavaScript to attract Java developers –a marketing action–. But, **Java has almost nothing to do with Java**.
+- **1997**: ECMAScript 1 became the first version of the JavaScript language standard. This means that ECMA Script is the language standard and JavaScript is the language in practice. ECMA is an international organization.
+- **2009**: ECMAScript 5 (ES5) was released with lots of new features. However, it took many years for browsers to implement all these changes, and until few years ago developers can use ES5 without any restrictions.
+- **2015**: ECMAScript 2015 (ES2015) was release as the **the biggest update ever** with a lot of new features. These version updates are a really big deal for JavaScript and the whole community. You will listen that this versio is also called ES6, but it's better use ES2015 because the ECMA organization will realease each year new version with a few minor updates.
+
+So, how is JavaScript today and which version should and we can use?
+
+- **ES5** is fully supported in all modern browsers and is ready to use from 2016.
+- **ES2015** is only partial support in modern browsers, no support in older browsers. So, it isn't recomendable to use it in production.
+- **ES2016** is almost no support in modern browsers so for this reason isn't recomendable to use it in production. However, the magnitude of this version is few important because just add on or two small features to the language.
+
+In conclusion, it's recomendable to use ES5. Additionally, it's important learn to code in ES5 and understand it because almost all the tutorials and code you fin on the web today is still in ES5, and it's easier to learn ES% and then upgrade to ES2015.
 
 
