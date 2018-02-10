@@ -311,7 +311,7 @@ console.log(edward); //-> Pritnst the edward object with the age property
 
 ```
 
-The `this` in this example will refer to the object edward. So, edward is the object that has the `calculateAge()` method and the `yearOfBirth` property, and the `this` keyword is able to retrieve these values rigth off it's own object. In the other hand, you can automatically store the `calculateAge()` result into the edward object. The `this.age` property allow us to achieve that. In `calculateAge()` method you are creating a new property, calculate the age and assign the calculated age to this property. The profit with this structure and the use of `this` is flexibility, because if you create another object with a different `yearOfBirth` the age will be calculated with this value, excluding the context of the edward object.
+The `this` in this example will refer to the object edward. So, edward is the object that has the `calculateAge()` method and the `yearOfBirth` property, and the `this` keyword is able to retrieve these values rigth off its own object. In the other hand, you can automatically store the `calculateAge()` result into the edward object. The `this.age` property allow us to achieve that. In `calculateAge()` method you are creating a new property, calculate the age and assign the calculated age to this property. The profit with this structure and the use of `this` is flexibility, because if you create another object with a different `yearOfBirth` the age will be calculated with this value, excluding the context of the edward object.
 
 Loops
 -----
@@ -387,9 +387,9 @@ It's important to talk about JavaScript version because every modern developer s
 So, how is JavaScript today and which version should and we can use?
 
 - **ES5** is fully supported in all modern browsers and is ready to use from 2016.
-- **ES2015** is only partial support in modern browsers, no support in older browsers. So, it isn't recomendable to use it in production.
-- **ES2016** is almost no support in modern browsers so for this reason isn't recomendable to use it in production. However, the magnitude of this version is few important because just add on or two small features to the language.
+- **ES2015** is only partial support in modern browsers, no support in older browsers. So, it isn't recommendable to use it in production.
+- **ES2016** is almost no support in modern browsers so, for this reason, isn't recommendable to use it in production. However, the magnitude of this version is few important because just add on or two small features to the language.
 
-In conclusion, it's recomendable to use ES5. Additionally, it's important learn to code in ES5 and understand it because almost all the tutorials and code you fin on the web today is still in ES5, and it's easier to learn ES% and then upgrade to ES2015.
+In conclusion, it's recommendable to use ES5. Additionally, it's important to learn to code in ES5 and understand it because almost all the tutorials and code you find on the web today is still in ES5, and it's easier to learn ES5 and then upgrade to ES2015.
 
 
