@@ -15,3 +15,39 @@ JavaScript is always hosted in some environment (most typically a browser). The 
 		- Throws an error and stops the execution.
 
 Machine code is no longer JavaScript code, it's a set of instructions that can be executed directly by the computer's processor. It's only when your code already converted to machine code, actually run and does it works. That is the basic idea of what actually happens one you choose to run your code.
+
+Execution Context and Executions Stack
+--------------------------------------
+
+**Execution Context** is a concept that helps you to be a focus in the order in which the code is run. All the JavaScript code needs to run in an environment, and these environments are called **execution context**. So you can imagine an execution context like a box/container which stores variables and in which a piece of the code is evaluated and executed. How JavaScript always need an environment to be executed, so by default always exist an execution context called **global context**. In the global context, all the code that is not inside of any function is executed. Also, you can think of an execution context as an object. The global execution context is associated with the global object, in the case of the browser is the `window` object. So everything that we declare in the global context automatically gets attached to the `window` object in the browser. And it works like this:
+
+- Declaring a variable called `lastName`
+- Declaring a variable called `window.lastName`
+- Both declarations are the exact same thing. This means that `lastName === window.lastName` is true.
+
+Now it is time to talk about **Executions Stack**. Looks the next code:
+
+```javascript
+var name = 'John';      // 1. Global Execution context
+
+function first() {
+    var a = 'Hello!';
+    second();           // 3. Push the second() function in the execution stack
+    var x = a + name;   // 7. Pop the first() function from the execution stack
+}
+
+function second() {
+    var b = 'Hi!';
+    third();            // 4. Push the third() function in the execution stack
+    var y = b + name;   // 6. Pop the second() function from the execution stack
+}
+
+function third() {
+    var c = 'Hey!';
+    var z = c + name;   // 5. Pop the third() function from the execution stack
+}
+
+first();                // 2. Push the first() function in the execution stack
+```
+
+We're talking about that the code that is not inside of any function it's executed in the global context. But, what about the code inside a function?. It's actually very simple because each time you call a function it gets its own brand-new execution context. It is in this scenario when the **execution stack** structure enters to stage and its responsibility is to organize the different execution context and determines what is the active execution context. For the last code, the commented lines indicate the order in which each context it's add/remove to the execution stack.
