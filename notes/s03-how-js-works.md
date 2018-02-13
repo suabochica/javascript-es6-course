@@ -51,3 +51,34 @@ first();                // 2. Push the first() function in the execution stack
 ```
 
 We're talking about that the code that is not inside of any function it's executed in the global context. But, what about the code inside a function?. It's actually very simple because each time you call a function it gets its own brand-new execution context. It is in this scenario when the **execution stack** structure enters to stage and its responsibility is to organize the different execution context and determines what is the active execution context. For the last code, the commented lines indicate the order in which each context it's add/remove to the execution stack.
+
+Execution Context in Detail: Creation and Execution Phases and Hoisting
+-----------------------------------------------------------------------
+
+Before, you have seen when a new execution context is created but what about how exactly that happens?. To understand the creation of an execution context, in the next list I will group the three properties of an **execution context object**:
+
+1. **Variable Object (VO)**, which will contain function arguments in a variable declaration as well as function declarations.
+2. **Scope Chain**, which contains the current variable objects as well as the variable objects of all its parents.
+3. **`this` variable**, that you have already seen in action.
+
+So when an execution context is created? when a function is called, a new execution context is put on to of the execution stack, and this passes in two phases:
+
+1. Creation phase: The properties of the execution context object are defined
+    - Creation of the variable object.
+    - Creation of the scope chain.
+    - Determine value of the `this` variable.
+2. Execution phase:
+    - The code of the function that generated the current execution context is ran line by line, and all variables are defined. If it's the global context then it's the gloaal code that is executed.
+
+Now is time to enter into detail with the creation of the **variable object** in the creation phase:
+
+- The `argument` object is created, containing all the arguments that were passed into the function.
+- Code is scanned for **function declarations**: for each function, a property is created in the variable object, **pointing to the function**. This means that all the functions will be stored in the variable object, even before the code start executing.
+- Code is scanned for **variable declarations**: for each variable, a property is created in the variable object, and set to `undefined`. 
+
+The last two point is what developers commonly call **hoisting** in JavaScript. Functions and variables are hoisted in JavaScript, which means that they are available before the execution phase actually starts. They are hoisted in a different way. The difference between functions and variables is that functions are already **defined** and variables are set up to `undefined` before the execution phase start and these varialbe only be defined in the execution phase.
+
+So to recap: each execution context has an object which stores a lot of important data that the function will use while it's running, and this happens even before the code is executed.
+
+
+
