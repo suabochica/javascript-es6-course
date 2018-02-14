@@ -80,5 +80,77 @@ The last two point is what developers commonly call **hoisting** in JavaScript. 
 
 So to recap: each execution context has an object which stores a lot of important data that the function will use while it's running, and this happens even before the code is executed.
 
+Hoisting in Practice
+--------------------
+
+Hoisting may sound a bit confusing initially, but after some examples and some practice will be simple to understand. With the next example, you going to use very simple functions because we want to focus on how everything works and not exactly what the code is doing. Before to start, it´s important to highlight that hoisting is applied to functions and variables in a different way:
+
+###Function Hoisting
+
+```javascript
+
+calculateAge(1989) //-> 29: By hoisting this call also works! despite not having declared the function yet  
+
+function caclulateAge(year) {
+    console.log(2018 - year);
+}
+
+calculateAge(1991) //-> 27: This is the expected behavior. Call the function after his declaration.
+```
+
+The code above use a function declaration `caclulateAge(year)`. The first call work because that is **hoisting** for function declarations. So in the creation phase of the execution context (this case the global execution context), the function declaration `caclulateAge(year)` is stored in the variable object and even before the code is executed. This is why we then enter the execution phase, the `calculateAge(year)` function is already available for us to use it. Now, I´ll check what happens with function expressions:
+
+```javascript
+
+retirement(1989) //-> Uncaugth TypeError: retirement is not a function
+
+var retirement = function(year) {
+    console.log(65 - (2018 - year));
+}
+
+retirement(1991) //-> 38: This is the expected behavior. Call the function after his declaration
+```
+If we try to use hoisting in function expressions, it doesn't work, so we have to call the function expressions after the function is declared.
+
+> Hoisting only works for function declaration.
+
+###Variables Hoisting
+
+To review hoisting in variables please check the next code:
+
+```javascript
+
+console.log(age); //-> undefinded
+var age = 23;
+console.log(age); //-> 23
+
+```
+
+As you can see, if you try to use a variable before declaring it, hoisting will assign the `undefined` data type to the variable, because remember in the creation phase of the variable object what happens is that the code is scanned for variable declarations and the variables are then set to `undefined`. Now take this one step further with a mix of function and variables code:
+
+```javascript
+
+console.log(age);       //-> 1. undefined
+var age = 23
+
+function foo() {
+    console.log.(age);  //-> 2. undefined
+    var age = 65;
+    console.log.(age);  //-> 3. 65
+}
+
+foo();
+console.log(age);       //-> 4. 23
+
+```
+
+The key to identifying how this code is executed is having clear the different execution contexts object created during the execution phase. In the above code, we have the _global execution context_ that will be store the variable `var age = 23` and the function declaration `foo()`. Also, we have the _foo execution context object_ in which we can store the variable `var age = 65`. Notice that we have the same name for both variables, but it doesn´t matter because these are two completely different variables thanks to the different variable objects associated with each execution context object.
+
+> The most important use case for Hoisting is not even variables, but it's the fact that we use function declarations before we actually declare them in our code.
+
+
+
+
+
 
 
