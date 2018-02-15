@@ -149,6 +149,76 @@ The key to identifying how this code is executed is having clear the different e
 > The most important use case for Hoisting is not even variables, but it's the fact that we use function declarations before we actually declare them in our code.
 
 
+Scoping and Scoping Chain
+-------------------------
+
+Now it's time to deep in the second step of the creation phase: The creation of the **Scoping Chain**. To start, What **Scoping** means?. Scoping answer the question _where can we access a certain variable?_. In JavaScript, each function creates a scope, space/environment in which the variables it defines are accessible. Also exist another two types of scopes in JavaScript as global scope, pseudo-block scope, but in JavaScript, the most relevant is the function scope. The function scope handle **lexical scoping** that means that a function is lexical –position of something in the code– within another function gets access to the scope of the outer/parent function. Check the next example to get a better idea of scoping:
+
+```javascript
+// Global scope: [VO global]
+var a = 'Hello!''
+first();
+
+function first() {
+    // ↑ first() scope: [VO first] + [VO global]
+    var b = 'Hi!';
+    second();
+    
+    function second() {
+        // ↑ second() scope: [VO second] + [VO first] + [VO global]
+        var c = 'Hey!'';
+        console.log(a + b + c); //-> 'Hello!Hi!Hey!'
+    }
+}
+
+```
+
+In the code above you have three scopes highlighted with comments. The default behavior of JavaScript is that if a variable is not found in the current scope, and also not in the parent scope, so it goes even more up all the way to the global scope, and this is exactly called **Scope Chain** The ↑, means the direction of how the scope chain is build. Only if the JavaScript engine does not find a variable anywhere it throws an error and stops the execution. It´s important to note that this does not work backward. For example, the global scope will never ever have access to the variables `b` and `c` unless we return the values from the functions. Now how does this actually work behind scenes?. In the creation phase, each execution context object will get exact scope chain, which is basically all the variables objects that an execution context has access to because the variable object is what stores all the defined variables and functions. A topic that tent to be confusing is the relation between execution context, scope and scope chain. It´s important to get clear that the _execution stack_ is different from the _scope chain_. To analyze that, check the next code:
+
+```javascript
+var a = 'Hello!''
+first();
+
+function first() {
+    // ↑ first() scope: [VO first] + [VO global]
+    var b = 'Hi!';
+    second();
+    
+    function second() {
+        // ↑ second() scope: [VO second] + [VO first] + [VO global]
+        var c = 'Hey!'';
+        third(); //-> You can call the third() function because of scoping. 
+    }
+}
+
+function third() {
+    var d = 'Edward';
+    console.log(a + b + c + d); //-> Reference Error, c is not defined
+}
+```
+
+The execution stack of the last code is the next one:
+
+1. Global Execution Context.
+2. Execution Context `first()`
+3. Execution Context `second()`
+4. Execution Context `third()`
+
+
+So basically, the execution context determines the order in which functions are **called**.
+
+The scope chain of the last code is listed next:
+
+1. Scope `third()`
+2. Scope `second()` (nested into `first()`)
+3. Scope `first()`
+4. Global Scope
+
+So, the scope chain is determined by the order in which functions are **written lexically** in the code.
+
+> The order in which functions are called does not determine the scope of the variables within these functions.
+
+The the variables `b` and `c` defined in the `first()` and `second()` functions are out of the scope of the `third()`. Then the JavaScript engine throws a Reference Error on `c`. The execution contexts that store the scope chain of each function in the variable object, but they do not have an effect on the scope chain itself.
 
 
 
