@@ -59,7 +59,6 @@ Before, you have seen when a new execution context is created but what about how
 
 1. **Variable Object (VO)**, which will contain function arguments in a variable declaration as well as function declarations.
 2. **Scope Chain**, which contains the current variable objects as well as the variable objects of all its parents.
-3. **`this` variable**, that you have already seen in action.
 
 So when an execution context is created? when a function is called, a new execution context is put on to of the execution stack, and this passes in two phases:
 
@@ -156,7 +155,7 @@ Now it's time to deep in the second step of the creation phase: The creation of 
 
 ```javascript
 // Global scope: [VO global]
-var a = 'Hello!''
+var a = 'Hello!';
 first();
 
 function first() {
@@ -176,7 +175,7 @@ function first() {
 In the code above you have three scopes highlighted with comments. The default behavior of JavaScript is that if a variable is not found in the current scope, and also not in the parent scope, so it goes even more up all the way to the global scope, and this is exactly called **Scope Chain** The ↑, means the direction of how the scope chain is build. Only if the JavaScript engine does not find a variable anywhere it throws an error and stops the execution. It´s important to note that this does not work backward. For example, the global scope will never ever have access to the variables `b` and `c` unless we return the values from the functions. Now how does this actually work behind scenes?. In the creation phase, each execution context object will get exact scope chain, which is basically all the variables objects that an execution context has access to because the variable object is what stores all the defined variables and functions. A topic that tent to be confusing is the relation between execution context, scope and scope chain. It´s important to get clear that the _execution stack_ is different from the _scope chain_. To analyze that, check the next code:
 
 ```javascript
-var a = 'Hello!''
+var a = 'Hello!';
 first();
 
 function first() {
@@ -221,6 +220,76 @@ So, the scope chain is determined by the order in which functions are **written 
 The the variables `b` and `c` defined in the `first()` and `second()` functions are out of the scope of the `third()`. Then the JavaScript engine throws a Reference Error on `c`. The execution contexts that store the scope chain of each function in the variable object, but they do not have an effect on the scope chain itself.
 
 
+The `this` Keyword
+------------------
 
+So far, you have seen that the creation phase of an execution context has two steps:
 
+1. Creation phase
+2. Execution phase
 
+In creation phase, we have talked about object variable creation as well as the scope chain creation. The third and the last step of this creation phase is determining and setting the value `this` variable. The `this` variable is a variable that each and every execution context gets and then it is stored in the execution context object. So, where does the `this` keyword point?
+
+- In a **regular function call** the `this` keyword points at the global object (window object in the browser).
+- In a **method call** the `this` variable points to the object that is calling the method.
+
+> The `this` keyword is not assigned a value until a function where it is defined is actually called. The `this` keyword is attached to an execution context which is only created as soon as the function is invoked.
+
+Now lets put into practice the use of the `this` keyword with some code examples:
+
+```javascript
+console.log(this); //-> Window object
+
+calculateAge(1985);
+
+function calculateAge(year) {
+    console.log(2018 - year); //-> 33
+    console.log(this); //-> Window object
+}
+```
+
+For both examples, the `this` keyword is attached to the global execution context and his value is the `window` object. In the `calculateAge()` scenario, the `this` keyword is attached to the window object because the `caclulateAge()` is a regular function and not a method, so as we know in a regular function code the `this` always points to the global execution context object, in this case, the `window` object. Now, let's review the use of the `this` keyword in object methods:
+
+```javascript
+var edward = {
+    name: 'Edward'
+    yearOfBirth: 1990,
+    calculateAge: function() {
+        console.log(this); //-> edward object
+        console.log(2018 - yearOfBirth);
+        
+        function innerFunction() {
+            console.log(this) //-> Window object
+        }
+        innerFunction()
+    }
+}
+
+edward.calculateAge();
+```
+
+In this example, the object that calls the `calculateAge()` function is `edward`. The `this` keyword now is pointing to `edward` object because the `this` keyword refers to the object that called the method. The tricky scenario is the `innerFunction()`. The `this` keyword in `innerFunction()` points to the `window` object, but why? –people expect that the `this` keyword points to `edward` object–. The reason is that the `innerFunction()` is a regular function, then the default object is the window object as we see before. Now it's time to deep in *method borrowing*. Check the next code:
+
+```javascript
+var edward = {
+    name: 'Edward'
+    yearOfBirth: 1990,
+    calculateAge: function() {
+        console.log(this); //-> edward object | alphonse object
+        console.log(2018 - yearOfBirth); //-> 28 | 26
+        
+}
+
+edward.calculateAge();
+
+var alphonse = {
+    name: 'Alphonse'
+    yearOfBirth: 1993,
+}
+
+alphonse.caclulateAge = edward.caclulateAge;
+alphonse.calculateAge();
+
+```
+
+Two important things in this code. The first one is in the line `alphonse.caclulateAge = edward.caclulateAge;`. As you can see, we don't use the `()`, because the parenthesis is for calling a function. In this scenario, we simply treat the function as a variable, and that allows us to use the **method borrowing** where `alphonse` object now has a function borrowed from the `edward` object. The second thing is that when calling the function `calculateAge()` from `alphonse` object the `this` keyword now points to the `alphonse` object, as expected. This is a proof that the `this` keyword is just assigned when the object calls the method.
