@@ -60,7 +60,7 @@ What you will learn in this lecture?
 - Select elements by id.
 - How to change the image in an `<img>` element.
 
-Please check all these task in the file `../s04-dom-manipulation/app.js`
+Please check all these tasks in the file `../s04-dom-manipulation/app.js`
 
 
 A **callback function** is a function that is not called by us, is called by another function. In other words, a callback function is a function that we pass into another function as an argument and this function then call that function for us. In the events context, the event listener is the function where you pass the callback function as an argument. Please check the next code to understand the callback function's structure:
@@ -84,3 +84,29 @@ domElement.addEventListener('event', function() {
 });
 
 ```
+
+Updating Scores and Changing the Active Player
+----------------------------------------------
+
+What you will learn in this lecture?
+
+- What the ternary operator is.
+- How to add, remove and toggle HTML classes.
+
+Please check all these task in the file `../s04-dom-manipulation/app.js`
+
+Basically a **ternary operator** is a shorthand to evaluate simple conditions. Check the next code that explains the ternary operator structure:
+
+```javascript
+if(condition) {
+    true;
+} else {
+    false;
+}
+
+// The above code is equal to
+
+condition ? true : false
+```
+
+To add, remove or toggle classes HTML with JavaScript, you have to use the property [classList](https://developer.mozilla.org/es/docs/Web/API/Element/classList) to access to the list of classes of an element like a string.
