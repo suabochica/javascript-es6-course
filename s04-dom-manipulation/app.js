@@ -17,7 +17,6 @@ var scores,
 scores = [0, 0];
 roundScore = 0;
 activePlayer = 0; 
-diceValue = Math.floor(Math.random() * 6) + 1;
 
 document.querySelector('#current-' + activePlayer).textContent = diceValue;
 
@@ -25,3 +24,13 @@ var readTextContentScoreOne = document.querySelector('#score-' + activePlayer).t
 console.log(readTextContentScoreOne);
 
 document.querySelector('.dice').style.display = 'none';
+
+// Add event listener to the roll dice button
+document.querySelector('.btn-roll').addEventListener('click', function() {
+    var diceElement = document.querySelector('.dice');
+    
+    diceValue = Math.floor(Math.random() * 6) + 1;
+    
+    diceElement.style.display = 'block';
+    diceElement.src = 'dice-'+ diceValue +'.png';
+});
