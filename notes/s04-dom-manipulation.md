@@ -110,3 +110,15 @@ condition ? true : false
 ```
 
 To add, remove or toggle classes HTML with JavaScript, you have to use the property [classList](https://developer.mozilla.org/es/docs/Web/API/Element/classList) to access to the list of classes of an element like a string.
+
+Implementing Our 'Hold' Function and the DRY Principle
+------------------------------------------------------
+
+What you will learn in this lecture?
+
+- How to use functions to correctly apply the DRY (Don't Repeat Yourself) principle.
+- How to think about the game logic as programmer.
+ 
+The *DRY principle* as the name says, suggest you don't should repeat yourself in the code. The principle should be applied when you have the same code in two places. If you need to change something in one of these places, you have to reflect the change in the other place following a bad practice. the DRY principle improves your maintainability and takes you in good practice. Now, How to apply the DRY principle?. In this case, you can create a new function called `changePlayerTurn()`, this function will handle the logic to change the player when the roll dice and the hold events are triggers.
+
+> Note: Styling our webpage and changing the CSS through JavaScript is not the best way to mix these technologies. In other words, use the `style` property all the time is not recommended. Instead, you can toggle, adding or removing classes defined in our CSS.
