@@ -14,26 +14,19 @@ var scores,
     activePlayer,
     diceValue;
     
-scores = [0, 0];
-roundScore = 0;
-activePlayer = 0; 
-diceValue = 0
+initializeGame();
 
 /*
-document.querySelector('#current-' + activePlayer).textContent = diceValue;
+document.querySelector('#current-' + activePlayer).textContent = '0';
 
 var readTextContentScoreOne = document.querySelector('#score-' + activePlayer).textContent;
 console.log(readTextContentScoreOne);
 */
 
-document.getElementById('score-0').textContent = diceValue;
-document.getElementById('score-1').textContent = diceValue;
-document.getElementById('current-0').textContent = roundScore;
-document.getElementById('current-1').textContent = roundScore;
-document.querySelector('.dice').style.display = 'none';
-
 // Add event listener to the roll dice button
 document.querySelector('.btn-roll').addEventListener('click', function() {
+    var diceValue;
+
     diceValue = Math.floor(Math.random() * 6) + 1;
     
     document.querySelector('.dice').style.display = 'block';
@@ -48,6 +41,7 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     }
 });
 
+// Add event listener to the hold button
 document.querySelector('.btn-hold').addEventListener('click', function() {
     scores[activePlayer] += roundScore;
 
@@ -62,7 +56,10 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
     }
 });
 
-// Don't repeat yourself: Create a functio to change the player turns
+// Add event listener to the new game button
+document.querySelector('.btn-new').addEventListener('click', initializeGame);
+
+// Don't repeat yourself: Create a function to change the player turns
 function changePlayerTurn() {
     document.getElementById('score-'+ activePlayer).textContent = scores[activePlayer];
 
@@ -76,4 +73,26 @@ function changePlayerTurn() {
     document.querySelector('.player-1-panel').classList.toggle('active');
 
     document.querySelector('.dice').style.display = 'none';
+}
+
+// Don't repeat yourself: Create a function to initialize your game and call it on new game button and at the begining of this javascript file.
+function initializeGame() {
+    scores = [0, 0];
+    activePlayer = 0;
+    roundScore = 0;
+    
+    document.querySelector('.dice').style.display = 'none';
+
+    document.getElementById('score-0').textContent = '0';
+    document.getElementById('score-1').textContent = '0';
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-1').textContent = '0';
+    document.getElementById('name-0').textContent = 'Player 1';
+    document.getElementById('name-1').textContent = 'Player 2';
+
+    document.querySelector('.player-0-panel').classList.remove('winner');
+    document.querySelector('.player-1-panel').classList.remove('winner');
+    document.querySelector('.player-0-panel').classList.remove('active');
+    document.querySelector('.player-1-panel').classList.remove('active');
+    document.querySelector('.player-0-panel').classList.add('active');
 }

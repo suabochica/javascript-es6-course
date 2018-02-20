@@ -31,7 +31,7 @@ What you will learn in this lecture?
 - How to read from the DOM  (Use of the `document` object and his method `querySelector` and `textContent`)
 - How to change the CSS styles  (Use of the `document` object and his method `style`)
 
-Please check all these task in the file `../s04-dom-manipulation/app.js`
+Please check all these tasks in the file `../s04-dom-manipulation/app.js`
 
 Events and Event Handling: Rolling the Dice
 -------------------------------------------
@@ -93,7 +93,7 @@ What you will learn in this lecture?
 - What the ternary operator is.
 - How to add, remove and toggle HTML classes.
 
-Please check all these task in the file `../s04-dom-manipulation/app.js`
+Please check all these tasks in the file `../s04-dom-manipulation/app.js`
 
 Basically a **ternary operator** is a shorthand to evaluate simple conditions. Check the next code that explains the ternary operator structure:
 
@@ -118,7 +118,22 @@ What you will learn in this lecture?
 
 - How to use functions to correctly apply the DRY (Don't Repeat Yourself) principle.
 - How to think about the game logic as programmer.
+
+Please check all these tasks in the file `../s04-dom-manipulation/app.js`
  
 The *DRY principle* as the name says, suggest you don't should repeat yourself in the code. The principle should be applied when you have the same code in two places. If you need to change something in one of these places, you have to reflect the change in the other place following a bad practice. the DRY principle improves your maintainability and takes you in good practice. Now, How to apply the DRY principle?. In this case, you can create a new function called `changePlayerTurn()`, this function will handle the logic to change the player when the roll dice and the hold events are triggers.
 
 > Note: Styling our webpage and changing the CSS through JavaScript is not the best way to mix these technologies. In other words, use the `style` property all the time is not recommended. Instead, you can toggle, adding or removing classes defined in our CSS.
+
+Creating a Game Initialization Function
+---------------------------------------
+
+Please check this task in the file `../s04-dom-manipulation/app.js`
+
+An important thing to highlight here is the next line:
+
+```javascript
+document.querySelector('.btn-new').addEventListener('click', initializeGame);
+```
+
+Instead of using an anonymous function, you use a callback function and you don't use the call operator `()` because you don't want to immediately call the `initializeGame()` function. You just want to tell this event listener that when someone clicks the `btn-new` button, then please call the init function for me.
