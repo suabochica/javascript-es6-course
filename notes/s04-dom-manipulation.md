@@ -137,3 +137,8 @@ document.querySelector('.btn-new').addEventListener('click', initializeGame);
 ```
 
 Instead of using an anonymous function, you use a callback function and you don't use the call operator `()` because you don't want to immediately call the `initializeGame()` function. You just want to tell this event listener that when someone clicks the `btn-new` button, then please call the init function for me.
+
+State Variables
+---------------
+
+The use of *state* variables is a technique used in programming, not just JavaScript. Basically, *the state variable tells us the condition of a system*. A state variable is required when you need to remember something. In this case, we need to remember when the game is enabled to play and when not. So, as state variable is a condition, it is generally associated with a `boolean`.
