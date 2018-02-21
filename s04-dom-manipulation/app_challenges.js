@@ -25,7 +25,7 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     if(isGamePlaying) {
         var diceValue;
 
-        diceValue = Math.floor(Math.random() * 2) + 5;
+        diceValue = Math.floor(Math.random() * 6) + 1;
         
         document.querySelector('.dice').style.display = 'block';
         document.querySelector('.dice').src = 'dice-'+ diceValue +'.png';
