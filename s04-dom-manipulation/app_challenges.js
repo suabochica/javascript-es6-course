@@ -25,7 +25,7 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     if(isGamePlaying) {
         var diceValue;
 
-        diceValue = Math.floor(Math.random() * 6) + 1;
+        diceValue = Math.floor(Math.random() * 2) + 5;
         
         document.querySelector('.dice').style.display = 'block';
         document.querySelector('.dice').src = 'dice-'+ diceValue +'.png';
@@ -41,7 +41,7 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
         } else if(diceValue !== 1) {
             roundScore += diceValue;
             document.getElementById('current-' + activePlayer).textContent = roundScore;
-            // Here is the key, assign the previousDiceValue when the game continues.
+            // Here is the key, assign the previousDiceValue when the games continue.
             previousDiceValue = diceValue;
         } else {
             // Same here.
@@ -53,10 +53,22 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 
 // Add event listener to the hold button
 document.querySelector('.btn-hold').addEventListener('click', function() {
+    var maxScore,
+        inputValue;
+
     if(isGamePlaying) {
         scores[activePlayer] += roundScore;
-    
-        if(scores[activePlayer] >= 20) {
+
+        inputValue = document.querySelector('.max-score').value;
+
+        //Check if input value is different from 0, null or undefined
+        if(inputValue) {
+            maxScore = inputValue;
+        } else {
+            maxScore = 100;
+        }
+
+        if(scores[activePlayer] >= maxScore) {
             document.querySelector('#name-'+ activePlayer).textContent = 'WINNER!';
             document.querySelector('.player-'+ activePlayer +'-panel').classList.add('winner');
             document.querySelector('.player-'+ activePlayer +'-panel').classList.remove('active');
@@ -67,7 +79,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         } else {
             changePlayerTurn();
         }
-    }
+        }
 });
 
 // Add event listener to the new game button

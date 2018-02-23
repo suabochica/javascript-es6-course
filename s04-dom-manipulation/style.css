@@ -45,6 +45,19 @@ body {
     padding: 100px;
 }
 
+.max-score {
+    color: #555;
+    font-family: 'Lato';
+    font-size: 18px;
+    left: 50%;
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    top: 520px;
+    transform: translateX(-50%);
+    width: 160px;
+}
 
 
 /**********************************************
