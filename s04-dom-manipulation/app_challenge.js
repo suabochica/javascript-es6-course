@@ -8,7 +8,7 @@
 * 2. Add an input field to the HTML here players can set the winnign score, so that they can 
 * change the predifined score of 100.
 * 3. Add another dice to the game, so that there are two dices now. The player losses his current
-* score when on of the is a 1.
+* score when on of them is a 1.
 *
 */
 
@@ -22,16 +22,15 @@ initializeGame();
 
 // Add event listener to the roll dice button
 document.querySelector('.btn-roll').addEventListener('click', function() {
-    if(isGamePlaying) {
+    if(isGamePlaying) {        
         var diceValue;
 
-        diceValue = Math.floor(Math.random() * 2) + 5;
+        diceValue = Math.floor(Math.random() * 6) + 1;
         
         document.querySelector('.dice').style.display = 'block';
         document.querySelector('.dice').src = 'dice-'+ diceValue +'.png';
         
         // Update the round score IF the rolled number was not a 1
-
         if(previousDiceValue === 6 && diceValue === 6) {
             scores[activePlayer] = 0;
 
@@ -40,6 +39,7 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
             changePlayerTurn();
         } else if(diceValue !== 1) {
             roundScore += diceValue;
+console.log(roundScore)
             document.getElementById('current-' + activePlayer).textContent = roundScore;
             // Here is the key, assign the previousDiceValue when the games continue.
             previousDiceValue = diceValue;
@@ -79,7 +79,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         } else {
             changePlayerTurn();
         }
-        }
+    }
 });
 
 // Add event listener to the new game button
@@ -87,10 +87,11 @@ document.querySelector('.btn-new').addEventListener('click', initializeGame);
 
 // Don't repeat yourself: Create a function to change the player turns
 function changePlayerTurn() {
+    document.getElementById('score-'+ activePlayer).textContent = scores[activePlayer];
+
     activePlayer === 0 ? activePlayer = 1: activePlayer = 0;
     roundScore = 0;
 
-    document.getElementById('score-'+ activePlayer).textContent = scores[activePlayer];
     document.getElementById('current-0').textContent = '0';
     document.getElementById('current-1').textContent = '0';
 
