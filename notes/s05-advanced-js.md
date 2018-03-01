@@ -74,5 +74,68 @@ This allows us to reuse code and create more logical programs. Inheritance conce
  - The prototype property of an object is where you put methods and properties that we want **other objects to inherit**.
  - The constructor's prototype property is **not** the prototype of the constructor itself, it's the prototype property of **all** the instances that are created through it.
  - When a certain method or property is called, the search starts in the object itself, and if it cannot be found, the search moves on to the object's prototype. This continues until the method is found (or not) generating the **prototype chain**.
-  
+
+Creating Objects: Function Constructors
+----------------------------------------
+
+As we see before, you can create an object used with the object literal notation. However, you now know that the **function constructor** (maybe this is the most popular way to create objects) is a pattern that allows us to create a blueprint for an object and through instances, we can create objects based on this blueprint. Having that in mind, please check the next code:
+
+> Pattern: The standard way to solve a problem always in the same way.
+
+```javascript
+var Person = function(name, yearOfBirth, job) {
+ this.name = name;
+ this.yearOfBirth = yearOfBirth;
+ this.job = job;
  
+ // Method inheritance through the constructor function
+ this.caculateAge = function() {
+  console.log(2018 - this.yearOfBirth);
+ }
+}
+
+var edward = new Person('Edward', 1991, 'Statal Alchemist');
+var alphonse = new Person('Alphonse', 1995, 'Alchemist');
+var hohenheim = new Person('Hohenheim', 1891, 'Statal Alchemist');
+
+// Remember call the function to create the execution context
+edward.caculateAge();
+alphonse.caculateAge();
+hohenheim.caculateAge();
+```
+
+Above, the function constructor is the `Person` variable. It is a convention called the function constructor with the capitalizing case. Now, How it works? First, we have to understand what the `new` operator does. When we use the `new` operator initially a brand new **empty object** is created. After that, the constructor function (`Person` in this case) is called with the arguments that we specified. As we already know, calling a function creates a new execution context that also has a `this` variable attached. Remember that in a regular function call the `this` variable point to the global object, but in the constructor function scenario, this would not be useful, because in that case, you would simply set all these properties on the global object and we, of course, don't want that behavior. Our goal is that the `this` keyword points to the empty object that was created with the `new` operator, and is the `new` keyword the responsible to achieve this. In summary, what the `new` operator does is to point the `this` variable, not the global object but to this new empty object created in the beginning when using the `new` keyword. Then the properties `name` and `job` are set to the new empty object. Next, if the constructor function does not return anything the result is simply the object that was created with the `new` operator with the properties that the code define. Finally, this object is assigned to the variable that instantiates the function constructor.
+
+To add **Inheritance** in the code you can see the `calculateAge` function. Basically, you can add a method to the function constructor in a similar way a property is added. In the above code, the objects `alphonse` and `hohenheim` can use the `calculateAge()` because the method is attached to the function constructor, allowing inheritance. Now, in the last lecture, we have learned that we have to add all the methods and properties that we want to be inherited into the constructor's prototype property. The next code shows the way to use inheritance through the `prototype` property of the function constructor.
+
+```javascript
+var Person = function(name, yearOfBirth, job) {
+ this.name = name;
+ this.yearOfBirth = yearOfBirth;
+ this.job = job;
+}
+
+// Method inheritance through the prototype property of the constructor function
+Person.prototype.caculateAge = function() {
+ console.log(2018 - this.yearOfBirth);
+}
+
+// Property inheritance through the prototype property of the constructor function, but it is not common.
+Person.prototype.lastName = 'Elric';
+
+var edward = new Person('Edward', 1991, 'Statal Alchemist');
+var alphonse = new Person('Alphonse', 1995, 'Alchemist');
+var hohenheim = new Person('Hohenheim', 1891, 'Statal Alchemist');
+
+// Same result as before
+edward.caculateAge();
+alphonse.caculateAge();
+hohenheim.caculateAge();
+
+
+console.log(edward.lastName); // Elric
+console.log(alphonse.lastName); // Elric
+console.log(hohenheim.lastName); // Elric
+```
+
+This code is a prove that inheritance really works in JavaScript.
