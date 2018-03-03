@@ -139,3 +139,60 @@ console.log(hohenheim.lastName); // Elric
 ```
 
 This code is a prove that inheritance really works in JavaScript.
+
+The Prototype Chain in the Console
+----------------------------------
+
+The browser console is not just to logs, also allow us to trace the prototype chain of the objects. If you inspect the `edward` object you will get:
+
+```javascript
+edward
+Person {name: "Edward", yearOfBirth: 1991, job: "Statal Alchemist"}
+ job: "Statal Alchemist"
+ name: "Edward"
+ yearOfBirth: 1991
+ __proto__: // Prototype of the Person Object
+  calculateAge: f calculateAge()
+  lastName: "Elric"
+  constructor: f(name, yearOfBirth, job)
+  __proto__: // Prototype of the Object Object
+   ...
+   hasOwnProperty: f hasOwnProperty()
+   // All the Object Object methods
+
+```
+
+As you can see, the console shows us all the information of the prototype chain for the `edward` object. As you know, all the prototype chain ends in the `null` type but before pass to the `Object Object` function constructor. If for that reason that we can use the methods of this object as `hasOwnProperty()`.
+
+```javascript
+edward.hasOwnProperty('job'); //-> true
+edward.hasOwnProperty('lastName'); //-> false, this property belong to the function constructor Person
+```
+
+In the same way, you can track the prototype chain of an array:
+
+```javascript
+x = [0, 1, 2, 3, 5];
+console.info(x);
+
+(5)[0, 1, 2, 3, 5];
+ 0: 0
+ 1: 1
+ 2: 2
+ 3: 3
+ 4: 5
+ length: 4 // There is our fomous property used to set the loop limits
+ __proto__ : Array(0) // Prototype of the Array Object
+  ...
+  pop: f pop()
+  push: f push()
+  unshift(): f unshift()
+  // All the Array Object methods
+  __proto__: // Prototype of the Object Object
+   ...
+   hasOwnProperty: f hasOwnProperty()
+   // All the Object Object methods
+
+```
+
+Voila!. There is the property `length` and the methods `push()` and `pop()` used before in the section where we review the array type in javascript.
