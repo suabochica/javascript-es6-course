@@ -53,3 +53,30 @@ hohenheimPrototype.caculateAge();
 console.log(edwardPrototype.lastName); // Elric
 console.log(alphonsePrototype.lastName); // Elric
 console.log(hohenheimPrototype.lastName); // Elric
+
+
+//-------------------------------------------------------------
+// Object.create
+//-------------------------------------------------------------
+
+var homunculusProto = {
+	calculateAge: function() {
+		console.log(2018 - yearOfBirth); //I know, yearOfBirth is not defined yet, but...
+	}
+}
+
+var wrath = Object.create(homunculusProto);
+
+// This is not an ideal way, because we are adding the properties to an empty object
+wrath.name = "Bradley";
+wrath.yearOfBirth = 1889;
+wrath.job = "Furher";
+
+// A better way, but is weird the form as the properties are defined
+var pride = Object.create(homunculusProto, 
+	{
+		name: {value: "Selim"},
+		yearOfBirth: {value: 1800},
+		job: {value: "Shadowhunter"}
+	}
+);

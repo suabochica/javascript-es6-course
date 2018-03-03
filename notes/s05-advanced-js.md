@@ -196,3 +196,35 @@ console.info(x);
 ```
 
 Voila!. There is the property `length` and the methods `push()` and `pop()` used before in the section where we review the array type in javascript.
+
+Creating Objects: `Object.create`
+---------------------------------
+
+`Object.create` is another method to create objects that inherit from the prototype. In this method, the process is a little bit different. First, you define an object that will act as the prototype and then create a new object based on that prototype. Check the next code:
+
+```javascript
+var homunculusProto = {
+	calculateAge: function() {
+		console.log(2018 - yearOfBirth); //I know, yearOfBirth is not defined yet, but...
+	}
+}
+
+var wrath = Object.create(homunculusProto);
+
+// This is not an ideal way, because we are adding the properties to an empty object
+wrath.name = "Bradley";
+wrath.yearOfBirth = 1889;
+wrath.job = "Furher";
+
+// A better way using the second parameter in the Object.create method, but is weird the form as the properties are defined
+var pride = Object.create(homunculusProto, 
+	{
+		name: {value: "Selim"},
+		yearOfBirth: {value: 1800},
+		job: {value: "Shadowhunter"}
+	}
+);
+
+```
+
+The `homunculusProto` is the prototype that acts as a reference in the `Object.create` method. In this case, `wrath` and `pride` inherit the `calculateAge()` method from the prototype `homunculusProto`. The difference between **Object.create** and the **Function Constructor pattern** is that `object.create` builds an object that inherits directly from the prototype that we passed into the first argument, white the **function constructor** inherits from the constructor's prototype property. Actually, one of the biggest benefits of the `object.create` is that allows us to implement a really complex inheritance structure in an easier way because it allows us to directly specify which object should be a prototype.
