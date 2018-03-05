@@ -228,3 +228,57 @@ var pride = Object.create(homunculusProto,
 ```
 
 The `homunculusProto` is the prototype that acts as a reference in the `Object.create` method. In this case, `wrath` and `pride` inherit the `calculateAge()` method from the prototype `homunculusProto`. The difference between **Object.create** and the **Function Constructor pattern** is that `object.create` builds an object that inherits directly from the prototype that we passed into the first argument, white the **function constructor** inherits from the constructor's prototype property. Actually, one of the biggest benefits of the `object.create` is that allows us to implement a really complex inheritance structure in an easier way because it allows us to directly specify which object should be a prototype.
+
+Primitives vs Objects
+---------------------
+
+If you review the first part of this document, you will find what is a primitive and what is an object. Now we will go deeper into this two concept because the JavaScript engine manages them in different ways. A significant difference between primitives and objects is that variables containing primitives hold that data inside of the variable itself. On the other hand, the variables associated with object do not include the object. Instead, they contain a reference to the place in memory where stores the object. Let's see this in practice:
+
+```javascript
+var a = 20;
+var b = a;
+
+a = 40;
+
+console.log(a); //-> 40
+console.log(b); //-> 20
+```
+
+This work as expected, because the `b` assignation is before mutating `a`. Then the value of `a` is 40, and the value of `b` is 20. This means that each of the variables holds their copy of the data and they do not reference anything. Now it is object's turn:
+
+```javascript
+var objectOne = {
+ name = "edward",
+ age = 27
+};
+var objectTwo = objectOne;
+
+objectTwo.age = 30
+
+console.log(objectOne.age); //-> 30
+console.log(objectTwo.age); //-> 30
+```
+
+In this case, both values are 30. That is because when we said `objectTwo = objectOne` we did not create a new object, we create a new reference which points to `objectOne`. So, `objectOne` and `objectTwo` both hold a reference that point to the same object in the memory. For this reason when we change the age in `objectOne` this change is also reflected in `objectTwo`. In fact, it is the same object. Now it is time to pass how these behaviors are in functions:
+
+```javascript
+var age = 27;
+var object = {
+ name: "Alphonse",
+ city: "Central"
+}
+
+function change (a, b) {
+ a = 30;
+ b.city = "Ishbal"
+}
+
+change(age, object); 
+
+console.log(age); //-> 27
+console.log(object.city); //-> Ishbal
+```
+
+Here we pass the `age` variable holding a primitive and an `object` variable holding a reference to an object into `change()` function. When this function is invoked attempted to change the argument that we passed into it. In the `console.log,` we see the same behavior as before: the primitive has remained unchanged, and the city in the object has changed from Central to Ishbal. This shows us that when we pass a primitive as a function parameter, a simple copy is created. So you can change `a` as much as you want but the value of `age` will never be affected because it is a primitive. But when passing the object, it is not the object that we give; we are passing the reference to the object. You have to be aware of this behaviors because this can lead to some unexpected results.
+
+
