@@ -80,3 +80,43 @@ var pride = Object.create(homunculusProto,
 		job: {value: "Shadowhunter"}
 	}
 );
+
+//-------------------------------------------------------------
+// Function as Arguments
+//-------------------------------------------------------------
+
+var years = [1958, 1962, 1982, 1985, 1991, 1995];
+
+function arrayCalculations(arrayArgument, callbackFunction) {
+ var arrayResponse = [];
+ 
+ for(var i = 0; i < arrayArgument.length; i++) {
+  arrayResponse.push(callbackFunction(arrayArgument[i]));
+ }
+ 
+ return arrayResponse;
+}
+
+function calculateAge(yearOfBirth) {
+ return 2018 - yearOfBirth;
+}
+
+function isFullAge(age) {
+ return age >= 18;
+}
+
+function maxHeartRate(age) {
+ if(age >= 18 && age <= 81) {
+  return Math.round(206.9 - (0.67 * age));
+ } else {
+  return -1;
+ }
+}
+
+var ages = arrayCalculations(years, calculateAge);
+var fullAges = arrayCalculations(ages, isFullAge);
+var rates = arrayCalculations(ages, maxHeartRate);
+
+console.log(ages);
+console.log(fullAges);
+console.log(rates);

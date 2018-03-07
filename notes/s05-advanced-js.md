@@ -281,4 +281,49 @@ console.log(object.city); //-> Ishbal
 
 Here we pass the `age` variable holding a primitive and an `object` variable holding a reference to an object into `change()` function. When this function is invoked attempted to change the argument that we passed into it. In the `console.log,` we see the same behavior as before: the primitive has remained unchanged, and the city in the object has changed from Central to Ishbal. This shows us that when we pass a primitive as a function parameter, a simple copy is created. So you can change `a` as much as you want but the value of `age` will never be affected because it is a primitive. But when passing the object, it is not the object that we give; we are passing the reference to the object. You have to be aware of this behaviors because this can lead to some unexpected results.
 
+First Class Functions: Passing Functions as Arguments
+-----------------------------------------------------
+
+Already you know that functions are also objects. Then it makes sense that with functions you can do the same things that you can do with objects. Below, some facts about functions:
+
+- A function is an instance of the `Object` type.
+- A function behaves like any other object.
+- You can store functions in a variable.
+- You can pass a function as an argument to another function.
+- You can return a function from a function. 
+
+All these facts allow us to talk about **first-class functions** in JavaScript. We already do this in the pig game code challenge, at the moment to add event listeners. Now let's check an example where a function can accept another function as an argument, with the context of do some calculations over an array with years of birth:
+
+```javascript
+var years = [1958, 1962, 1982, 1985, 1991, 1995];
+
+function arrayCalculations(arrayArgument, callbackFunction) {
+ var arrayResponse = [];
+ 
+ for(var i = 0; i < arrayArgument.length; i++) {
+  arrayResponse.push(callbackFunction(arrayArgument[i]));
+ }
+ 
+ return arrayResponse;
+}
+
+function calculateAge(yearOfBirth) {
+ return 2018 - yearOfBirth;
+}
+
+function isFullAge(age) {
+ return age >= 18;
+}
+
+var ages = arrayCalculations(years, calculateAge);
+console.log(age); //-> [60, 56, 36, 33, 27, 23]
+
+var fullAges = arrayCalculations(years, ages);
+console.log(age); //-> [True, True, True, True, True, True]
+```
+
+In the above code, the `arrayCalculations()` function is a generic function that will allow us to do different calculations over the array that receives as an argument. The `caculateAge()` and the `isFullAge()` functions are **callback functions** that you will pass into `arrayCalculations` an this functions will then call them later. In this example, the `arrayCalculations()` will call the `callbackFunction` when the code push an element in the `arrayResponse`. In summary, the code has a generic function which loops over an input array. Then you gave it a function as input which is used to calculate something based on each element of the array. Also, you have created a bunch of different callbacks functions –you can create even more– to do a specific task. This is a better way because it creates modular and readable code instead of having a one big function calculating all this stuff at the same time. Each of these callback functions has a simple and a single task, and this is an excellent practice.
+
+
+
 
