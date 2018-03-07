@@ -84,14 +84,14 @@ As we see before, you can create an object used with the object literal notation
 
 ```javascript
 var Person = function(name, yearOfBirth, job) {
- this.name = name;
- this.yearOfBirth = yearOfBirth;
- this.job = job;
- 
- // Method inheritance through the constructor function
- this.caculateAge = function() {
-  console.log(2018 - this.yearOfBirth);
- }
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job;
+
+    // Method inheritance through the constructor function
+    this.caculateAge = function() {
+        console.log(2018 - this.yearOfBirth);
+    }
 }
 
 var edward = new Person('Edward', 1991, 'Statal Alchemist');
@@ -110,14 +110,14 @@ To add **Inheritance** in the code you can see the `calculateAge` function. Basi
 
 ```javascript
 var Person = function(name, yearOfBirth, job) {
- this.name = name;
- this.yearOfBirth = yearOfBirth;
- this.job = job;
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job;
 }
 
 // Method inheritance through the prototype property of the constructor function
 Person.prototype.caculateAge = function() {
- console.log(2018 - this.yearOfBirth);
+    console.log(2018 - this.yearOfBirth);
 }
 
 // Property inheritance through the prototype property of the constructor function, but it is not common.
@@ -131,7 +131,6 @@ var hohenheim = new Person('Hohenheim', 1891, 'Statal Alchemist');
 edward.caculateAge();
 alphonse.caculateAge();
 hohenheim.caculateAge();
-
 
 console.log(edward.lastName); // Elric
 console.log(alphonse.lastName); // Elric
@@ -147,18 +146,22 @@ The browser console is not just to logs, also allow us to trace the prototype ch
 
 ```javascript
 edward
-Person {name: "Edward", yearOfBirth: 1991, job: "Statal Alchemist"}
- job: "Statal Alchemist"
- name: "Edward"
- yearOfBirth: 1991
- __proto__: // Prototype of the Person Object
-  calculateAge: f calculateAge()
-  lastName: "Elric"
-  constructor: f(name, yearOfBirth, job)
-  __proto__: // Prototype of the Object Object
-   ...
-   hasOwnProperty: f hasOwnProperty()
-   // All the Object Object methods
+Person {
+    name: "Edward",
+    yearOfBirth: 1991,
+    job: "Statal Alchemist"
+}
+job: "Statal Alchemist"
+name: "Edward"
+yearOfBirth: 1991
+__proto__: // Prototype of the Person Object
+    calculateAge: f calculateAge()
+    lastName: "Elric"
+    constructor: f(name, yearOfBirth, job)
+    __proto__: // Prototype of the Object Object
+        ...
+        hasOwnProperty: f hasOwnProperty()
+        // All the Object Object methods
 
 ```
 
@@ -176,23 +179,22 @@ x = [0, 1, 2, 3, 5];
 console.info(x);
 
 (5)[0, 1, 2, 3, 5];
- 0: 0
- 1: 1
- 2: 2
- 3: 3
- 4: 5
- length: 4 // There is our fomous property used to set the loop limits
- __proto__ : Array(0) // Prototype of the Array Object
-  ...
-  pop: f pop()
-  push: f push()
-  unshift(): f unshift()
-  // All the Array Object methods
-  __proto__: // Prototype of the Object Object
-   ...
-   hasOwnProperty: f hasOwnProperty()
-   // All the Object Object methods
-
+0: 0
+1: 1
+2: 2
+3: 3
+4: 5
+length: 4 // There is our fomous property used to set the loop limits
+__proto__: Array(0) // Prototype of the Array Object
+    ...
+    pop: f pop()
+    push: f push()
+    unshift(): f unshift()
+    // All the Array Object methods
+    __proto__: // Prototype of the Object Object
+        ...
+        hasOwnProperty: f hasOwnProperty()
+        // All the Object Object methods
 ```
 
 Voila!. There is the property `length` and the methods `push()` and `pop()` used before in the section where we review the array type in javascript.
@@ -264,16 +266,16 @@ In this case, both values are 30. That is because when we said `objectTwo = obje
 ```javascript
 var age = 27;
 var object = {
- name: "Alphonse",
- city: "Central"
+    name: "Alphonse",
+    city: "Central"
 }
 
-function change (a, b) {
- a = 30;
- b.city = "Ishbal"
+function change(a, b) {
+    a = 30;
+    b.city = "Ishbal"
 }
 
-change(age, object); 
+change(age, object);
 
 console.log(age); //-> 27
 console.log(object.city); //-> Ishbal
@@ -298,21 +300,21 @@ All these facts allow us to talk about **first-class functions** in JavaScript. 
 var years = [1958, 1962, 1982, 1985, 1991, 1995];
 
 function arrayCalculations(arrayArgument, callbackFunction) {
- var arrayResponse = [];
- 
- for(var i = 0; i < arrayArgument.length; i++) {
-  arrayResponse.push(callbackFunction(arrayArgument[i]));
- }
- 
- return arrayResponse;
+    var arrayResponse = [];
+
+    for (var i = 0; i < arrayArgument.length; i++) {
+        arrayResponse.push(callbackFunction(arrayArgument[i]));
+    }
+
+    return arrayResponse;
 }
 
 function calculateAge(yearOfBirth) {
- return 2018 - yearOfBirth;
+    return 2018 - yearOfBirth;
 }
 
 function isFullAge(age) {
- return age >= 18;
+    return age >= 18;
 }
 
 var ages = arrayCalculations(years, calculateAge);
@@ -324,6 +326,37 @@ console.log(age); //-> [True, True, True, True, True, True]
 
 In the above code, the `arrayCalculations()` function is a generic function that will allow us to do different calculations over the array that receives as an argument. The `caculateAge()` and the `isFullAge()` functions are **callback functions** that you will pass into `arrayCalculations` an this functions will then call them later. In this example, the `arrayCalculations()` will call the `callbackFunction` when the code push an element in the `arrayResponse`. In summary, the code has a generic function which loops over an input array. Then you gave it a function as input which is used to calculate something based on each element of the array. Also, you have created a bunch of different callbacks functions –you can create even more– to do a specific task. This is a better way because it creates modular and readable code instead of having a one big function calculating all this stuff at the same time. Each of these callback functions has a simple and a single task, and this is an excellent practice.
 
+First Class Functions: Functions Returning Functions
+----------------------------------------------------
 
+To understand this first-class feature. Let 's create a function which according to a job will print different interview questions. Then for each role, you will return the function that builds a string using the person's name as an input (i.e., a function returning another function). Please, check the next code:
 
+```javascript
+function interviewQuestion(job) {
+  if (job === 'alchemist') {
+    return function(name) {
+      console.log(name + ', Did you an human transmutation?');
+    }
+  } else if (job === 'statal') {
+    return function(name) {
+      console.log('Why do you decide be an army dog, ' + name + '?');
+    }
+  } else {
+    return function(name) {
+      console.log('Hi' + name + '. Do you want practice alchemy')
+    }
+  }
+}
 
+var alchemistQuestion = interviewQuestion('alchemist')
+var statalQuestion = interviewQuestion('statal')
+
+alchemistQuestion('Alphonse');
+statalQuestion('Edward');
+statalQuestion('Roy');
+
+// Another way to call the interview functions without declare a var
+interviewQuestion('alchemist')('Izumi');
+```
+
+The `interviewQuestion()` function return a function instead of return a value. In JavaScript, you can return a function, because as you know, functions are always first-class functions and then they are effectively objects. In summary, the `interviewQuestion()` function is returning objects. Also, remember that these returned functions can be stored in variables. It is the case of the  `alchemistQuestion` and `statalQuestion` variables. The `alchemistQuestion` will be the anonymous function returned when the jab is `alchemist,` and the `statalQuestion` will be the anonymous function returned when the job is `statal`. It is the reason for you can pass a `name` argument to this variables. This reference is the same thing that stores a function expression in a variable. Again, with this method, we can create a generic function (e.g., the `interviewQuestion()` function), and then create a bunch of more specific function (e.g. `alchemistQuestion` and `statalQuestion`) based on that generic function. You can use these specific questions as many times you want. The last line of the code is a different way to interact with functions that return functions. The call `interviewQuestion('alchemist')` will return a function (the anonymous function that receives `name` as argument). So when you write `interviewQuestion('alchemist')('Izumi')` you are calling the anonymous function inside `interviewQuestion()`. The advantage of this syntax is that you don't even need to store the anonymous function in a variable. This is possible because JavaScript engine reads the code from left to right.
