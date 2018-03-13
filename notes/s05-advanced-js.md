@@ -360,3 +360,38 @@ interviewQuestion('alchemist')('Izumi');
 ```
 
 The `interviewQuestion()` function return a function instead of return a value. In JavaScript, you can return a function, because as you know, functions are always first-class functions and then they are effectively objects. In summary, the `interviewQuestion()` function is returning objects. Also, remember that these returned functions can be stored in variables. It is the case of the  `alchemistQuestion` and `statalQuestion` variables. The `alchemistQuestion` will be the anonymous function returned when the jab is `alchemist,` and the `statalQuestion` will be the anonymous function returned when the job is `statal`. It is the reason for you can pass a `name` argument to this variables. This reference is the same thing that stores a function expression in a variable. Again, with this method, we can create a generic function (e.g., the `interviewQuestion()` function), and then create a bunch of more specific function (e.g. `alchemistQuestion` and `statalQuestion`) based on that generic function. You can use these specific questions as many times you want. The last line of the code is a different way to interact with functions that return functions. The call `interviewQuestion('alchemist')` will return a function (the anonymous function that receives `name` as argument). So when you write `interviewQuestion('alchemist')('Izumi')` you are calling the anonymous function inside `interviewQuestion()`. The advantage of this syntax is that you don't even need to store the anonymous function in a variable. This is possible because JavaScript engine reads the code from left to right.
+
+Immediately Invoked Function Expressions (IIFE)
+-----------------------------------------------
+
+**IIFE** is a typical pattern in JavaScript, and to illustrate it, we can follow the next example. You want to create a silly game where we win the game if a random score from zero to nine is greater or equal to five, and lost if it's smaller. But we want to keep the score hidden in this game. So, the first approach is the next one:
+
+
+```javascript
+function game() {
+    var score = Math.random() * 10;
+    console.log(score >= 5);
+}
+
+game();
+```
+
+But, you can do this in a different way using IIFE. If the only purpose is to hide the score variable from the outside, so which means creating a private variable, then you don't need to declare a whole function with a name and the call it. The next code is an IIFE for this context:
+
+```javascript
+(function() {
+    var score = Math.random() * 10;
+    console.log(score >= 5);
+})();
+```
+
+The first detail in the code example is that we have to put our anonymous function inside a `()` because if not, the JavaScript parser would think that this is a function declaration. However, this function declaration doesn't have any name then it will throw an error. We need to trick to the parser and make it believe that what we have here is an expression, and the solution wraps the entire function into parenthesis, because in JavaScript, what is inside of parenthesis cannot be a statement. The second detail is the `()` at the end of the expression to invoke the function. If we don't do this, then it would never be called and never do anything. Also, the IIFE can receive arguments:
+
+```javascript
+(function(goodLuck) {
+    var score = Math.random() * 10;
+    console.log(score >= 5 - goodLuck);
+})(5);
+```
+
+Now it's time to evaluate the features of the IIFE. The primary purpose of IIFE is **data privacy**. It means IIFE allow us to create a new scope that is hidden from the outside scope so where we can safely put variables. IIFE don't interfere with other variables in our global execution context and of course, don't pretend reuse code, it is for this reason that you don't assign IIFE to variables. The no variable assignation is the reason why JavaScript calls IIFE just once. The example is just a toy example, but later you will see how IIFE is a good pattern in real-life projects to allow us to obtain data privacy and code modularity.
