@@ -343,7 +343,7 @@ function interviewQuestion(job) {
     }
   } else {
     return function(name) {
-      console.log('Hi' + name + '. Do you want practice alchemy')
+      console.log('Hi' + name + '. Do you want practice alchemy');
     }
   }
 }
@@ -395,3 +395,65 @@ The first detail in the code example is that we have to put our anonymous functi
 ```
 
 Now it's time to evaluate the features of the IIFE. The primary purpose of IIFE is **data privacy**. It means IIFE allow us to create a new scope that is hidden from the outside scope so where we can safely put variables. IIFE don't interfere with other variables in our global execution context and of course, don't pretend reuse code, it is for this reason that you don't assign IIFE to variables. The no variable assignation is the reason why JavaScript calls IIFE just once. The example is just a toy example, but later you will see how IIFE is a good pattern in real-life projects to allow us to obtain data privacy and code modularity.
+
+Closures
+--------
+
+**Closures** are one of the most crucial and advanced things about JavaScript. Also is one of the most difficult to understand topics for beginners, but you already know everything that you need to understand and use closures. To understand closures we are using the next problem: Write a function that returns a function which calculates how many years we have left until retirement and this value changes according de country. Please check the next code:
+
+```javascript
+function retirement(retirementAge) {
+    var message = ' years left until retirement';
+    
+    return function(yearOfBirth) {
+        var age = 2018 - yearOfBirth;
+        
+        console.log((retirementAge - age) + message);
+    }
+}
+
+var retirementUS = retirement(66);
+var retirementGermany = retirement(65);
+var retirementIceland = retirement(67);
+
+retirementUS(1991) // -> 39 years
+retirementGermany(1991) // -> 38 years
+retirementIceland(1991) // -> 41 years
+// or their equivalent retirement(66)(1991)
+```
+
+Let's examine this code: we started by calling the retirement function in the `var` declaration and pass the respective `retirementAge`. The `retirement()` function then declares the `message` variable and returns the anonymous function which calculates the years of retirement and receives as argument a `yearOfBirth`. When the anonymous function finishes, its execution context gets popped off the execution stack. The anonymous return function is stored in the `retirement[Country]` variable, and then it is called. Now comes the cool part, and is that the anonymous function can use the `retirementAge` parameter and the `message` variable declared in the `retirement()` outer function, and it works. We can still use the `retirementAge` and the `message` variables even after the `retirement()` function already stopped its execution. This behavior is a closure.
+
+Now that we know what a closure is let's see how and why it works behind the scenes. A formal summary of closures is:
+
+_An inner function has always access to the variables and the parameters of its outer function, even after the outer function has returned_
+
+Now let´s what is happens when you call the `retirement()` function. Be aware that JavaScript has the execution stack and scope chain concepts running:
+
+1. When the  `retirement()` function is called, gets a new execution context push at the top of the execution stack.
+2. The execution context has an object which stores the `retirementAge` and the `message` variables.
+3. Paralelly, the scope chain enables the access of the variables of the `retirement()` function. Remember that the scope chain is like a pointer to all the variables objects that the function has access to.
+4. Then the `retirement()` function is returned, and now the execution context of the `retirement()` function is gone. However, the variables object of the execution context is still there, it is still sitting in the memory and can be accessed. This is the secret of closures and the explanation of why works.
+5. After you call the `retirementUS()` function with the `yearOfBirth` argument and the `age` variable declared, and it is put his new execution context at the top of the execution stack.
+6. As the inner `retirementUS()` function is written lexically in the `retirement()` function, it has access to its scope. Now, how the variable object of the `retirement()` function is still there, the _scope chain stays intact_ and enable the access to the `retirementAge`, `message`. `yearOfBirth` and `age` variables to the `retirementUS()` function.
+7. Finally the `retirementUS()` is popped off the stack, as usual.
+
+> Note: You can't create closures manually. Closures are built into JavaScript.
+
+Now, lets use the power of closure to solve the `interviewQuestion` problem exposed in the **First Class Functions: Functions Returning Functions** section. will be something like:
+
+```javascript
+function interviewQuestion(job) {
+    return function(name) {
+        if (job === 'alchemist') {
+            console.log(name + ', Did you an human transmutation?');
+        } else if (job === 'statal') {
+            console.log('Why do you decide be an army dog, ' + name + '?');
+        } else {
+            console.log('Hi' + name + '. Do you want practice alchemy');
+        }
+    }
+}
+
+interviewQuestion('alchemist')('Edward');
+```
