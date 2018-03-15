@@ -201,3 +201,42 @@ function interviewQuestion(job) {
 }
 
 interviewQuestion('alchemist')('edward');
+
+//-------------------------------------------------------------
+// Call, Apply and Bind
+//-------------------------------------------------------------
+
+var edward = {
+    name: 'Edward',
+    age: 26,
+    job: 'Statal Alchemist',
+    presentation: function (style, timeOfDay) {
+        if (style === 'formal') {
+            console.log('Good '+ timeOfDay +', Ladies and gentleman! my name is ' + this.name + ' I\'m a ' + this.job + ' and I\'m '+ this.age +' years old');
+        } else if (style === 'friendly') {
+            console.log('Hey! What\'s up? I\'m ' + this.name + ', I\'m a ' + this.job + ' and I\'m '+ this.age +' years old. Have a nice '+ timeOfDay +'.');
+        }
+    }
+}
+
+var alphonse = {
+    name: 'Alphonse',
+    age: 22,
+    job: 'Alchemist'
+}
+
+edward.presentation('formal', 'morning');
+edward.presentation.call(alphonse, 'friendly', 'afternoon');
+
+// edward.presentation.apply(alphonse, ['friendly', 'noon']);  Apply doesn't work becasue sent the arguments in an array, and our function was definde without receive the parameters in an array.
+
+var edwardFriendly = edward.presentation.bind(edward, 'friendly');
+
+edwardFriendly('morning');
+edwardFriendly('night');
+
+var alphonseFormal = edward.presentation.bind(alphonse, 'formal');
+
+alphonseFormal('morning');
+alphonseFormal('nigth');
+
