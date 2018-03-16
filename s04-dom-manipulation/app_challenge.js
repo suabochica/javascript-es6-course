@@ -9,7 +9,6 @@
 * change the predifined score of 100.
 * 3. Add another dice to the game, so that there are two dices now. The player losses his current
 * score when on of them is a 1.
-*
 */
 
 var scores,
@@ -39,7 +38,6 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
             changePlayerTurn();
         } else if(diceValue !== 1) {
             roundScore += diceValue;
-console.log(roundScore)
             document.getElementById('current-' + activePlayer).textContent = roundScore;
             // Here is the key, assign the previousDiceValue when the games continue.
             previousDiceValue = diceValue;
