@@ -32,7 +32,18 @@ Now let's identify which modules are in our project. An excellent way to determi
 
 The goal of the controller module is control the entire app and act as a bridge between the another two modules.
 
-To create modules in JavaScript, you can use the **IIFE + Closures** combo. Check the code of the `app.js,` and you will see which data is private and which data is public in each module.
+To create modules in JavaScript, you can use the **IIFE + Closures** combo. Check the code of the `app.js,` and you will see which data is private and which data is public in each module. Basically, the next code reflect a generalized backbone of modules in JavaScript:
+
+```javascript
+var moduleName = (function() {
+    // code in this scope will group the moduleName private data
+
+    return {
+        // code in this scope will group the moduleName public data, the power of closures allow this
+    }
+
+})() // IIFE allow us data privacy
+```
 
 Keyboard Events
 ---------------
@@ -45,3 +56,14 @@ Here are [keyboard events](https://developer.mozilla.org/en-US/docs/Web/Events) 
 4. `Object`
 
 The `KeyboardEvent` offer us a huge quantity of properties and methods that we can use from the function constructors listed before. To specify an event according to a single key, you have to use the property `keycode` that belongs to the `KeyboardEvent`. You can check the [next reference](http://keycodes.atjayjo.com/) to get the keycodes of each key without open the `KeyboardEvent` in the browser console. Once limited the `keypress` event to a key, you have to call the function that will attend this event.
+
+Reading Input Data
+------------------
+
+HTML offers us different input types: text, number, password, button, etc. So, JavaScript is capable of reading the data introduced in these input types. The next code is a generic structure to read data from the HTML inputs using the `querySelector` property of the document object:
+
+```javascript
+document.querySelector('{css-selector-notation}').value;
+``` 
+
+Group all the staging DOM selectors in our application into an object, and access them through this object is a common practice in big projects. The `UI_CONSTANS` variable in the `app.js` file is the object that group all the selectors in staging for our application and also show us how you can use it.

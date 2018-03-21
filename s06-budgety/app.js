@@ -5,15 +5,34 @@ var budgetController = (function() {
 })();
 
 var uiController = (function() {
+    var UI_CONSTANTS = {
+        INPUT_TYPE: '.add__type',
+        INPUT_DESCRIPTION: '.add__description',
+        INPUT_VALUE: '.add__value',
+        ADD_BUTTON: '.add__btn'
+    };
 
-    // Some code
+    return {
+        getInputData: function() {
+            return {
+                inputType: document.querySelector(UI_CONSTANTS.INPUT_TYPE).value,
+                inputDescription: document.querySelector(UI_CONSTANTS.INPUT_DESCRIPTION).value,
+                inputValues: document.querySelector(UI_CONSTANTS.INPUT_VALUE).value
+            }
+        },
+
+        getUiConstants: function() {
+            return UI_CONSTANTS;
+        }
+    }
 
 })();
 
 var appController = (function(budgetCtrl, uiCtrl) {
-
+    var UI_CONSTANTS = uiCtrl.getUiConstants();
     var addItemController = function() {
-        console.log('It works.')
+        var inputData = uiCtrl.getInputData();
+        console.log(inputData);
     }
 
     document.querySelector('.add__btn').addEventListener('click', addItemController);
