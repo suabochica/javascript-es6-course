@@ -1,30 +1,26 @@
 var budgetController = (function() {
 
-    var x = 21;
-    var add = function(a) {
-        return x + a;
-    }
-
-    return {
-        publicTest: function(b) {
-            return add(b);
-        }
-    }
+    // Some code
 
 })();
 
 var uiController = (function() {
 
-// Some code
+    // Some code
 
 })();
 
 var appController = (function(budgetCtrl, uiCtrl) {
-    var z = budgetCtrl.publicTest(5);
 
-    return {
-        anotherPublicTest: function() {
-            console.log(z);
+    var addItemController = function() {
+        console.log('It works.')
+    }
+
+    document.querySelector('.add__btn').addEventListener('click', addItemController);
+    document.addEventListener('keypress', function(event) {
+        if(event.keycode == 13 || event.which == 13) {
+            addItemController();
         }
-    }    
+    });
+
 })(budgetController, uiController);

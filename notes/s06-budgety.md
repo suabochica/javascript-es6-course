@@ -10,6 +10,9 @@ You can check the app description in the file `budgety-planning-guide.pdf`. In b
 - Calculate budget
 - Update UI after calculating the budget
 
+Modules
+-------
+
 Now, it is time to structure our code and to achieve that we can rely on **Modules**. The next is a list of modules features:
 
 - Modules are an essential aspect of any robust application's architecture
@@ -30,3 +33,15 @@ Now let's identify which modules are in our project. An excellent way to determi
 The goal of the controller module is control the entire app and act as a bridge between the another two modules.
 
 To create modules in JavaScript, you can use the **IIFE + Closures** combo. Check the code of the `app.js,` and you will see which data is private and which data is public in each module.
+
+Keyboard Events
+---------------
+
+Here are [keyboard events](https://developer.mozilla.org/en-US/docs/Web/Events) in the respective section. For this example, we will use the `keypress` event. When you check the prototype chain of `KeyboardEvent` object you get the next hierarchy:
+
+1. `KeyboardEvent`
+2. `UIEvent` 
+3. `Event` 
+4. `Object`
+
+The `KeyboardEvent` offer us a huge quantity of properties and methods that we can use from the function constructors listed before. To specify an event according to a single key, you have to use the property `keycode` that belongs to the `KeyboardEvent`. You can check the [next reference](http://keycodes.atjayjo.com/) to get the keycodes of each key without open the `KeyboardEvent` in the browser console. Once limited the `keypress` event to a key, you have to call the function that will attend this event.
