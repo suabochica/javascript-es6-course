@@ -67,3 +67,8 @@ document.querySelector('{css-selector-notation}').value;
 ``` 
 
 Group all the staging DOM selectors in our application into an object, and access them through this object is a common practice in big projects. The `UI_CONSTANS` variable in the `app.js` file is the object that group all the selectors in staging for our application and also show us how you can use it.
+
+Creating an Initialization Function
+-----------------------------------
+
+As you remember, in the pig name we create an `init` function to set up the default state of the game. Why create an initialization function? Because it is a good practice have a place where we can put all the code that we want to be executed when our application starts. How to create it? Just put the `init` function in the public space of our `appController` module and call the required functions to start the application. Don't forget to call the `init` function from the global scope. Without this call, the application will never start. It is recommendable to have just functions in your `appController` module.
