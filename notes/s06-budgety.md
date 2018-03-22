@@ -111,3 +111,17 @@ Related to the first step, you can see a placeholder markup inside the `indext.h
 In the second step, we take the placeholder, and we will put the dynamics properties between tokens that allow us identified easily. In this case, we use: `%id%`, `%description%` and `%value%` in the respective places of the placeholder. Then we will use the [`replace()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace) method of the `String` object to change these static values to the values stored in the `data` object defined in the `budgetController` module.
 
 Lastly, we add the modified placeholder to the DOM through the [`insertAdjacentHTML()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML) method of the `Element` object.
+
+Clearing our Input Fileds
+-------------------------
+
+To clear the description and value input fields we can use the `querySelectorAll()` method of the `Document` prototype. Unfourtonatelu, this method returns a `NodeList` object instead of an `Array` object. To convert this `NodeList` into an `Array` we can use the next trick:
+
+```javascript
+Array.prototype.slice.call(NodeList)
+```
+
+The key to this trick is to use the `call()` method of the `Function` prototype. To use the `call()` method we have to use the `slice()` method of the `Array` object, that is a function; then we can inherit the `call()` method from the `Function` prototype.
+
+
+Now we have an array with the description and value selectors. Therefore, we can use the `forEach()` method of the `Array` object, that is another way to loop over an array. The advantage of this way is the readability, but we have to know that when we use the `forEach()` method, we have access to three properties, the current element, the index and the array itself. By last, to clear our input fields we have to do the next assignation inside our `forEach()` method: `current.value = "";`.

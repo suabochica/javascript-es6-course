@@ -91,6 +91,20 @@ var uiController = (function() {
             listElement.insertAdjacentHTML('beforeend', newHtml);
         },
 
+        clearInputFields: function() {
+            var fields,
+                fieldsArray;
+
+            fields = document.querySelectorAll(UI_CONSTANTS.INPUT_DESCRIPTION+', '+ UI_CONSTANTS.INPUT_VALUE); // return a list
+            fieldsArray = Array.prototype.slice.call(fields); // Trick to convert the list in an array
+
+            fieldsArray.forEach(function(current, index, array) {
+                current.value = "";
+            });
+
+            fieldsArray[0].focus();
+        },
+
         getUiConstants: function() {
             return UI_CONSTANTS;
         }
@@ -117,8 +131,9 @@ var appController = (function(budgetCtrl, uiCtrl) {
         inputData = uiCtrl.getInputData();
         //2. Add item to the budget controller
         newItem = budgetCtrl.addItem(inputData.inputType, inputData.inputDescription, inputData.inputValue);
-        //3. Add the item to the UI
+        //3. Add the item to the UI and clear input fields
         uiCtrl.addItemList(newItem, inputData.inputType);
+        uiCtrl.clearInputFields();
         //4. Calculate budget
         //5. Display the budget on the UI
     };
