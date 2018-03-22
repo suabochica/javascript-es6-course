@@ -1,6 +1,26 @@
 var budgetController = (function() {
+    var data = {
+        allItems: {
+            expenses: [],
+            incomes: []
+        },
+        totals: {
+            expenses: 0,
+            incomes: 0
+        }
+    }
 
-    // Some code
+    var Expense = function(id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    }
+
+    var Income = function(id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    }
 
 })();
 
@@ -44,7 +64,7 @@ var appController = (function(budgetCtrl, uiCtrl) {
         //1. Get the field input data
         var inputData = uiCtrl.getInputData();
         console.log(inputData);
-        //2. Add iteem to the budget controller
+        //2. Add item to the budget controller
         //3. Add the item to the UI
         //4. Calculate budget
         //5. Display the budget on the UI

@@ -72,3 +72,10 @@ Creating an Initialization Function
 -----------------------------------
 
 As you remember, in the pig name we create an `init` function to set up the default state of the game. Why create an initialization function? Because it is a good practice have a place where we can put all the code that we want to be executed when our application starts. How to create it? Just put the `init` function in the public space of our `appController` module and call the required functions to start the application. Don't forget to call the `init` function from the global scope. Without this call, the application will never start. It is recommendable to have just functions in your `appController` module.
+
+Creating Income and Expense Function Constructors
+-------------------------------------------------
+
+In this budget app, we will deal with two features: Incomes and Expenses. These features allow us to chose the function constructors that meet our application's needs. Before we identified that the logic to handle the incomes and expenses belongs to the `budgetController` module. Please check the respective definitions of these functions constructor in the `budgetController` module inside our `app.js` file.
+
+In the other hand, we have to set up a proper data structure for our budget controllers. The best way is put all the data inside an object and set properties to store the respective values for the number of expenses and incomes and the total of expenses and incomes. You can check this data structure in the `data` object of `budgetController` module into the `app.js` file.
