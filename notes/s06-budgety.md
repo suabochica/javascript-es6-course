@@ -79,3 +79,20 @@ Creating Income and Expense Function Constructors
 In this budget app, we will deal with two features: Incomes and Expenses. These features allow us to chose the function constructors that meet our application's needs. Before we identified that the logic to handle the incomes and expenses belongs to the `budgetController` module. Please check the respective definitions of these functions constructor in the `budgetController` module inside our `app.js` file.
 
 In the other hand, we have to set up a proper data structure for our budget controllers. The best way is put all the data inside an object and set properties to store the respective values for the number of expenses and incomes and the total of expenses and incomes. You can check this data structure in the `data` object of `budgetController` module into the `app.js` file.
+
+Adding a New Item to Our Budget Controller
+------------------------------------------
+
+It´s time to put content in the defined data structure inside the `budgetController` module. To achieve that we have to connect the data retrieved from the `uiController` and put in the `data` object of the `budgetController`. Then, we have to create a public function in the `budgetController` to add an item to the `data` object. Next is the statement of this function:
+
+```javascript
+var addItem = function(id, description, value)
+```
+
+This function has two responsibilities:
+1. Handle a logic to add an id for each item that could be an income or an expense.
+2. Push the item in the respective property of the `data` object.
+
+> Note: Please check that the inputType uses just two values: `exp` and `inc`. You can take advantage of this values and match them with the properties of the `data` object.
+
+To connect the `budgetController` and the `uiController` you have to use the `appcController` module. Remember that in the `appController` you have access to the data retrieved from the `uiController` module. Then, we can use it to pass this data to the `budgetController` through the public method `addItem()` with the respective arguments. Please check the point two commented in the `app.js` file.
