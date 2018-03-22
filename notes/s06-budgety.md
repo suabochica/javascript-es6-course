@@ -96,3 +96,18 @@ This function has two responsibilities:
 > Note: Please check that the inputType uses just two values: `exp` and `inc`. You can take advantage of this values and match them with the properties of the `data` object.
 
 To connect the `budgetController` and the `uiController` you have to use the `appcController` module. Remember that in the `appController` you have access to the data retrieved from the `uiController` module. Then, we can use it to pass this data to the `budgetController` through the public method `addItem()` with the respective arguments. Please check the point two commented in the `app.js` file.
+
+Adding a New Item to the UI
+---------------------------
+
+Finally, we will start to add changes in the UI. To get changes in the UI you can follow three steps:
+
+1. Set a markup placeholder that allows us to simulate the dynamic elements in a static version.
+2. Add tokens (like *%*) to our dynamics properties. Then replace these parts of strings with actual data.
+3. Manipulate the DOM to insert our dynamic elements.
+
+Related to the first step, you can see a placeholder markup inside the `indext.html` files. the placeholder markup is commented inside the `incomes__list` and `expenses__list` selectors.
+
+In the second step, we take the placeholder, and we will put the dynamics properties between tokens that allow us identified easily. In this case, we use: `%id%`, `%description%` and `%value%` in the respective places of the placeholder. Then we will use the [`replace()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace) method of the `String` object to change these static values to the values stored in the `data` object defined in the `budgetController` module.
+
+Lastly, we add the modified placeholder to the DOM through the [`insertAdjacentHTML()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML) method of the `Element` object.

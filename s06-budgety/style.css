@@ -181,7 +181,7 @@ body {
     margin: 60px auto;
 }
 
-.income {
+.incomes {
     float: left;
     width: 475px;
     margin-right: 50px;
@@ -200,7 +200,7 @@ h2 {
 }
 
 .icome__title { color: #28B9B5; }
-.expenses__title { color: #FF5049; }
+.expense__title { color: #FF5049; }
 
 .item {
     padding: 13px;
@@ -231,8 +231,8 @@ h2 {
     text-align: center;
 }
 
-.income .item__value,
-.income .item__delete--btn {
+.incomes .item__value,
+.incomes .item__delete--btn {
     color: #28B9B5;
 }
 
