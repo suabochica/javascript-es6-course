@@ -125,3 +125,16 @@ The key to this trick is to use the `call()` method of the `Function` prototype.
 
 
 Now we have an array with the description and value selectors. Therefore, we can use the `forEach()` method of the `Array` object, that is another way to loop over an array. The advantage of this way is the readability, but we have to know that when we use the `forEach()` method, we have access to three properties, the current element, the index and the array itself. By last, to clear our input fields we have to do the next assignation inside our `forEach()` method: `current.value = "";`.
+
+
+Fixing minor problems
+---------------------
+
+Until this point we have two problems to fix:
+
+1. The `data` object is storing the value property as a string and not as a number.
+2. Currently, the user can add clear descriptions and values in the incomes and expenses list.
+
+The first issue is solved using the top-level function `parseFloat()` that receive as argument the retrieved value from the input value field. Now, the `data` object is storing a float instead of a string.
+
+You can fix the second drawback by putting the function calls of the `addItemController()` method within an `if` statement that check that the `description` and `values` properties of the inputData is not empty and is number, respectively.
