@@ -7,7 +7,9 @@ var budgetController = (function() {
         totals: {
             exp: 0,
             inc: 0
-        }
+        },
+        budget: 0,
+        percentage: -1
     }
 
     var Expense = function(id, description, value) {
@@ -42,6 +44,32 @@ var budgetController = (function() {
             data.allItems[type].push(newItem);
 
             return newItem;
+        },
+
+        calculateBudget: function(type) {
+            var totalSum = 0;
+
+            data.allItems[type].forEach(function(current) {
+                totalSum = totalSum + current.value;
+            });
+
+            data.totals[type] = totalSum;
+            data.budget = data.totals.inc - data.totals.exp;
+
+            if (data.totals.inc > 0) {
+                data.percentage = Math.round((data.totals.exp/data.totals.inc) * 100);
+            } else {
+                data.percentage = -1;
+            }
+        },
+
+        getBudget: function() {
+            return {
+                budget: data.budget,
+                totalIncomes: data.totals.inc,
+                totalExpenses: data.totals.exp,
+                percentage: data.percentage
+            }
         },
 
         testDataPrint: function() {
@@ -124,7 +152,14 @@ var appController = (function(budgetCtrl, uiCtrl) {
     };
 
     var updateBudget = function() {
-        // some code
+        var budgetData;
+        // 1. Calculate budget
+        budgetCtrl.calculateBudget('inc');
+        budgetCtrl.calculateBudget('exp');
+        // 2. Get budget
+        budgetData = budgetCtrl.getBudget();
+        // 3. Pass budget to the ui
+        console.log(budgetData);
     };
 
     var addItemController = function() {
@@ -140,7 +175,6 @@ var appController = (function(budgetCtrl, uiCtrl) {
             //3. Add the item to the UI and clear input fields
             uiCtrl.addItemList(newItem, inputData.inputType);
             uiCtrl.clearInputFields();
-
             //4. Call the updateBudget method
             updateBudget();
         }

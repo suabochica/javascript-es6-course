@@ -30,9 +30,9 @@ Now let's identify which modules are in our project. An excellent way to determi
 |Add the new item to the UI |Calculate budget                       |                       |
 |Update UI                  |                                       |                       |
 
-The goal of the controller module is control the entire app and act as a bridge between the another two modules.
+The goal of the controller module controls the entire app and act as a bridge between another two modules.
 
-To create modules in JavaScript, you can use the **IIFE + Closures** combo. Check the code of the `app.js,` and you will see which data is private and which data is public in each module. Basically, the next code reflect a generalized backbone of modules in JavaScript:
+To create modules in JavaScript, you can use the **IIFE + Closures** combo. Check the code of the `app.js,` and you will see which data is private and which data is public in each module. The next code reflects a generalized backbone of modules in JavaScript:
 
 ```javascript
 var moduleName = (function() {
@@ -100,7 +100,7 @@ To connect the `budgetController` and the `uiController` you have to use the `ap
 Adding a New Item to the UI
 ---------------------------
 
-Finally, we will start to add changes in the UI. To get changes in the UI you can follow three steps:
+Finally, we will start to add changes in the UI. To get changes in UI you can follow three steps:
 
 1. Set a markup placeholder that allows us to simulate the dynamic elements in a static version.
 2. Add tokens (like *%*) to our dynamics properties. Then replace these parts of strings with actual data.
@@ -138,3 +138,15 @@ Until this point we have two problems to fix:
 The first issue is solved using the top-level function `parseFloat()` that receive as argument the retrieved value from the input value field. Now, the `data` object is storing a float instead of a string.
 
 You can fix the second drawback by putting the function calls of the `addItemController()` method within an `if` statement that check that the `description` and `values` properties of the inputData is not empty and is number, respectively.
+
+Updating the Budget Controller
+------------------------------
+
+It's time for the next steps:
+
+1. Calculate the budget each time the user adds an Income or an Expense
+2. Store this budget inside an object that will enable the data to the UI
+
+To calculate our budget, we will use the `totals` property of our `data` object to store our total incomes and total expenses. Also, we add two properties: `budget` and `percentage`. The totals calculation is a summary of the values stored in the respective `totals` array, the `budget` is simple incomes minus expenses, and the `percentage` is the division between the expenses by the incomes. Some details have to handle the put proper values in the `percentage` property.
+
+Finally, we retrieve these calculations by a getter. Te getter will return an object whose properties are the results of the budget operations. Also, this object will allow us to send the budget values to the UI in the respective fields.
