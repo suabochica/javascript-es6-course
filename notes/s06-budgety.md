@@ -139,8 +139,8 @@ The first issue is solved using the top-level function `parseFloat()` that recei
 
 You can fix the second drawback by putting the function calls of the `addItemController()` method within an `if` statement that check that the `description` and `values` properties of the inputData is not empty and is number, respectively.
 
-Updating the Budget Controller
-------------------------------
+Updating the Budget: Budget Controller
+--------------------------------------
 
 It's time for the next steps:
 
@@ -150,3 +150,13 @@ It's time for the next steps:
 To calculate our budget, we will use the `totals` property of our `data` object to store our total incomes and total expenses. Also, we add two properties: `budget` and `percentage`. The totals calculation is a summary of the values stored in the respective `totals` array, the `budget` is simple incomes minus expenses, and the `percentage` is the division between the expenses by the incomes. Some details have to handle the put proper values in the `percentage` property.
 
 Finally, we retrieve these calculations by a getter. Te getter will return an object whose properties are the results of the budget operations. Also, this object will allow us to send the budget values to the UI in the respective fields.
+
+Updating the Budget: UI Controller
+----------------------------------
+
+Now it's time to go over DOM manipulation updating all the data related to the budget object. We can summarize these changes in the UI controller with the next steps:
+
+1. Add the budget selectors to the `UI_CONSTANS` object.
+2. Create a method `displayBudgetData(budgedData)` in the `uiController`, which receive as parameter the `budgetData` object calculated in the `budgetController`.
+3. In this case, we will update text content, so we can use the method `textContent()` from the `Node` object.
+4. Finally, call the `displayBudgetData(budgedData)` in the `appController`.
