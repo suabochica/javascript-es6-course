@@ -160,3 +160,27 @@ Now it's time to go over DOM manipulation updating all the data related to the b
 2. Create a method `displayBudgetData(budgedData)` in the `uiController`, which receive as parameter the `budgetData` object calculated in the `budgetController`.
 3. In this case, we will update text content, so we can use the method `textContent()` from the `Node` object.
 4. Finally, call the `displayBudgetData(budgedData)` in the `appController`.
+
+
+Part Two: Delete Incomes and Expenses Items
+-------------------------------------------
+
+To-do list:
+
+1. Add an event handler to delete the items.
+2. Delete the item from our data structure.
+3. Delete the item to the UI.
+4. Re-calculate the budget.
+5. Update the UI.
+
+Event Delegation
+----------------
+
+JavasScript interacts with the DOM by events. Then, you have defaults behaviors when an event is trigger on a DOM element. A concept that enters the stage is the **Event Bubbling.**  Event bubbling means that when an event is fired on some DOM element (e.g., click on a `<button>` that is inside a `<p>` tag), then the exact same event is also triggered on all of the parent elements (e.g the click event is also fired to the `<p>`, and actually all the way up in the DOM tree until the HTML element which is the root). In summary, the event bubbles up inside the DOM tree.
+
+Another important concept is the **Target Element**. The target element is the element on which the event was first fired so the element that caused the event to happen. In the last example, our target element is the clicked `<button>`. An important part of the target element is that is stored as a property in the `Event` object. Then, all the parent's elements on which the event will also fire will know the target element of the event, so where the event was first shot.
+
+These concepts bring us to the **Event Delegation**. Event delegation is a technique that combines the ideas of **Event Bubbling** and **Target Element**. The technique consists in to attach an event handler to a parent element and wait for the event to bubble up. Then, we can do whatever we intended to do with our target element property. The event delegation technique offers us two use cases:
+
+1. When we have an element with lots of child element that we are interested in. (i.e., Instead of adding an event handler to all of these child elements, we add it to the parent element, and then determine on which child element the event was fired).
+2. When we want an event handler attached to an element that is not yet in the DOM when our page is loaded. That is because of course, we cannot add an event handler to something that isn't on our page.
