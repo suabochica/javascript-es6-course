@@ -139,6 +139,12 @@ var uiController = (function() {
             listElement.insertAdjacentHTML('beforeend', newHtml);
         },
 
+        deleteItemList: function(selectorId) {
+            var elementToDelete = document.getElementById(selectorId);
+
+            elementToDelete.parentNode.removeChild(elementToDelete);
+        },
+
         clearInputFields: function() {
             var fields,
                 fieldsArray;
@@ -194,7 +200,6 @@ var appController = (function(budgetCtrl, uiCtrl) {
         budgetData = budgetCtrl.getBudget();
         // 3. Pass budget to the ui
         uiCtrl.displayBudgetData(budgetData);
-        console.log(budgetData);
     };
 
     var addItemController = function() {
@@ -229,6 +234,8 @@ var appController = (function(budgetCtrl, uiCtrl) {
             incOrExpId = parseInt(splitId[1]);
 
             budgetCtrl.deleteItem(type, incOrExpId);
+            uiCtrl.deleteItemList(itemId);
+            updateBudget();
         }
     };
 

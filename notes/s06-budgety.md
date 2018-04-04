@@ -208,3 +208,11 @@ Array methods that allow us to achieve the delete of an element in our `data` ob
 1. `map(function(current){})`. This method returns a new array with the ids of our incomes and expenses arrays. Remember that this scenario exposes misunderstandings between the ids and the index of the items int he array. It is a wrong assumption that the value of the id property will match with the index position. So, to avoid this confusion you can store the ids of the items in a new array and add the logic of removing an item from this new array.
 2. `indexOf(value)`. With this method, we can retrieve the expected index of the id property that belongs to the item that we want to delete.
 3. `splice(index, quantity)`. This method allows us to remove items from an array. It will require an index, and the quantity of the items to remove from the array.
+
+
+Deleting an Item from the UI
+----------------------------
+
+All the stuff related to UI relies on DOM Manipulation. To remove a node, we have the method `removeChild(element)`. As you can read, you have to locate the parent node to remove a child. This way is naturally weird but is how JavaScript works to remove elements in the DOM. 
+
+You can look at the next guide to check [common actions in DOM manipulation](blog.garstasio.com/you-dont-need-jquery/dom-manipulation)
