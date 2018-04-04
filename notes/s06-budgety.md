@@ -199,3 +199,12 @@ To accomplish the first task, we have to identify the DOM element which contains
 Time to execute the second task. In our markup, we have to identify the element with the `id` attribute. Remember that the `id` attribute allows us to add the quality of unique an element. The element with the `id` attribute is `<div class="item clearfix" id="income-0">`.
 
 To connect the step one and the step two we execute the task three, DOM traversing. if you check the mark up the target element is `<i class="ion-ios-close-outline"></i>` but this element is four element down to the element with the `id` attribute. To go up in the markup, we have to use the `parentNode()`. We have to call this method four times until reach the `<div class="item clearfix" id="income-0">` element and get the `id` property. With this property, we can start updating our budget calculations.
+
+Deleting an Item from our Budget Controller
+-------------------------------------------
+
+Array methods that allow us to achieve the delete of an element in our `data` object:
+
+1. `map(function(current){})`. This method returns a new array with the ids of our incomes and expenses arrays. Remember that this scenario exposes misunderstandings between the ids and the index of the items int he array. It is a wrong assumption that the value of the id property will match with the index position. So, to avoid this confusion you can store the ids of the items in a new array and add the logic of removing an item from this new array.
+2. `indexOf(value)`. With this method, we can retrieve the expected index of the id property that belongs to the item that we want to delete.
+3. `splice(index, quantity)`. This method allows us to remove items from an array. It will require an index, and the quantity of the items to remove from the array.
