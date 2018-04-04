@@ -89,8 +89,8 @@ var uiController = (function() {
         BUDGET_VALUE: '.budget__value',
         INCOME_VALUE: '.budget__income--value',
         EXPENSE_VALUE: '.budget__expenses--value',
-        EXPENSE_PERCENTAGE_VALUE: '.budget__expenses--percentage'
-
+        EXPENSE_PERCENTAGE_VALUE: '.budget__expenses--percentage',
+        INCS_AND_EXPS_CONTAINER: '.container'
     };
 
     return {
@@ -166,6 +166,8 @@ var appController = (function(budgetCtrl, uiCtrl) {
                 addItemController();
             }
         });
+        
+        document.querySelector(UI_CONSTANTS.INCS_AND_EXPS_CONTAINER).addEventListener('click', deleteItemController)
     };
 
     var updateBudget = function() {
@@ -195,6 +197,21 @@ var appController = (function(budgetCtrl, uiCtrl) {
             uiCtrl.clearInputFields();
             //4. Call the updateBudget method
             updateBudget();
+        }
+    };
+    
+    var deleteItemController = function(event) {
+        var itemId,
+            splitId,
+            type,
+            incOrExpId;
+            
+        itemId = event.target.parentNode.parentNode.parentNode.parentNode.id;
+        
+        if(itemId) {
+            splitId = itemId.split('-');
+            type = splitId[0];
+            incOrExpId = splitId[1];
         }
     };
 

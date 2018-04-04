@@ -184,3 +184,18 @@ These concepts bring us to the **Event Delegation**. Event delegation is a techn
 
 1. When we have an element with lots of child element that we are interested in. (i.e., Instead of adding an event handler to all of these child elements, we add it to the parent element, and then determine on which child element the event was fired).
 2. When we want an event handler attached to an element that is not yet in the DOM when our page is loaded. That is because of course, we cannot add an event handler to something that isn't on our page.
+
+Setting Up the Delete Event Listener
+------------------------------------
+
+Pending tasks:
+
+1. How to use event delegation in practice.
+2. How to use IDs in HTML to connect the UI to the data model.
+3. How to use `parentNode()` method of the Event object to DOM traversing.
+
+To accomplish the first task, we have to identify the DOM element which contains the incomes and the expenses in our markup. This element is the `<div class="container clearfix">`. Then, we add the event listener on this element and in our callback function called `deleteItemController()` we pass the event object as an argument to get the target element that first fires the event.
+
+Time to execute the second task. In our markup, we have to identify the element with the `id` attribute. Remember that the `id` attribute allows us to add the quality of unique an element. The element with the `id` attribute is `<div class="item clearfix" id="income-0">`.
+
+To connect the step one and the step two we execute the task three, DOM traversing. if you check the mark up the target element is `<i class="ion-ios-close-outline"></i>` but this element is four element down to the element with the `id` attribute. To go up in the markup, we have to use the `parentNode()`. We have to call this method four times until reach the `<div class="item clearfix" id="income-0">` element and get the `id` property. With this property, we can start updating our budget calculations.
