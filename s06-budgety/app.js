@@ -16,6 +16,19 @@ var budgetController = (function() {
         this.id = id;
         this.description = description;
         this.value = value;
+        this.percentage = -1;
+    }
+
+    Expense.prototype.calculatePercentage = function(totalIncomes) {
+        if(totalIncomes > 0) {
+            this.percentage = Math.round((this.value/totalIncomes) * 100);
+        } else {
+            this.percentage = -1;
+        }
+    }
+
+    Expense.prototype.getPercentage = function() {
+        return this.percentage;
     }
 
     var Income = function(id, description, value) {
@@ -78,6 +91,12 @@ var budgetController = (function() {
             }
         },
 
+        calculatePercentages: function() {
+            data.allItems.exp.forEach(function(current) {
+                current.calculatePercentage(data.totals.inc);
+            });
+        },
+
         getBudget: function() {
             return {
                 budget: data.budget,
@@ -85,6 +104,14 @@ var budgetController = (function() {
                 totalExpenses: data.totals.exp,
                 percentage: data.percentage
             }
+        },
+
+        getPercentages: function() {
+            var allPercentages = data.allItems.exp.map(function(current) {
+                return current.getPercentage();
+            });
+
+            return allPercentages;
         },
 
         testDataPrint: function() {
@@ -202,6 +229,16 @@ var appController = (function(budgetCtrl, uiCtrl) {
         uiCtrl.displayBudgetData(budgetData);
     };
 
+    var updatePercentages = function() {
+        var percentages;
+        //1. Calculate percentages
+        budgetCtrl.calculatePercentages();
+        //2. Read percentages from the budget controller
+        percentages = budgetCtrl.getPercentages();
+        //3. Update the UI with the new percentages
+        console.log(percentages);
+    }
+
     var addItemController = function() {
         var inputData,
             newItem;
@@ -217,6 +254,8 @@ var appController = (function(budgetCtrl, uiCtrl) {
             uiCtrl.clearInputFields();
             //4. Call the updateBudget method
             updateBudget();
+            //5. Call the updatePercentages method
+            updatePercentages();
         }
     };
     
@@ -233,9 +272,14 @@ var appController = (function(budgetCtrl, uiCtrl) {
             type = splitId[0];
             incOrExpId = parseInt(splitId[1]);
 
+            //1. Delete the item from the data structure
             budgetCtrl.deleteItem(type, incOrExpId);
+            //2. Delete the item from the UI
             uiCtrl.deleteItemList(itemId);
+            //3. Call the updateBudget method
             updateBudget();
+            //4. Call the updatePercentages method
+            updatePercentages();
         }
     };
 

@@ -216,3 +216,21 @@ Deleting an Item from the UI
 All the stuff related to UI relies on DOM Manipulation. To remove a node, we have the method `removeChild(element)`. As you can read, you have to locate the parent node to remove a child. This way is naturally weird but is how JavaScript works to remove elements in the DOM. 
 
 You can look at the next guide to check [common actions in DOM manipulation](blog.garstasio.com/you-dont-need-jquery/dom-manipulation)
+
+Part Three: Remaining things and Improvements
+---------------------------------------------
+
+To-do list:
+
+1. Add the logic to calculate the expense percentage of the total budget.
+2. Update the expenses percentages in the UI.
+3. Display the curent month and the current year.
+4. Add number formatting.
+5. Improve input field UX.
+
+Updating the Percentages in the Budget Controller
+-------------------------------------------------
+
+To update the expenses percentages in the budget controller, we will reinforce all the concepts worked so far and we make the interaction between the budget controller and the `Expense` prototype. We have to calculate this percentage everytime that we add or delete and income/expense. This percentage belongs to the `Expense` prototype. So we should add the `calculatePercentage(totalIncomes)` and the `getPercentage()`  in this prototype.
+
+Read these methods; we have to create the public functions in the budget controller that will consume by the app controller. This case is very similar to all the steps create to attend the `updateBudget` feature. The only addition is the use of the `Expense` prototype.
