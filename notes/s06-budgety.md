@@ -242,3 +242,14 @@ To update the expense percentage value of a single expense, we will create an ow
 
 We already know that the `nodeList` object does not have a `forEach` method. Before we use a hack where we use the `slice` method of the `Array` prototype to convert the node list into an array. But this is a hack, so like a workaround and we can do better creating an own function. The `nodeListForEach()` function is a clear example of **first-class functions**. There we decide to use callback functions and passing function around like variables.
 
+
+Formatting our Budget Numbers: String Manipulation
+-------------------------------------------------
+
+Our desired format number is the next one:
+
+- If the number is an income: +400,000.85
+- If the number is an expense: -20,500.15
+
+The `,` will indicate if our integer part have thousands and the `.` will show the decimal part of our number budget. To achieve our expected format we have to use different `String` methods to manipulate strings. The `formatNumber()` logic is a private responsibility of out UI controller. After defining the `formatNumber()` code, we have to call in the places of the UI controller that render the budget numbers.
+    

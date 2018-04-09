@@ -136,6 +136,24 @@ var uiController = (function() {
         EXPENSE_PERCENTAGE_SINGLE_VALUE: '.item__percentage'
     };
 
+    var formatNumber = function(number, type) {
+        var numberSplitted,
+            integerPart,
+            decimalPart;
+
+        number = number.toFixed(2);
+        numberSplitted = number.split('.');
+        integerPart = numberSplitted[0];
+
+        if(integerPart.length > 3) {
+            integerPart = integerPart.substr(0, integerPart.length - 3) + ',' + integerPart.substr(integerPart.length - 3, 3);
+        }
+
+        decimalPart = numberSplitted[1];
+
+        return (type === 'inc'? '+' : '-') + integerPart + '.' + decimalPart;
+    }
+
     return {
         getInputData: function() {
             return {
@@ -153,15 +171,15 @@ var uiController = (function() {
             // Set placeholder html for the income or expese list
             if(type === 'inc') {
                 listElement = document.querySelector(UI_CONSTANTS.INCOMES_LIST);
-                html = '<div class="item clearfix" id="inc-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">+ %value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                html = '<div class="item clearfix" id="inc-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
             } else if(type === 'exp') {
                 listElement = document.querySelector(UI_CONSTANTS.EXPENSES_LIST);
-                html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">- %value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
             }
 
             newHtml = html.replace('%id%', dataObject.id);
             newHtml = newHtml.replace('%description%', dataObject.description);
-            newHtml = newHtml.replace('%value%', dataObject.value);
+            newHtml = newHtml.replace('%value%', formatNumber(dataObject.value, type));
 
             // Add the new html into the DOM
             listElement.insertAdjacentHTML('beforeend', newHtml);
@@ -188,15 +206,19 @@ var uiController = (function() {
         },
 
         displayBudgetData: function(budgetData) {
-          document.querySelector(UI_CONSTANTS.BUDGET_VALUE).textContent = budgetData.budget;
-          document.querySelector(UI_CONSTANTS.INCOME_VALUE).textContent = budgetData.totalIncomes;
-          document.querySelector(UI_CONSTANTS.EXPENSE_VALUE).textContent = budgetData.totalExpenses;
+            var type;
 
-          if(budgetData.percentage > 0) {
-            document.querySelector(UI_CONSTANTS.EXPENSE_PERCENTAGE_GLOBAL_VALUE).textContent = budgetData.percentage + '%';
-          } else {
-            document.querySelector(UI_CONSTANTS.EXPENSE_PERCENTAGE_GLOBAL_VALUE).textContent = '-';
-          }
+            budgetData.budget > 0 ? type = 'inc' : type = 'exp';
+
+            document.querySelector(UI_CONSTANTS.BUDGET_VALUE).textContent = formatNumber(budgetData.budget, type);
+            document.querySelector(UI_CONSTANTS.INCOME_VALUE).textContent = formatNumber(budgetData.totalIncomes, 'inc');
+            document.querySelector(UI_CONSTANTS.EXPENSE_VALUE).textContent = formatNumber(budgetData.totalExpenses, 'exp');
+
+            if(budgetData.percentage > 0) {
+                document.querySelector(UI_CONSTANTS.EXPENSE_PERCENTAGE_GLOBAL_VALUE).textContent = budgetData.percentage + '%';
+            } else {
+                document.querySelector(UI_CONSTANTS.EXPENSE_PERCENTAGE_GLOBAL_VALUE).textContent = '-';
+            }
         },
 
         displayExpensesPercentages: function(percentages) {
