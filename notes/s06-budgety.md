@@ -244,7 +244,7 @@ We already know that the `nodeList` object does not have a `forEach` method. Bef
 
 
 Formatting our Budget Numbers: String Manipulation
--------------------------------------------------
+--------------------------------------------------
 
 Our desired format number is the next one:
 
@@ -253,3 +253,13 @@ Our desired format number is the next one:
 
 The `,` will indicate if our integer part have thousands and the `.` will show the decimal part of our number budget. To achieve our expected format we have to use different `String` methods to manipulate strings. The `formatNumber()` logic is a private responsibility of out UI controller. After defining the `formatNumber()` code, we have to call in the places of the UI controller that render the budget numbers.
     
+Displaying Current Date
+-----------------------
+
+To get the current date, we can use the `Date` object constructor. The `Date` object has methods to retrieve the different parts of a date. The next code gets the date for Christmas:
+
+```javascript
+var christmas = new Date (2018, 11, 25);
+```
+
+A thing to highlight is that the months are in a zero-based array. Then 0 is January and 11 is December. So, as you can see the parameters passed to instantiate a `Date` object were: The year, the month index, and the day.
