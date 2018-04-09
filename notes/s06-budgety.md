@@ -228,9 +228,17 @@ To-do list:
 4. Add number formatting.
 5. Improve input field UX.
 
-Updating the Percentages in the Budget Controller
--------------------------------------------------
+Updating the Percentages: Budget Controller
+-------------------------------------------
 
 To update the expenses percentages in the budget controller, we will reinforce all the concepts worked so far and we make the interaction between the budget controller and the `Expense` prototype. We have to calculate this percentage everytime that we add or delete and income/expense. This percentage belongs to the `Expense` prototype. So we should add the `calculatePercentage(totalIncomes)` and the `getPercentage()`  in this prototype.
 
-Read these methods; we have to create the public functions in the budget controller that will consume by the app controller. This case is very similar to all the steps create to attend the `updateBudget` feature. The only addition is the use of the `Expense` prototype.
+Read these methods; we have to create the public function in the budget controller that will consume by the app controller. This case is very similar to all the steps create to attend the `updateBudget` feature. The only addition is the use of the `Expense` prototype.
+
+Updating the Percentages: UI Controller
+---------------------------------------
+
+To update the expense percentage value of a single expense, we will create an own `forEach` function for a `nodeList` instead of arrays. The reason why we have to create the `nodeListForEach()` function is because the method `querySelectorAll()` of the `document`object returns a node list instead of an array. In a DOM tree, that is a structure where all of the HTML elements of our page are stored; each element is called a node. That is also why the property that we used before for moving up in the DOM was called `parentNode`.
+
+We already know that the `nodeList` object does not have a `forEach` method. Before we use a hack where we use the `slice` method of the `Array` prototype to convert the node list into an array. But this is a hack, so like a workaround and we can do better creating an own function. The `nodeListForEach()` function is a clear example of **first-class functions**. There we decide to use callback functions and passing function around like variables.
+

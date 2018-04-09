@@ -20,7 +20,7 @@ var budgetController = (function() {
     }
 
     Expense.prototype.calculatePercentage = function(totalIncomes) {
-        if(totalIncomes > 0) {
+        if(totalIncomes > 0) {
             this.percentage = Math.round((this.value/totalIncomes) * 100);
         } else {
             this.percentage = -1;
@@ -131,8 +131,9 @@ var uiController = (function() {
         BUDGET_VALUE: '.budget__value',
         INCOME_VALUE: '.budget__income--value',
         EXPENSE_VALUE: '.budget__expenses--value',
-        EXPENSE_PERCENTAGE_VALUE: '.budget__expenses--percentage',
-        INCS_AND_EXPS_CONTAINER: '.container'
+        EXPENSE_PERCENTAGE_GLOBAL_VALUE: '.budget__expenses--percentage',
+        INCS_AND_EXPS_CONTAINER: '.container',
+        EXPENSE_PERCENTAGE_SINGLE_VALUE: '.item__percentage'
     };
 
     return {
@@ -192,10 +193,28 @@ var uiController = (function() {
           document.querySelector(UI_CONSTANTS.EXPENSE_VALUE).textContent = budgetData.totalExpenses;
 
           if(budgetData.percentage > 0) {
-            document.querySelector(UI_CONSTANTS.EXPENSE_PERCENTAGE_VALUE).textContent = budgetData.percentage + '%';
+            document.querySelector(UI_CONSTANTS.EXPENSE_PERCENTAGE_GLOBAL_VALUE).textContent = budgetData.percentage + '%';
           } else {
-            document.querySelector(UI_CONSTANTS.EXPENSE_PERCENTAGE_VALUE).textContent = '-';
+            document.querySelector(UI_CONSTANTS.EXPENSE_PERCENTAGE_GLOBAL_VALUE).textContent = '-';
           }
+        },
+
+        displayExpensesPercentages: function(percentages) {
+            var percentageElements = document.querySelectorAll(UI_CONSTANTS.EXPENSE_PERCENTAGE_SINGLE_VALUE);
+
+            var nodeListForEach = function(nodeList, callback) {
+                for(i = 0; i < nodeList.length; i++) {
+                    callback(nodeList[i], i);
+                }
+            }
+
+            nodeListForEach(percentageElements, function(current, index) {
+                if(percentages[index] > 0) {
+                    current.textContent = percentages[index] + '%';
+                } else {
+                    current.textContent = '-';
+                }
+            });
         },
 
         getUiConstants: function() {
@@ -236,7 +255,7 @@ var appController = (function(budgetCtrl, uiCtrl) {
         //2. Read percentages from the budget controller
         percentages = budgetCtrl.getPercentages();
         //3. Update the UI with the new percentages
-        console.log(percentages);
+        uiCtrl.displayExpensesPercentages(percentages);
     }
 
     var addItemController = function() {
