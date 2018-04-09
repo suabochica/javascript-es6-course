@@ -263,3 +263,8 @@ var christmas = new Date (2018, 11, 25);
 ```
 
 A thing to highlight is that the months are in a zero-based array. Then 0 is January and 11 is December. So, as you can see the parameters passed to instantiate a `Date` object were: The year, the month index, and the day.
+
+Finishing Touches: Improving the UX
+-----------------------------------
+
+Our UX improvement is to change the border of the form input to red when the user will add an expense and put the border in green when the user will insert an income. To achieve this, we will use the `change` event and add the respective CSS classes with the described styles to the node elements of the inputs. We will reuse the `nodeListForEach` to iterate over these nodes elements and then add the `red-focus` class.

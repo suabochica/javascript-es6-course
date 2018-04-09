@@ -155,6 +155,12 @@ var uiController = (function() {
         return (type === 'inc'? '+' : '-') + integerPart + '.' + decimalPart;
     }
 
+    var nodeListForEach = function(nodeList, callback) {
+        for(i = 0; i < nodeList.length; i++) {
+            callback(nodeList[i], i);
+        }
+    }
+
     return {
         getInputData: function() {
             return {
@@ -225,12 +231,6 @@ var uiController = (function() {
         displayExpensesPercentages: function(percentages) {
             var percentageElements = document.querySelectorAll(UI_CONSTANTS.EXPENSE_PERCENTAGE_SINGLE_VALUE);
 
-            var nodeListForEach = function(nodeList, callback) {
-                for(i = 0; i < nodeList.length; i++) {
-                    callback(nodeList[i], i);
-                }
-            }
-
             nodeListForEach(percentageElements, function(current, index) {
                 if(percentages[index] > 0) {
                     current.textContent = percentages[index] + '%';
@@ -268,6 +268,20 @@ var uiController = (function() {
             document.querySelector(UI_CONSTANTS.CURRENT_DATE).textContent = months[currentMonth] + ' ' + currentYear;
         },
 
+        changedType: function() {
+            var nodeListForm = document.querySelectorAll(
+                UI_CONSTANTS.INPUT_TYPE + ',' +
+                UI_CONSTANTS.INPUT_DESCRIPTION + ',' +
+                UI_CONSTANTS.INPUT_VALUE
+            );
+
+            nodeListForEach(nodeListForm, function(current) {
+                current.classList.toggle('red-focus')
+            })
+
+            document.querySelector(UI_CONSTANTS.ADD_BUTTON).classList.toggle('red');
+        },
+
         getUiConstants: function() {
             return UI_CONSTANTS;
         }
@@ -278,7 +292,8 @@ var appController = (function(budgetCtrl, uiCtrl) {
     var setupEventListeners = function() {
         var UI_CONSTANTS = uiCtrl.getUiConstants();
 
-        document.querySelector('.add__btn').addEventListener('click', addItemController);
+        document.querySelector(UI_CONSTANTS.INPUT_TYPE).addEventListener('change', uiCtrl.changedType);
+        document.querySelector(UI_CONSTANTS.ADD_BUTTON).addEventListener('click', addItemController);
         document.addEventListener('keypress', function(event) {
             if(event.keycode == 13 || event.which == 13) {
                 addItemController();
