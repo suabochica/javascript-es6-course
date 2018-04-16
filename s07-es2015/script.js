@@ -53,7 +53,7 @@ for(var i = 0; i < boxesArr5.length; i++) {
 // ES6
 
 var boxesArr6 = Array.from(boxesNodeList);
-
+/*
 for(const currentElement of boxesArr6) {
     if(currentElement.className === 'box blue') {
         continue;
@@ -62,3 +62,14 @@ for(const currentElement of boxesArr6) {
     currentElement.style.backgroundColor = 'dodgerblue';
     currentElement.textContent = 'I changed to blue'
 }
+*/
+
+// --------------------------------------------
+// The Spread Operator box examples
+// --------------------------------------------
+
+var header = document.querySelector('h1');
+var boxes = document.querySelectorAll('.box');
+var nodeListElements = [header, ...boxes];
+
+Array.from(nodeListElements).forEach(currentElement => currentElement.style.color = 'purple');
