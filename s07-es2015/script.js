@@ -1,4 +1,8 @@
-// ES6
+// --------------------------------------------
+// Arrow functions box examples
+// --------------------------------------------
+
+// ES5
 var box5 = {
     'color': 'green',
     'position': 1,
@@ -27,3 +31,34 @@ const box6 = {
 }
 
 box6.clickMe();
+
+// --------------------------------------------
+// Array features box examples
+// --------------------------------------------
+
+// ES5
+var boxesNodeList = document.querySelectorAll('.box');
+var boxesArr5 = Array.prototype.slice.call(boxesNodeList);
+/*
+for(var i = 0; i < boxesArr5.length; i++) {
+    if(boxesArr5[i].className === 'box blue') {
+        continue;
+    }
+
+    boxesArr5[i].style.backgroundColor = 'dodgerblue';
+    boxesArr5[i].textContent = 'I changed to blue';
+}
+*/
+
+// ES6
+
+var boxesArr6 = Array.from(boxesNodeList);
+
+for(const currentElement of boxesArr6) {
+    if(currentElement.className === 'box blue') {
+        continue;
+    }
+
+    currentElement.style.backgroundColor = 'dodgerblue';
+    currentElement.textContent = 'I changed to blue'
+}
