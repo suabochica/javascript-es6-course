@@ -39,3 +39,21 @@ first() // 1. Hey There 2. The end 3. Async Hey There
 ```
 
 An issue with the last code is that probably you expected that the `The end` message would print after `Async Hey There` message. We have this behavior thanks to how JavaScript works with asynchronous code, then its time to review how asynchronous JavaScript works behind the scenes.
+
+The tasks that we get with asynchronous code are:
+
+- Run functions in "background"
+- These functions are pass in a callback that runs once the function has finished its work
+- Move on immediately, Non-blocking!
+
+Understanding Asynchronous JavaScript: The Event Loop
+-----------------------------------------------------
+
+The next scheme illustrates the elements that are part of the JavaScript make up runtime:
+
+![JavaScript Make Up Runtime](https://cdn.scotch.io/4974/xCkAPcmuQNqQCGpO2avR_Event-loop.png.jpg)
+
+- **Execution Stack:** Explained in section five.
+- **Web APIs:** Live outside the JavaScript engine itself. Stuff like DOM manipulation methods, Set Timeout, AJAX, Geolocation, and Storage are Web APIs.
+- **Message Queue:**: Queue that determines which function will pass to the Execution Stack.
+- **Event Loop:** Mechanism that continuously monitors the Message Queue and the Execution Stack to push the first callback function in line onto the Execution Stack, as soon as the stack is empty. His job allow us asynchronous code in JavaScript.
