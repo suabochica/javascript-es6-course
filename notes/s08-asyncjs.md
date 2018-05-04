@@ -91,3 +91,74 @@ function getRecipe() {
 ```
 
 This code has three nested callbacks. The code is like having three chained AJAX calls to get some data from the server. Also, you can see that the code is getting a bit out of hand if you imagine that we had more and more chaining levels. Then we would have all these callbacks here inside one of another giving place to the **callback hell** in JavaScript. The triangular shape of the code is a sign of the callback hell, and the issue with this behavior is that gets unmanageable. For this reason in ES6 were introduced the **Promises**. With promises, we can avoid the callback hell, and have a cleaner syntax when using asynchronous JavaScript.
+
+From Callback Hell to Promises
+------------------------------
+
+To start let's answer the question *What is a Promise?*
+
+- A Promise is an object that keeps track of whether a particular event has happened already or not;
+- Determines what happens after the event has happened;
+- Implements the concept of a future value that we're expecting. It's like saying, hey, get me some data from the server in the background and the promise then promises us to get that data so that we can handle it in the future.
+- 
+A promise can have different states:
+
+- Pending
+- Settled/Resolved
+    - The promise was succesfully which means that a result is available -> Fulfilled
+    - The promise was an error -> Rejected
+
+The connection between the Pending and Settled/Resolved states is when the event happens. With this context we are ready to put the logic of the recipes handled with callbacks regarding promises:
+
+
+```javascript
+const getIds = new Promise((resolve, reject) => {
+    setTimeout(() => {
+       resolve([123, 456, 789, 147, 852]);
+    }, 1500);
+});
+
+const getRecipe = recipeId => {
+    return new Promise((resolve, reject) => {
+        setTimeout(id => {
+            const recipe = {
+                title: 'Fresh Tomato',
+                publisher: 'Edward'
+            }
+            
+            resolve(`${id}: ${recipe.title}`);
+        }, 1500, recipeId);
+    });
+}
+
+const getRelatedByPublisher = publisher => {
+    return new Promise((resolve, reject) => {
+        setTimeout(pubilser => {
+            const recipeTwo = {
+                title: 'Italian Pizza',
+                publisher: 'Edward'
+            }
+            
+            resolve(`${publisher}: ${recipeTwo.title}`);
+        }, 1500, publisher)
+    });
+}
+
+getIds
+.then( ids => {
+    console.log(ids)
+    return getRecipe(ids[2]);
+})
+.then(recipeId => {
+    console.log(recipeId);
+    return getRelatedByPublisher(`Edward`);
+})
+.then(recipeByPublisher => {
+    console.log(recipeByPublisher);
+})
+.catch(error => {
+    console.log('Error!')
+});
+```
+
+This code is more extended but is more maintainable. The key to avoiding the callback hell is returned a promise and chain it with the `.then()` method.

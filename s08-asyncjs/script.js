@@ -9,7 +9,7 @@ const first = () => {
     second();
     console.log('The end');
 }
-
+/*
 function getRecipe() {
     setTimeout(() => {
         const recipeId = [123, 456, 789, 147, 852]
@@ -36,3 +36,52 @@ function getRecipe() {
 }
 
 getRecipe();
+*/
+
+const getIds = new Promise((resolve, reject) => {
+    setTimeout(() => {
+       resolve([123, 456, 789, 147, 852]);
+    }, 1500);
+});
+
+const getRecipe = recipeId => {
+    return new Promise((resolve, reject) => {
+        setTimeout(id => {
+            const recipe = {
+                title: 'Fresh Tomato',
+                publisher: 'Edward'
+            }
+            
+            resolve(`${id}: ${recipe.title}`);
+        }, 1500, recipeId);
+    });
+}
+
+const getRelatedByPublisher = publisher => {
+    return new Promise((resolve, reject) => {
+        setTimeout(pubilser => {
+            const recipeTwo = {
+                title: 'Italian Pizza',
+                publisher: 'Edward'
+            }
+            
+            resolve(`${publisher}: ${recipeTwo.title}`);
+        }, 1500, publisher)
+    });
+}
+
+getIds
+.then( ids => {
+    console.log(ids)
+    return getRecipe(ids[2]);
+})
+.then(recipeId => {
+    console.log(recipeId);
+    return getRelatedByPublisher(`Edward`);
+})
+.then(recipeByPublisher => {
+    console.log(recipeByPublisher);
+})
+.catch(error => {
+    console.log('Error!')
+});
