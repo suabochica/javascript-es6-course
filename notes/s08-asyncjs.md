@@ -162,3 +162,68 @@ getIds
 ```
 
 This code is more extended but is more maintainable. The key to avoiding the callback hell is returned a promise and chain it with the `.then()` method.
+
+From Promises to Async/Await
+----------------------------
+
+Until this section, we learned how to construct and how to consume promises. The syntax to consume promises can still be confusing and difficult to manage. So, in ES2017/ES8 the **Async/Await** concept was introduced to the JavaScript to consume promises. Let's put our recipe logic regarding async/await:
+
+```javascript
+const getIds = new Promise((resolve, reject) => {
+    setTimeout(() => {
+       resolve([123, 456, 789, 147, 852]);
+    }, 1500);
+});
+
+const getRecipe = recipeId => {
+    return new Promise((resolve, reject) => {
+        setTimeout(id => {
+            const recipe = {
+                title: 'Fresh Tomato',
+                publisher: 'Edward'
+            }
+            
+            resolve(`${id}: ${recipe.title}`);
+        }, 1500, recipeId);
+    });
+}
+
+const getRelatedByPublisher = publisher => {
+    return new Promise((resolve, reject) => {
+        setTimeout(pubilser => {
+            const recipeTwo = {
+                title: 'Italian Pizza',
+                publisher: 'Edward'
+            }
+            
+            resolve(`${publisher}: ${recipeTwo.title}`);
+        }, 1500, publisher)
+    });
+}
+
+async function getRecipeAwait() {
+    const ids = await getIds;
+    console.log(ids);
+    
+    const recipe = await getRecipe(ids[1]);
+    console.log(recipe);
+    
+    const related = await getRelatedByPublisher('Edward')
+    console.log(related);
+    
+    return recipe;
+}
+
+getRecipeAwait()
+.then(result => {
+    console.log(`${result} is delicious!`)   
+});
+```
+
+Three essential things in the last code:
+
+1. The `async` keyword gives the property to run the function in the background;
+2. The `async` function returns a promise;
+3. Inside the `async` function we can have one or more `await` expression to consume promises.
+
+Async/Await makes it so much easier to work with promises thanks to the fact that it looks like the standard synchronous code

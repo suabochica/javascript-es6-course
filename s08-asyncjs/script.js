@@ -9,6 +9,7 @@ const first = () => {
     second();
     console.log('The end');
 }
+
 /*
 function getRecipe() {
     setTimeout(() => {
@@ -70,6 +71,7 @@ const getRelatedByPublisher = publisher => {
     });
 }
 
+/*
 getIds
 .then( ids => {
     console.log(ids)
@@ -84,4 +86,23 @@ getIds
 })
 .catch(error => {
     console.log('Error!')
+});
+*/
+
+async function getRecipeAwait() {
+    const ids = await getIds;
+    console.log(ids);
+    
+    const recipe = await getRecipe(ids[1]);
+    console.log(recipe);
+    
+    const related = await getRelatedByPublisher('Edward')
+    console.log(related);
+    
+    return recipe;
+}
+
+getRecipeAwait()
+.then(result => {
+    console.log(`${result} is delicious!`)   
 });
