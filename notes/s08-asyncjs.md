@@ -226,4 +226,14 @@ Three essential things in the last code:
 2. The `async` function returns a promise;
 3. Inside the `async` function we can have one or more `await` expression to consume promises.
 
-Async/Await makes it so much easier to work with promises thanks to the fact that it looks like the standard synchronous code
+Async/Await makes it so much easier to work with promises thanks to the fact that it looks like the standard synchronous code.
+
+AJAX and APIs
+-------------
+
+**AJAX** stands for Asynchronous JavaScript and XML and is a technology that allows us to communicate with remote servers through **HTTP** request asynchronously. In practice, there are many ways in which we can do AJAX in JavaScript. In this course, we are gonna look at the **Fetch Web API** to make some AJAX calls easily.
+
+**API** stands for Application Programming Interface, and at a high level, it is a piece of software that can be used by another piece of software to allow applications to talk to each other. The API concept is a general concept in programming. Now, let's distinguish between two types of APIs that you can use in JavaScript:
+
+- Your API, for data coming from your server;
+- Third Party APIs (Google Maps, Embed Youtube Videos, Weather Data, Movies Data, ...)
