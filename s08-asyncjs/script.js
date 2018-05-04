@@ -1,3 +1,4 @@
+/*
 const second = () => {
     setTimeout(() => {
         console.log('Async Hey There');
@@ -9,8 +10,8 @@ const first = () => {
     second();
     console.log('The end');
 }
+first()
 
-/*
 function getRecipe() {
     setTimeout(() => {
         const recipeId = [123, 456, 789, 147, 852]
@@ -35,9 +36,7 @@ function getRecipe() {
         }, 1500, recipeId[3]);
     }, 1500);
 }
-
 getRecipe();
-*/
 
 const getIds = new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -71,7 +70,7 @@ const getRelatedByPublisher = publisher => {
     });
 }
 
-/*
+
 getIds
 .then( ids => {
     console.log(ids)
@@ -87,7 +86,7 @@ getIds
 .catch(error => {
     console.log('Error!')
 });
-*/
+
 
 async function getRecipeAwait() {
     const ids = await getIds;
@@ -106,3 +105,23 @@ getRecipeAwait()
 .then(result => {
     console.log(`${result} is delicious!`)   
 });
+*/
+
+function getWeather(woeid) {
+    fetch(`https://crossorigin.me/https://www.metaweather.com/api/location/${woeid}/`)
+    .then(result => {
+        console.log(result);
+        return result.json();
+    })
+    .then(data =>{
+        const today = data.consolidated_weather[0];
+        
+        console.log(`Temperatures in ${data.title} stay between ${today.min_temp} and ${today.max_temp}`)
+    })
+    .catch(error => {
+       console.log(error); 
+    });
+}
+
+getWeather(2487956);
+getWeather(44418);

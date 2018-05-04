@@ -237,3 +237,36 @@ AJAX and APIs
 
 - Your API, for data coming from your server;
 - Third Party APIs (Google Maps, Embed Youtube Videos, Weather Data, Movies Data, ...)
+
+
+Making AJAX Calls with Fetch and Promises
+-----------------------------------------
+
+We will make an AJAX call to request weather data from [MetaWeather API](https://www.metaweather.com/api/) using a web API called [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). Generally, an API requires an API key, but this one is a straightforward one, and it doesn't require an API key. We will use the `location` service of the MetaWeather API that requires a `woeid` (where on earth id) for the next example:
+
+```javascript
+function getWeather(woeid) {
+    fetch(`https://crossorigin.me/https://www.metaweather.com/api/location/${woeid}/`)
+    .then(result => {
+        console.log(result);
+        return result.json();
+    })
+    .then(data =>{
+        const today = data.consolidated_weather[0];
+        
+        console.log(`Temperatures in ${data.title} stay between ${today.min_temp} and ${today.max_temp}`)
+    })
+    .catch(error => {
+       console.log(error); 
+    });
+}
+
+getWeather(2487956);
+getWeather(44418);
+```
+
+Every time you try to do an AJAX call you face the **No Access Control Allow Origin** errors. The reason for this error is the so-called **Same Origin Policy** in JavaScript, which prevents us from making AJAX request to a domain different than our own. Right now we don't have any domain, we're just opening the JavaScript file, and the domain we are requesting this resource is MetaWeather API. So because of this same origin policy, we cannot access this resource.
+
+To allow developers to request different domains you can use CORS that stands for **Cross-Origin Resource Sharing**. The CORS should be implemented by the API's developers, and unfortunately, the developers of MetaWeather skip this feature. Then the alternative is to proxy the request through their server to do the AJAX call and avoid the same origin policy. But this is another topic. For now, we can use a proxy called https://crossorigin.me/. This proxy is a service that allows us to access from other websites, without having to own that website. All we have to do is prefix our request URL with `https://crossorigin.me/.`
+
+The `fetch()` function returns a promise that retrieves the data from the URL passed as a parameter. This response is a JSON file. Is for that reason that we have to use the `json()` function to convert the JSON into a JavaScript Object. Now we this context we can apply the syntax of promises reviewed in couple section before.
