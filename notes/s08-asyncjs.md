@@ -1,3 +1,4 @@
+
 Asynchronous JavaScript: Promises, Async/Await, and AJAX
 ========================================================
 
@@ -270,3 +271,36 @@ Every time you try to do an AJAX call you face the **No Access Control Allow Ori
 To allow developers to request different domains you can use CORS that stands for **Cross-Origin Resource Sharing**. The CORS should be implemented by the API's developers, and unfortunately, the developers of MetaWeather skip this feature. Then the alternative is to proxy the request through their server to do the AJAX call and avoid the same origin policy. But this is another topic. For now, we can use a proxy called https://crossorigin.me/. This proxy is a service that allows us to access from other websites, without having to own that website. All we have to do is prefix our request URL with `https://crossorigin.me/.`
 
 The `fetch()` function returns a promise that retrieves the data from the URL passed as a parameter. This response is a JSON file. Is for that reason that we have to use the `json()` function to convert the JSON into a JavaScript Object. Now we this context we can apply the syntax of promises reviewed in couple section before.
+
+Making AJAX Calls with Fetch and Async/Await
+--------------------------------------------
+
+Now we can put the last code regarding Async/Await.
+
+```javascript
+async function getWeatherAwait(woeid) {
+    try {
+        const result = await fetch(`https://crossorigin.me/https://www.metaweather.com/api/location/${woeid}/`)
+        const data = await result.json();
+        const tomorrow = data.consolidated_weather[1];
+    
+        console.log(`Temperatures tomorrow in ${data.title} stay between ${tomorrow.min_temp} and ${tomorrow.max_temp}`)    
+        
+        return data;
+    } catch(error) {
+        alert(error); 
+    }
+}
+
+getWeatherAwait(2487956);
+
+let dataLondon;
+
+getWeatherAwait(44418)
+.then( data => {
+    dataLondon - data;
+    console.log(dataLondon);
+});
+```
+
+Here we are reviewing and applying the benefits of async/await. The code is written synchronously, by behind the scenes is running in the background, so the code its familiar to us. Also, remember that an async expression always returns a promise. It is for that reason that we have to resolve the promise with the data to store the data in the `dataLondon` variable. For another hand, you can see that to handle errors we use a `try/catch` scheme.
