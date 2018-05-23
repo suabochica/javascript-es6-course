@@ -166,7 +166,7 @@ function first() {
 
     function second() {
         // ↑ second() scope: [VO second] + [VO first] + [VO global]
-        var c = 'Hey!'';
+        var c = 'Hey!';
         console.log(a + b + c); //-> 'Hello!Hi!Hey!'
     }
 }
@@ -189,7 +189,7 @@ function first() {
 
     function second() {
         // ↑ second() scope: [VO second] + [VO first] + [VO global]
-        var c = 'Hey!'';
+        var c = 'Hey!';
         third(); //-> You can call the third() function because of scoping.
     }
 }
