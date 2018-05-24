@@ -19,7 +19,7 @@ Now, it is time to structure our code and to achieve that we can rely on **Modul
 - Modules keep the units of code for a project both cleanly separated and organized
 - Modules encapsulate data into privacy and expose other data publicly
 
-In summary, modules allow us to break up our code into logical parts and then make them interact with one another. 
+In summary, modules allow us to break up our code into logical parts and then make them interact with one another.
 
 
 Now let's identify which modules are in our project. An excellent way to determine modules is grouping the tasks by similarity. Looking at the tasks specified before, you can see that some of these tasks are related to the user interface and the others with the internal data manipulation. The next table group the modules with their respective tasks:
@@ -51,8 +51,8 @@ Keyboard Events
 Here are [keyboard events](https://developer.mozilla.org/en-US/docs/Web/Events) in the respective section. For this example, we will use the `keypress` event. When you check the prototype chain of `KeyboardEvent` object you get the next hierarchy:
 
 1. `KeyboardEvent`
-2. `UIEvent` 
-3. `Event` 
+2. `UIEvent`
+3. `Event`
 4. `Object`
 
 The `KeyboardEvent` offer us a huge quantity of properties and methods that we can use from the function constructors listed before. To specify an event according to a single key, you have to use the property `keycode` that belongs to the `KeyboardEvent`. You can check the [next reference](http://keycodes.atjayjo.com/) to get the keycodes of each key without open the `KeyboardEvent` in the browser console. Once limited the `keypress` event to a key, you have to call the function that will attend this event.
@@ -64,7 +64,7 @@ HTML offers us different input types: text, number, password, button, etc. So, J
 
 ```javascript
 document.querySelector('{css-selector-notation}').value;
-``` 
+```
 
 Group all the staging DOM selectors in our application into an object, and access them through this object is a common practice in big projects. The `UI_CONSTANS` variable in the `app.js` file is the object that group all the selectors in staging for our application and also show us how you can use it.
 
@@ -213,7 +213,7 @@ Array methods that allow us to achieve the delete of an element in our `data` ob
 Deleting an Item from the UI
 ----------------------------
 
-All the stuff related to UI relies on DOM Manipulation. To remove a node, we have the method `removeChild(element)`. As you can read, you have to locate the parent node to remove a child. This way is naturally weird but is how JavaScript works to remove elements in the DOM. 
+All the stuff related to UI relies on DOM Manipulation. To remove a node, we have the method `removeChild(element)`. As you can read, you have to locate the parent node to remove a child. This way is naturally weird but is how JavaScript works to remove elements in the DOM.
 
 You can look at the next guide to check [common actions in DOM manipulation](blog.garstasio.com/you-dont-need-jquery/dom-manipulation)
 
@@ -252,7 +252,7 @@ Our desired format number is the next one:
 - If the number is an expense: -20,500.15
 
 The `,` will indicate if our integer part have thousands and the `.` will show the decimal part of our number budget. To achieve our expected format we have to use different `String` methods to manipulate strings. The `formatNumber()` logic is a private responsibility of out UI controller. After defining the `formatNumber()` code, we have to call in the places of the UI controller that render the budget numbers.
-    
+
 Displaying Current Date
 -----------------------
 
