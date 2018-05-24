@@ -69,21 +69,21 @@ function getRecipe() {
     setTimeout(() => {
         const recipeId = [123, 456, 789, 147, 852]
         console.log(recipeId);
-        
+
         setTimeout(id => {
             const recipe = {
                 title: 'Fresh Tomato',
                 publisher: 'Edward'
             }
-            
+
             console.log(`${id}: ${recipe.title}`);
-            
+
             setTimeout(publisher => {
                 const recipeTwo = {
                     title: 'Italian Pizza',
                     publisher: 'Edward'
                 }
-                
+
                 console.log(recipe);
             }, 1500, recipe.publisher);
         }, 1500, recipeId[3]);
@@ -101,7 +101,7 @@ To start let's answer the question *What is a Promise?*
 - A Promise is an object that keeps track of whether a particular event has happened already or not;
 - Determines what happens after the event has happened;
 - Implements the concept of a future value that we're expecting. It's like saying, hey, get me some data from the server in the background and the promise then promises us to get that data so that we can handle it in the future.
-- 
+
 A promise can have different states:
 
 - Pending
@@ -115,7 +115,7 @@ The connection between the Pending and Settled/Resolved states is when the event
 ```javascript
 const getIds = new Promise((resolve, reject) => {
     setTimeout(() => {
-       resolve([123, 456, 789, 147, 852]);
+        resolve([123, 456, 789, 147, 852]);
     }, 1500);
 });
 
@@ -126,7 +126,7 @@ const getRecipe = recipeId => {
                 title: 'Fresh Tomato',
                 publisher: 'Edward'
             }
-            
+
             resolve(`${id}: ${recipe.title}`);
         }, 1500, recipeId);
     });
@@ -139,7 +139,7 @@ const getRelatedByPublisher = publisher => {
                 title: 'Italian Pizza',
                 publisher: 'Edward'
             }
-            
+
             resolve(`${publisher}: ${recipeTwo.title}`);
         }, 1500, publisher)
     });
@@ -172,7 +172,7 @@ Until this section, we learned how to construct and how to consume promises. The
 ```javascript
 const getIds = new Promise((resolve, reject) => {
     setTimeout(() => {
-       resolve([123, 456, 789, 147, 852]);
+        resolve([123, 456, 789, 147, 852]);
     }, 1500);
 });
 
@@ -183,7 +183,7 @@ const getRecipe = recipeId => {
                 title: 'Fresh Tomato',
                 publisher: 'Edward'
             }
-            
+
             resolve(`${id}: ${recipe.title}`);
         }, 1500, recipeId);
     });
@@ -196,7 +196,7 @@ const getRelatedByPublisher = publisher => {
                 title: 'Italian Pizza',
                 publisher: 'Edward'
             }
-            
+
             resolve(`${publisher}: ${recipeTwo.title}`);
         }, 1500, publisher)
     });
@@ -205,19 +205,19 @@ const getRelatedByPublisher = publisher => {
 async function getRecipeAwait() {
     const ids = await getIds;
     console.log(ids);
-    
+
     const recipe = await getRecipe(ids[1]);
     console.log(recipe);
-    
+
     const related = await getRelatedByPublisher('Edward')
     console.log(related);
-    
+
     return recipe;
 }
 
 getRecipeAwait()
 .then(result => {
-    console.log(`${result} is delicious!`)   
+    console.log(`${result} is delicious!`)
 });
 ```
 
@@ -254,11 +254,11 @@ function getWeather(woeid) {
     })
     .then(data =>{
         const today = data.consolidated_weather[0];
-        
+
         console.log(`Temperatures in ${data.title} stay between ${today.min_temp} and ${today.max_temp}`)
     })
     .catch(error => {
-       console.log(error); 
+        console.log(error);
     });
 }
 
@@ -283,12 +283,12 @@ async function getWeatherAwait(woeid) {
         const result = await fetch(`https://crossorigin.me/https://www.metaweather.com/api/location/${woeid}/`)
         const data = await result.json();
         const tomorrow = data.consolidated_weather[1];
-    
-        console.log(`Temperatures tomorrow in ${data.title} stay between ${tomorrow.min_temp} and ${tomorrow.max_temp}`)    
-        
+
+        console.log(`Temperatures tomorrow in ${data.title} stay between ${tomorrow.min_temp} and ${tomorrow.max_temp}`)
+
         return data;
     } catch(error) {
-        alert(error); 
+        alert(error);
     }
 }
 
