@@ -58,3 +58,51 @@ To install a package globally we omit the --save argument in our command
 All thes installation will registered in the `package.json` files. Finally to remove a package run the next command:
 
     npm uninstall --save jquery
+
+### Configuring webpack
+To start with a webpack configuration, you should create a `webpack.config.js` file. In this file, we will define the tasks associated with webpack. As we described before, in _Forkify_ we will work with bundle ES6 modules through webpack. The next code represents the setup to export modules with webpack:
+
+```js
+const path = require('path');
+
+module.exports = {
+    entry: './src/js/index.js',
+    output: {
+        path: path.resolve(__dirname, 'dist/js'),
+        filename: 'bundle.js'
+    }
+}
+```
+
+For the above code, it is important to highlight that in webpack are essential four concepts:
+
+- Entry point
+- Output
+- Loaders
+- Plugins
+
+In this example, we will handle the _entry point_ and the _output_ concepts. The `entry` property of the webpack configuration object is the path of the file (or files) where webpack will start the bundling. The `output` property will tell webpack where to save our bundled file. Then we have to specify an output object with the  `path` and `filename` properties to the boundled file.
+
+The `path` property of the `output` object needs an absolute path that is retrieved with a built-in node package called `path`. The `resolve()` method of this package allow us the access to absolute paths through the variable `__dirname`. Then we can join our destiny path adding the `dist/js` folder as the second argument of the `resolve` method.
+
+After webpack v4, the package counts with two modes: _development_ and _production_. Development mode builds our bundled without minifying our code to be as fast as possible. For another side, production mode will automatically enable all kinds of optimization, like minification and tree shaking to reduce the final bundle size. These modes can be handled with **NPM scripts**.
+
+To add an NPM script, we have to use the `scripts` property in our `package.json` file. To enable the webpack commands, we have to install the `webpack-cli` package as a dev dependency: we have to install the `webpack-cli` package as a dev dependency:
+
+    npm i --save-dev webpack-cli
+
+Then, we can configure our script like:
+
+```js
+"scripts": {
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
+},
+```
+
+Finally, to run these script we use the next commands
+
+    npm run dev // to run development mode
+    npm run build // to run production mode
+
+Now, would it will be nice to run these script series just once instead of to run it every time that we add changes. To solve this behavior, we can add the `webpack-dev-server` package.

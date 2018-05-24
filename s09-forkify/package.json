@@ -4,11 +4,13 @@
   "description": "Forkify project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
   },
   "author": "Sergio L. Benítez D.",
   "license": "ISC",
   "devDependencies": {
-    "webpack": "^4.8.3"
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.4"
   }
 }
