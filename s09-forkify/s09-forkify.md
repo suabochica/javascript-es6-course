@@ -68,8 +68,8 @@ const path = require('path');
 module.exports = {
     entry: './src/js/index.js',
     output: {
-        path: path.resolve(__dirname, 'dist/js'),
-        filename: 'bundle.js'
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'js/bundle.js'
     }
 }
 ```
@@ -106,3 +106,53 @@ Finally, to run these script we use the next commands
     npm run build // to run production mode
 
 Now, would it will be nice to run these script series just once instead of to run it every time that we add changes. To solve this behavior, we can add the `webpack-dev-server` package.
+
+    npm i --save-dev webpack-dev-server
+
+After install the `webpack-dev-server` package we have to add a `devServer` property in the `webpack.config.js`:
+
+```js
+...
+module.exports = {
+    ...
+    devServer: {
+        contentBase: './dist'
+    }
+}
+```
+
+The `devServer` property recieve an object with a `contentBase` property whose value is the path that we want to deploy in our HTTP server (In this case  the `./dist` folder). Next we have to add new script in our `package.json`.
+
+```js
+"scripts": {
+    ...
+    "start": "webpack-dev-server --mode development --open"
+},
+```
+
+The `start` script use the `webpack-dev-server` in mode development and the `--open` is an option that open the browser after run the command. To use it, you have to run the next command:
+
+    npm run start
+
+Now, it is time to go back to one of the four fundamental concepts of webpack: _plugins_. Plugins allow us to do complex processing of our input files. We will use the `index.html` file as an example. Our goal is to copy the `index.html` file of our `/src` folder in the `/dist` folder. To get this, we have to use a plugin called `html-webpack-plugin` that is installed as an NPM package:
+
+    npm i --save-dev html-webpack-plugin
+
+Afterward, we have to add the `plugin` property to our `webpack.config.js`. Also, we have to import the `HtmlWebpackPlugin` module to create an object from this constructor. Next, you can check the `html-webpack-plugin` code setup:
+
+```js
+....
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+    ...
+    plugins: [
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: './src/index.html'
+        })
+    ]
+}
+```
+
+With this code, the plugin and the web server will put our source `.html` file specified in the value of the `template` property in the `/dist` folder with their respective `filename` value.
