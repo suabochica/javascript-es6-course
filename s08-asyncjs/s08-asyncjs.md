@@ -247,7 +247,9 @@ We will make an AJAX call to request weather data from [MetaWeather API](https:/
 
 ```javascript
 function getWeather(woeid) {
-    fetch(`https://crossorigin.me/https://www.metaweather.com/api/location/${woeid}/`)
+    const proxy = 'https://cors-anywhere.herokuapp.com/';
+
+    fetch(`${proxy}https://www.metaweather.com/api/location/${woeid}/`)
     .then(result => {
         console.log(result);
         return result.json();
@@ -280,7 +282,8 @@ Now we can put the last code regarding Async/Await.
 ```javascript
 async function getWeatherAwait(woeid) {
     try {
-        const result = await fetch(`https://crossorigin.me/https://www.metaweather.com/api/location/${woeid}/`)
+        const proxy = 'https://cors-anywhere.herokuapp.com/';
+        const result = await fetch(`${proxy}https://www.metaweather.com/api/location/${woeid}/`)
         const data = await result.json();
         const tomorrow = data.consolidated_weather[1];
 

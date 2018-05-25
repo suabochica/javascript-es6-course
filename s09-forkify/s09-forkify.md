@@ -277,3 +277,34 @@ console.log(`${xFile.multuply(2, 6)}`) //-> 12
 ```
 
 Here, we access to the functions through the `xFile` object created at the moment of import the variables from `x.js`
+
+API Calls
+---------
+
+To the _Forkify_ project we will consume the [RecipeAPI](http://food2fork.com/about/api) of Food2Fork. Please, sign up with the free plan to get an API Key. The API key is required to access to the services exposed by the RecipeAPI.
+
+In this project we will use the [`axios`](https://github.com/axios/axios) npm package to do our Ajax calls. Axios is a Promise based HTTP client for browsers and will replace the `fetch()` method of JavaScript. The reason why we will use `axios` instead of `fetch()` is because `fetch()` is not supported in old browser. So, install the `axios` package running:
+
+    npm i --save axios
+
+The `axios` package have an `axios()` method that is similar to the `fetch()` method of JavaScript. The difference is that `axios()` method returns the Ajax's response in `.json` format saving for us this step. The next snippet shows how to use the `axios()` method:
+
+```js
+import axios from 'axios';
+
+async function getRecipes(query) {
+    const key = '3c363f9f897b423356b66cc2539c0bac';
+    const proxy = 'https://cors-anywhere.herokuapp.com/';
+
+    try {
+        const response = await axios(`${proxy}http://food2fork.com/api/search?key=${key}&q=${query}`);
+        const recipes = response.data.recipes;
+
+        console.log(recipes)
+    } catch (error) {
+        alert(error);
+    }
+}
+
+getRecipes('lasagna');
+```

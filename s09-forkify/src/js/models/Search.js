@@ -1,1 +1,1 @@
-export default 'Be strong Barrington'
+// Search model

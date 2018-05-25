@@ -1,9 +1,17 @@
-// Global app controller
-import string from './models/Search'
-import { add, multiply, num } from './views/searchView'
+import axios from 'axios';
 
-const x = 21;
+async function getRecipes(query) {
+    const key = '3c363f9f897b423356b66cc2539c0bac';
+    const proxy = 'https://cors-anywhere.herokuapp.com/';
 
-console.log(`this ${num} was imported from test.js`)
-console.log(`The x variable with the value of ${x} use the const keyword of ES6. This is a test that prove that bable is transpiled the code`)
-console.log(`Using imported functions: ${add(num, x)} and ${multiply(x, 2)}, ${string}`);
+    try {
+        const response = await axios(`${proxy}http://food2fork.com/api/search?key=${key}&q=${query}`);
+        const recipes = response.data.recipes;
+
+        console.log(recipes)
+    } catch (error) {
+        alert(error);
+    }
+}
+
+getRecipes('lasagna');
