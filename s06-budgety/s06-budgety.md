@@ -21,7 +21,6 @@ Now, it is time to structure our code and to achieve that we can rely on **Modul
 
 In summary, modules allow us to break up our code into logical parts and then make them interact with one another.
 
-
 Now let's identify which modules are in our project. An excellent way to determine modules is grouping the tasks by similarity. Looking at the tasks specified before, you can see that some of these tasks are related to the user interface and the others with the internal data manipulation. The next table group the modules with their respective tasks:
 
 |**UI Module**              |**Data Module**                        |**Controller Module**  |

@@ -221,3 +221,59 @@ Now, exist a lot of ways of implementing MVC pattern. In this project, we are go
 | Concern about app's logic |                                       |                                                  |
 
 In the table, each column is a module. So, in the `Controller` we will have an `index.js` file, and it will work as a bridge between the `Model` and the `View`. With ES6 we can have a model and a view for each of the different aspects of the app. Notice that the Model and the View never have to communicate with them. We can have multiple controllers, but have a global controller provides more natural management of the MVC pattern.
+
+How ES6 Modules Works
+---------------------
+
+To use ES6 modules we have to get familiar with two keywords `export` and `import`. The next snippet shows _defalut export_ used when you will export only one thing from a module:
+
+```js
+//from x.js file
+export default 'Any string'
+
+// in y.js file
+import str from 'path/to/x'
+console.log(`${str}`) //-> 'Any String'
+```
+
+Now, let's check _Named Exports_. Named Exports are used when you will export multiple things from the same module.
+
+```js
+
+//from x.js file
+export const add = (a, b) => (a + b);
+export const multiply = (a, b) => (a * b);
+
+// in y.js file
+import { add, multiply } from 'path/to/x'
+console.log(`${add(2, 6)}`) //-> 8
+console.log(`${multiply(2, 6)}`) //-> 12
+```
+
+Notice that the `import` file should match the variables names in the `export` file. That is why is called named exports. We can customize these names in the `import` file with the following syntax:
+
+```js
+//from x.js file
+export const add = (a, b) => (a + b);
+export const multiply = (a, b) => (a * b);
+
+// in y.js file
+import { add as a, multiply as m } from 'path/to/x'
+console.log(`${a(2, 6)}`) //-> 8
+console.log(`${m(2, 6)}`) //-> 12
+```
+
+Finally, we have the _Import All_ syntax.
+
+```js
+//from x.js file
+export const add = (a, b) => (a + b);
+export const multiply = (a, b) => (a * b);
+
+// in y.js file
+import * as xFile from 'path/to/x'
+console.log(`${xFile.add(2, 6)}`) //-> 8
+console.log(`${xFile.multuply(2, 6)}`) //-> 12
+```
+
+Here, we access to the functions through the `xFile` object created at the moment of import the variables from `x.js`
