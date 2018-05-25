@@ -164,13 +164,13 @@ To install and setup [Babel](https://babeljs.io/) we have to follow the next thr
 
 1. Install this set of packages
     - `babel-core`: self-explanatory
-    - `babel-preset-env`: package that compiles ES6+ down to ES5 by automatically determining the Babel plugnis and polyfills you need on your runtime environments
+    - `babel-preset-env`: a package that compiles ES6+ down to ES5 by automatically determining the Babel plugins and polyfills you need on your runtime environments
     - `babel-loader`: loader required by webpack to use babel
-    - `babel-polyfill`: Package thas supports the new ES6 features (as Promises) in browsers
-2. The `babel-preset-env` requires a configuration file. Then we have to setup the `.babelrc` file
-3. Include the `babel-polyfill` to suppor features that we cannot convert with babel loaders
+    - `babel-polyfill`: Package that supports the new ES6 features (as Promises) in browsers
+2. The `babel-preset-env` requires a configuration file. Then we have to set up the `.babelrc` file
+3. Include the `babel-polyfill` to support features that we cannot convert with babel loaders
 
-As you can see in the above list we talk about `babel-loader`. With this package we fall into the last concept in webpack: _loaders_. Loaders allow us to load all kinds of different files to process them. With loaders we can converting SASS to CSS code or traspile ES6 to ES5 JavaScript.
+As you can see in the above list, we talk about `babel-loader`. With this package, we fall into the last concept in webpack: _loaders_. Loaders allow us to load all kinds of different files to process them. With loaders, we can convert SASS to CSS code or transpile ES6 to ES5 JavaScript.
 
 To configure loaders in the `webpack.config.js` we have to respect the next structure:
 
@@ -188,9 +188,9 @@ module: {
 ...
 ```
 
-Notice that we use regular expressions the set the values of the `test` and `exclude` properties. Finally, in the `loader` property we put as value the `bable-loader` package.
+Notice that we use regular expressions the set the values of the `test` and `exclude` properties. Finally, in the `loader` property we put as value the `babel-loader` package.
 
-Alike the `webpack.config.js` file the `.babelrc` file receive a combination of key-values to setup the runenvironment where babel will do his work. A basic configuration of this file is:
+Alike the `webpack.config.js` file the `.babelrc` file receive a combination of key-values to set up the run environment where babel will do his work. A basic configuration of this file is:
 
 ```json
 {
@@ -198,4 +198,26 @@ Alike the `webpack.config.js` file the `.babelrc` file receive a combination of 
 }
 ```
 
-After that configuration, we run our `dev` script and we can see how babel traspile our ES6 in our `.js` files inside `/src` in ES5 code in the `bundle.js` file generated to the `/dist` folder.
+After that configuration, we run our `dev` script, and we can see how babel transpile our ES6 in our `.js` files inside `/src` in ES5 code in the `bundle.js` file generated to the `/dist` folder.
+
+Planning our Project Architecture with MVC
+------------------------------------------
+
+Thinking about architecture is fundamental to starting any new project. No matter if it is a Vanilla JavaScript project, a React application or whatever you are using, the best way to start a project in planning his architecture.
+
+In _Forkify_ we are going to use the well known *Model-View-Controller (MVC)* architecture. The main advantage of MVC is that decouples the presentation logic from the application logic with a controller between them that controls the entire app.
+
+In this case, we will use the **ES6 modules** instead of the **Module Pattern** to structure our architecture. With ES6 modules we will have the best approach to the separation of concerns in JavaScript.
+
+Now, exist a lot of ways of implementing MVC pattern. In this project, we are going to apply it straightforwardly. So let's check the context of the _Forkify_ app.
+
+| **Model**                 | **Controller**                        | **View**                                         |
+|---------------------------|---------------------------------------|--------------------------------------------------|
+| `Search.js`               | `index.js`                            | `searchView.js`                                  |
+| `Recipe.js`               |                                       | `recipeView.js`                                  |
+| `List.js`                 |                                       | `listView.js`                                    |
+| `Likes.js`                |                                       | `likesView.js`                                   |
+| Concern about data        | Controls all the communication issues | Gets and display data from to the user interface |
+| Concern about app's logic |                                       |                                                  |
+
+In the table, each column is a module. So, in the `Controller` we will have an `index.js` file, and it will work as a bridge between the `Model` and the `View`. With ES6 we can have a model and a view for each of the different aspects of the app. Notice that the Model and the View never have to communicate with them. We can have multiple controllers, but have a global controller provides more natural management of the MVC pattern.
