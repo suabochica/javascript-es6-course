@@ -299,7 +299,7 @@ var appController = (function(budgetCtrl, uiCtrl) {
                 addItemController();
             }
         });
-        
+
         document.querySelector(UI_CONSTANTS.INCS_AND_EXPS_CONTAINER).addEventListener('click', deleteItemController)
     };
 
