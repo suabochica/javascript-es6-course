@@ -156,3 +156,46 @@ module.exports = {
 ```
 
 With this code, the plugin and the web server will put our source `.html` file specified in the value of the `template` property in the `/dist` folder with their respective `filename` value.
+
+Bable Setup
+-----------
+
+To install and setup [Babel](https://babeljs.io/) we have to follow the next three steps:
+
+1. Install this set of packages
+    - `babel-core`: self-explanatory
+    - `babel-preset-env`: package that compiles ES6+ down to ES5 by automatically determining the Babel plugnis and polyfills you need on your runtime environments
+    - `babel-loader`: loader required by webpack to use babel
+    - `babel-polyfill`: Package thas supports the new ES6 features (as Promises) in browsers
+2. The `babel-preset-env` requires a configuration file. Then we have to setup the `.babelrc` file
+3. Include the `babel-polyfill` to suppor features that we cannot convert with babel loaders
+
+As you can see in the above list we talk about `babel-loader`. With this package we fall into the last concept in webpack: _loaders_. Loaders allow us to load all kinds of different files to process them. With loaders we can converting SASS to CSS code or traspile ES6 to ES5 JavaScript.
+
+To configure loaders in the `webpack.config.js` we have to respect the next structure:
+
+```js
+...
+module: {
+    rules: [{
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+            loader: 'babel-loader'
+        }
+    }]
+}
+...
+```
+
+Notice that we use regular expressions the set the values of the `test` and `exclude` properties. Finally, in the `loader` property we put as value the `bable-loader` package.
+
+Alike the `webpack.config.js` file the `.babelrc` file receive a combination of key-values to setup the runenvironment where babel will do his work. A basic configuration of this file is:
+
+```json
+{
+    "presets": ["env"]
+}
+```
+
+After that configuration, we run our `dev` script and we can see how babel traspile our ES6 in our `.js` files inside `/src` in ES5 code in the `bundle.js` file generated to the `/dist` folder.
