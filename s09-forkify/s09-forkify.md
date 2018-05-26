@@ -308,3 +308,16 @@ async function getRecipes(query) {
 
 getRecipes('lasagna');
 ```
+
+Building the Search Model
+-------------------------
+
+With the `Search` model we will learn how to build a simple data model using _ES6 Classes_. The ES6 class will describe the data model for the search. The data for the search is a `query`. After getting this query, the search will retrieve results related to the query.
+
+In the Search model, the only thing that we will export from the module will be the `Search` class. Then, we will use the _export default_ mode.
+
+Remember that the first thing that we have to define in a class is the `constructor()` method. The constructor will be called as soon as we create the object based on this class. In the constructor, we pass the properties that we want the new object to have. In the `Search` model, we want to have a query, so we should add it to his constructor method.
+
+The second point to handle in our `Search` model is getting the result related to the query. Then we create a `getRecipes()` method inside our `Search` model, responsible for doing the Ajax call to retrieve the result from the RecipesAPI.
+
+Finally, we have to import this model into our global controlled hosted in the `index.js` file. There, we instantiate a new object of the `Search` model class with their respective query argument, and later we use his respective `getRecipes()` method to retrieve our results.
