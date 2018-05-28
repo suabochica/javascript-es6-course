@@ -347,3 +347,38 @@ document.querySelector('.search').addEventListener('submit', (event) => {
 });
 ```
 In our callback function, we add the `preventDefault()` to avoid that the page will be reloaded after submitting the form. Finally, we call the `controlSearch` function. This function will retrieve the query from the view and with this information will instantiate the `Search` model. Also, will handle the logic to send the recipes to the view after getting the results of the `getRecipes()` promise of the `Search` model.
+
+Building the Search View
+------------------------
+
+In the search view we will review three points:
+
+1. Advanced DOM manipulation techniques.
+2. How to use ES6 template strings to render entire HTML components. (Yeah!)
+3. How to create a loading spinner.
+
+About the first point, we will create a `.js` the file where we will store all the DOM elements that are on stage in our app. This file will be accessible from the views and the controller to execute our DOM manipulations. In our project, this file is `DOMElemnts.js`.
+
+Regarding the use of ES6 template strings, now our markup injected from JavaScript will be more legible. Before we save our markup in an illegible variable, but with template strings, we have the next code:
+
+```js
+const renderRecipe = (recipe) => {
+    const markup = `
+        <li>
+            <a class="results__link" href="#${recipe.recipe_id}">
+                <figure class="results__fig">
+                    <img src="${recipe.image_url}" alt="${recipe.title}">
+                </figure>
+                <div class="results__data">
+                    <h4 class="results__name">${recipe.title}</h4>
+                    <p class="results__author">${recipe.publisher}</p>
+                </div>
+            </a>
+        </li>
+    `;
+
+    DOMElements.searchResultsList.insertAdjacentHTML('beforeend', markup);
+}
+```
+
+Looks similar to the `JSX` in React. Now our markup inserted from JavaScript is easier to read.
