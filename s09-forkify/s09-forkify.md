@@ -321,3 +321,29 @@ Remember that the first thing that we have to define in a class is the `construc
 The second point to handle in our `Search` model is getting the result related to the query. Then we create a `getRecipes()` method inside our `Search` model, responsible for doing the Ajax call to retrieve the result from the RecipesAPI.
 
 Finally, we have to import this model into our global controlled hosted in the `index.js` file. There, we instantiate a new object of the `Search` model class with their respective query argument, and later we use his respective `getRecipes()` method to retrieve our results.
+
+Building the Search Controller
+------------------------------
+
+Before to start with the search controller, we have to go deep with the concept of **Application State**. The state is all the data that defines our app in a given moment of our app. In the _Forkify_ app the state is related to:
+
+- What happens with the current search query?
+- What is the current recipe?
+- What is currently on the shopping list?
+- How many serving are presently being calculated?
+
+So, all these data is the current state at the present moment in the app. Therefore, we want to have all the data in one central place like an object. To get this purpose, we define an empty object in our `index.js` file;
+
+```js
+const state = {};
+```
+
+To add the content related to the search in the `state` varaible, first we're gonna to add an event listener for the search forum on the `submit` event:
+
+```js
+document.querySelector('.search').addEventListener('submit', (event) => {
+    event.preventDefault();
+    controlSearch();
+});
+```
+In our callback function, we add the `preventDefault()` to avoid that the page will be reloaded after submitting the form. Finally, we call the `controlSearch` function. This function will retrieve the query from the view and with this information will instantiate the `Search` model. Also, will handle the logic to send the recipes to the view after getting the results of the `getRecipes()` promise of the `Search` model.
