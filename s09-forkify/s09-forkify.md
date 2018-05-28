@@ -382,3 +382,43 @@ const renderRecipe = (recipe) => {
 ```
 
 Looks similar to the `JSX` in React. Now our markup inserted from JavaScript is easier to read.
+
+Now, we will explain an algorithm to show the recipe's title in just one line. The critical point in this algorithm is the use of the Array's object `reduce()` method. Our method will handle the next context:
+
+    limit: 17
+    shortTile: []
+    title: Pasta with tomato and spinach
+    title to show: Pasta with tomato ...
+
+    Iterations
+    ----------
+    accumulator: 0 / accumulator + currentWord.length = 5 / shortTitle = ['Pasta']
+    accumulator: 5 / accumulator + currentWord.length = 9 / shortTitle = ['Pasta', 'with']
+    accumulator: 9 / accumulator + currentWord.length = 15 / shortTitle = ['Pasta', 'with', 'tomato']
+    *accumulator: 15 / accumulator + currentWord.length = 18 / shortTitle = ['Pasta', 'with', 'tomato', 'and']
+    accumulator: 18 / accumulator + currentWord.length = 25 / shortTitle = ['Pasta', 'with', 'tomato', 'and', 'spinach']
+
+    * point where the condition happens
+
+The next snippet handles the described context:
+
+```js
+const limitRecipeTitle = (title, limit = 17 => {
+    const shortTitle = [];
+
+    if (title.length > limit) {
+        title.split(' ').reduce((accumulator, currentWord) => {
+            if (accumulator + currentWord.length <= limit) {
+                shortTitle.push(currentWord);
+            }
+
+            return accumulator + currentWord.length
+        }, 0)
+
+        return `${shortTitle.join(' ')} ...`;
+    }
+
+    return title;
+}
+```
+Finally, to show the recipe's title short version we have to call this method with the `recipe.title` as a parameter.
