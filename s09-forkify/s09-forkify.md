@@ -383,6 +383,8 @@ const renderRecipe = (recipe) => {
 
 Looks similar to the `JSX` in React. Now our markup inserted from JavaScript is easier to read.
 
+### Short Recipe's Title
+
 Now, we will explain an algorithm to show the recipe's title in just one line. The critical point in this algorithm is the use of the Array's object `reduce()` method. Our method will handle the next context:
 
     limit: 17
@@ -422,3 +424,11 @@ const limitRecipeTitle = (title, limit = 17 => {
 }
 ```
 Finally, to show the recipe's title short version we have to call this method with the `recipe.title` as a parameter.
+
+### Loader Spinner
+
+The loader spinner will be used in different panels of _Forkify_. It is for that reason that we will put the logic to render and clear the spinner in the `DOMElements.js` file instead of the `searchView.js`.
+
+For add the spinner we have to identify a parent element and use the `insertAdjacentHTML` to insert the markup that will render the spinner. The spinner in this project is a `<svg>` element, and it is animated with CSS animations. In the same way, to remove the spinner, first we have to guarantee that the loader's markup exists and then use the weird logic to remove markup:
+
+    {elementToRemove}.parentElement.removeChild(elementToRemover)
