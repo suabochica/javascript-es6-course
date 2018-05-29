@@ -507,3 +507,32 @@ Building the Recipe Model
 -------------------------
 
 In our `Recipe` model we can follow the same step applied to our `Search` model. The difference is the service API that we will consume for this model. Again, we create our `Recipe` model from the data that will receive in the response of the Ajax call.
+
+Building the Recipe Controller
+------------------------------
+
+To build our Recipe controller we need:
+
+- Read data from the page URL.
+- Respond to the `hashchange` event.
+- Add the same event listener to multiple events.
+
+
+To read data from a URL, we have to interact with the `Location` interface that represents the location (URL) of the object it is linked to. This interface is accessible from the `Window.location` Object. The `Window.location` object has the information about the current location of the document.
+
+In our case, the recipe id has the next form: `#35107`. This recipe is attached to the URL in the `renderRecipe()` method of the `searchView.js`. Then we can use the location object's `hash` (#) property to retrieve our recipe id.
+
+    window.location.hash //->#35107
+
+This property has an associated event: `hashchange`. So, every time that the hash value changes, the event is triggered. Therefore, we can add an event listener to the `window` object expecting the `hashchange` event and pass as callback the `controlRecipe()` method.
+
+    window.addEventListener('hashchange', controlRecipe);
+
+Finally, to add multiple events to the same event listener we change this snippet:
+
+    window.addEventListener('hashchange', controlRecipe);
+    window.addEventListener('load', controlRecipe);
+
+to:
+
+    ['hashchange', 'load'].forEach((event) => window.addEventListener(event, controlRecipe));

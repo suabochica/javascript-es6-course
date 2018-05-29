@@ -18,7 +18,7 @@ const limitRecipeTitle = (title, limit = 18) => {
     return title;
 }
 
-const renderRecipe = (recipe) => {
+const renderSearchResult = (recipe) => {
     const markup = `
         <li>
             <a class="results__link" href="#${recipe.recipe_id}">
@@ -53,7 +53,7 @@ export const clearQueryInput = () => {
     DOMElements.searchInputQuery.value = '';
 }
 
-export const clearRecipes = () => {
+export const clearSearchResults = () => {
     DOMElements.searchResultsList.innerHTML = '';
 }
 
@@ -79,10 +79,10 @@ export const renderPaginationButtons = (page, numResults, resultsPerPage) => {
     DOMElements.searchPagination.insertAdjacentHTML('afterbegin', buttonMarkup);
 }
 
-export const renderRecipes = (recipes, page = 1, resultsPerPage = 10) => {
+export const renderSearchResults = (recipes, page = 1, resultsPerPage = 10) => {
     const firstRecipe = (page - 1) * resultsPerPage;
     const lastRecipe = page * resultsPerPage;
 
-    recipes.slice(firstRecipe, lastRecipe).forEach(renderRecipe);
+    recipes.slice(firstRecipe, lastRecipe).forEach(renderSearchResult);
     renderPaginationButtons(page, recipes.length, resultsPerPage);
 }
