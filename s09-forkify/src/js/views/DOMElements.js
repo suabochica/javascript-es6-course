@@ -2,11 +2,13 @@ export const DOMElements = {
     searchForm: document.querySelector('.search'),
     searchInputQuery: document.querySelector('.search__field'),
     searchResults: document.querySelector('.results'),
-    searchResultsList: document.querySelector('.results__list')
+    searchResultsList: document.querySelector('.results__list'),
+    searchPagination: document.querySelector('.results__pages')
 }
 
 export const DOMStrings = {
-    loader: 'loader'
+    loader: 'loader',
+    inlineButton: 'btn-inline'
 }
 
 export const renderLoader = (parent) => {

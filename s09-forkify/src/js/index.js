@@ -1,6 +1,6 @@
 import Search from './models/Search';
 import * as searchView from './views/searchView';
-import { DOMElements, renderLoader, clearLoader } from './views/DOMElements';
+import { DOMElements, DOMStrings, renderLoader, clearLoader } from './views/DOMElements';
 /**
  * Global State of the App
  * -----------------------
@@ -36,4 +36,16 @@ const controlSearch = async () => {
 DOMElements.searchForm.addEventListener('submit', (event) => {
     event.preventDefault();
     controlSearch();
+});
+
+DOMElements.searchPagination.addEventListener('click', (event) => {
+    const inlineButton = event.target.closest(`.${DOMStrings.inlineButton}`);
+
+    if (inlineButton) {
+        const goToPage = parseInt(inlineButton.dataset.goto, 10);
+
+        searchView.clearRecipes();
+        searchView.clearPagination();
+        searchView.renderRecipes(state.search.recipes, goToPage);
+    }
 });

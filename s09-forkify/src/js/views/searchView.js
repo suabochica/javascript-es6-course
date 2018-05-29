@@ -10,6 +10,10 @@ export const clearRecipes = () => {
     DOMElements.searchResultsList.innerHTML = '';
 }
 
+export const clearPagination = () => {
+    DOMElements.searchPagination.innerHTML = '';
+}
+
 const limitRecipeTitle = (title, limit = 18) => {
     const shortTitle = [];
 
@@ -46,6 +50,39 @@ const renderRecipe = (recipe) => {
     DOMElements.searchResultsList.insertAdjacentHTML('beforeend', markup);
 }
 
-export const renderRecipes = (recipes) => {
-    recipes.forEach(renderRecipe);
+const createButtonMarkup = (page, direction) => {
+    return `
+        <button class="btn-inline results__btn--${direction}" data-goto=${direction === 'next' ? page + 1 : page - 1}>
+            <span>Page ${direction === 'next' ? page + 1 : page - 1}</span>
+            <svg class="search__icon">
+                <use href="img/icons.svg#icon-triangle-${direction === 'next' ? 'right' : 'left'}"></use>
+            </svg>
+        </button>
+    `;
+}
+
+export const renderPaginationButtons = (page, numResults, resultsPerPage) => {
+    let buttonMarkup;
+    const pages = Math.ceil(numResults / resultsPerPage);
+
+    if (page === 1 && pages > 1) {
+        buttonMarkup = createButtonMarkup(page, 'next');
+    } else if (page < pages) {
+        buttonMarkup = `
+            ${createButtonMarkup(page, 'prev')}
+            ${createButtonMarkup(page, 'next')}
+        `;
+    } else if (page === pages && page > 1) {
+        buttonMarkup = createButtonMarkup(page, 'prev');
+    }
+
+    DOMElements.searchPagination.insertAdjacentHTML('afterbegin', buttonMarkup);
+}
+
+export const renderRecipes = (recipes, page = 1, resultsPerPage = 10) => {
+    const firstRecipe = (page - 1) * resultsPerPage;
+    const lastRecipe = page * resultsPerPage;
+
+    recipes.slice(firstRecipe, lastRecipe).forEach(renderRecipe);
+    renderPaginationButtons(page, recipes.length, resultsPerPage);
 }

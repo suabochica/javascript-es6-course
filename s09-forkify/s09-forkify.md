@@ -431,4 +431,74 @@ The loader spinner will be used in different panels of _Forkify_. It is for that
 
 For add the spinner we have to identify a parent element and use the `insertAdjacentHTML` to insert the markup that will render the spinner. The spinner in this project is a `<svg>` element, and it is animated with CSS animations. In the same way, to remove the spinner, first we have to guarantee that the loader's markup exists and then use the weird logic to remove markup:
 
-    {elementToRemove}.parentElement.removeChild(elementToRemover)
+    {elementToRemove}.parentElement.removeChild(elementToRemove)
+
+### Results Pagination
+
+To achieve our recipes pagination, we will highlight the next to points:
+
+- How to use `closest` method for easier event handling.
+- How and why to use `data-*` attributes in HTML.
+
+The statement of our method to render our recipes will change to:
+
+    export const renderRecipes = (recipes, page = 1, resultsPerPage = 10)
+
+As you can see, our parameters are:
+
+- The whole recipes.
+- The page that we want to display.
+- The number of results per page.
+
+With the help of the `slice()` Array's prototype method, we can return a shallow copy of a portion of an array into a new array object selected. The original array will not be modified. Now, it is time to add our method to render the pagination with the next statement:
+
+    export const renderPagination = (page, numResults, resultsPerPage)
+
+In this method we will have three scenarios:
+
+1. Showing the first page. Then render the next page button.
+2. Showing the last page. Then render the previous page button.
+3. Showing the in-between pages. Then render both page buttons.
+
+Now lets deep into our pagination component. First, we have to define the markup of this component:
+
+```js
+`
+<button class="btn-inline results__btn--${direction}" data-goto=${direction === 'next' ? page + 1 : page - 1}>
+    <span>Page ${direction === 'next' ? page + 1 : page - 1}</span>
+    <svg class="search__icon">
+        <use href="img/icons.svg#icon-triangle-${direction === 'next' ? 'right' : 'left'}"></use>
+    </svg>
+</button>
+`;
+```
+
+Check the use of the `data-goto` attribute. This attribute allows us to store the number of the page where we want to move. Later, we can use this property in the event handler of these buttons. To access to the value of this property we use the `dataset` property of the `HTMLElement` interface. In our case will:
+
+    {HTMLElement}.dataset.goto;
+
+Notice that the suffix should match with the property after `dataset`.
+
+Now it is time to add an event handler to these buttons. Remember that all our event handlers go into the controller. Here is in the stage the concept of _event delegation_. The event handler for our elements is:
+
+```js
+DOMElements.searchPagination.addEventListener('click', (event) => {
+    console.log(event.target)
+}
+```
+
+The issue with event delegation is that according the place where the user clicks the `event.target` could be:
+
+1. `<span>Page 1</span>`
+2. `<svg class="search__icon"><use href="img/icons.svg#icon-triangle-left"></use></svg>`
+3. `<button class="btn-inline results__btn--next" data-goto=2>...</button>`
+
+For these possibilities the only that works for us ins the third one, because there we have out `data-goto` attribute. So, to have the guarantee of no matters where the user clicks, we always will get the third option we have to use the `closest()` method of the `Element` object. The `Element.closest()` method returns the closest ancestor of the current element (or the current element itself) which matches the selectors given in parameter.
+
+    var elt = element.closest(selectors);
+
+So in our case we will use:
+
+    const inlineButton = event.target.closest('btn-inline');
+
+Now we can call our `renderRecipes()` method with the parameter to move into our next or previous page.
