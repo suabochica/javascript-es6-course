@@ -1,19 +1,5 @@
 import { DOMElements } from './DOMElements';
 
-export const getQueryInput = () => DOMElements.searchInputQuery.value;
-
-export const clearQueryInput = () => {
-    DOMElements.searchInputQuery.value = '';
-}
-
-export const clearRecipes = () => {
-    DOMElements.searchResultsList.innerHTML = '';
-}
-
-export const clearPagination = () => {
-    DOMElements.searchPagination.innerHTML = '';
-}
-
 const limitRecipeTitle = (title, limit = 18) => {
     const shortTitle = [];
 
@@ -59,6 +45,20 @@ const createButtonMarkup = (page, direction) => {
             </svg>
         </button>
     `;
+}
+
+export const getQueryInput = () => DOMElements.searchInputQuery.value;
+
+export const clearQueryInput = () => {
+    DOMElements.searchInputQuery.value = '';
+}
+
+export const clearRecipes = () => {
+    DOMElements.searchResultsList.innerHTML = '';
+}
+
+export const clearPagination = () => {
+    DOMElements.searchPagination.innerHTML = '';
 }
 
 export const renderPaginationButtons = (page, numResults, resultsPerPage) => {

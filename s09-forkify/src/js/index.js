@@ -1,6 +1,8 @@
 import Search from './models/Search';
+import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
 import { DOMElements, DOMStrings, renderLoader, clearLoader } from './views/DOMElements';
+
 /**
  * Global State of the App
  * -----------------------
@@ -8,8 +10,13 @@ import { DOMElements, DOMStrings, renderLoader, clearLoader } from './views/DOME
  * - Current Recipe Object
  * - Shopping List Object
  * - Liked Recipes
- */
+**/
 const state = {};
+
+/**
+ * Search Controller
+ * -----------------
+**/
 
 const controlSearch = async () => {
     // 1. TO DO: Get the query from the view
@@ -25,7 +32,7 @@ const controlSearch = async () => {
         renderLoader(DOMElements.searchResults)
 
         // 4. Search for recipes
-        await state.search.getRecipes();
+        await state.search.searchRecipes();
 
         // 5. Render results on UI
         clearLoader();
@@ -49,3 +56,13 @@ DOMElements.searchPagination.addEventListener('click', (event) => {
         searchView.renderRecipes(state.search.recipes, goToPage);
     }
 });
+
+/**
+ * Recipe Controller
+ * -----------------
+**/
+
+const r = new Recipe(49408);
+r.getRecipe();
+
+console.log(r);

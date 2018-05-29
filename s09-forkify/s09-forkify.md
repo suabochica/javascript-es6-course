@@ -318,7 +318,7 @@ In the Search model, the only thing that we will export from the module will be 
 
 Remember that the first thing that we have to define in a class is the `constructor()` method. The constructor will be called as soon as we create the object based on this class. In the constructor, we pass the properties that we want the new object to have. In the `Search` model, we want to have a query, so we should add it to his constructor method.
 
-The second point to handle in our `Search` model is getting the result related to the query. Then we create a `getRecipes()` method inside our `Search` model, responsible for doing the Ajax call to retrieve the result from the RecipesAPI.
+The second point to handle in our `Search` model is getting the result related to the query. Then we create a `searchRecipes()` method inside our `Search` model, responsible for doing the Ajax call to retrieve the result from the RecipesAPI.
 
 Finally, we have to import this model into our global controlled hosted in the `index.js` file. There, we instantiate a new object of the `Search` model class with their respective query argument, and later we use his respective `getRecipes()` method to retrieve our results.
 
@@ -502,3 +502,8 @@ So in our case we will use:
     const inlineButton = event.target.closest('btn-inline');
 
 Now we can call our `renderRecipes()` method with the parameter to move into our next or previous page.
+
+Building the Recipe Model
+-------------------------
+
+In our `Recipe` model we can follow the same step applied to our `Search` model. The difference is the service API that we will consume for this model. Again, we create our `Recipe` model from the data that will receive in the response of the Ajax call.
