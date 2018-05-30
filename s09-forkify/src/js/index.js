@@ -104,3 +104,17 @@ const controlRecipe = async () => {
 }
 
 ['hashchange', 'load'].forEach((event) => window.addEventListener(event, controlRecipe));
+
+DOMElements.recipe.addEventListener('click', event => {
+    if (event.target.matches('.btn-decrease, .btn-decrease *')) {
+        // Decrease button is clicked
+        if (state.recipe.servings > 1) {
+            state.recipe.updateServingsAndIngredients('decrease');
+            recipeView.updateServingsAndIngredientsUI(state.recipe);
+        }
+    } else if (event.target.matches('.btn-increase, .btn-increase *')) {
+        // increase button is clicked
+        state.recipe.updateServingsAndIngredients('increase');
+        recipeView.updateServingsAndIngredientsUI(state.recipe);
+    }
+});

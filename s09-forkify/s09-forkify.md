@@ -157,7 +157,7 @@ module.exports = {
 
 With this code, the plugin and the web server will put our source `.html` file specified in the value of the `template` property in the `/dist` folder with their respective `filename` value.
 
-Bable Setup
+Babel Setup
 -----------
 
 To install and setup [Babel](https://babeljs.io/) we have to follow the next three steps:
@@ -587,3 +587,28 @@ Now, we have to handle the next two scenarios:
 In the first point, we will use the [`fractional`](https://www.npmjs.com/package/fractional) npm package. This package enables us to extract the numerator and the denominator of a respective number. With this package and with the string templates we can get our desired format. The logic is in the `formatFractionalCount(count)` method of the `recipeView.js`
 
 To the second point, we have to do a call of the `searchView.js` in our `controlRecipe`, because the recipe in the search panel should be highlighted after render the recipe information. To achieve this result, we have to add the `results__link--active` class in the appropriate element.
+
+
+Transversal Feature: Updating Servings and Ingredients
+------------------------------------------------------------
+
+Now it is time to follow up the development of a transversal feature. You could notice that every time that we add a transversal functionality, we execute the next steps:
+
+1. Create or modify the Model.
+2. Add the respective event listener in the Controller to process the Model data through the global `state` object.
+3. Call the View method that will render the Model data (Initially a `console.log(state.{component})` is used as reference).
+4. Add the logic in the View to modify the markup according to the changes in the Model.
+
+For the particular case of updating the servings and the ingredients, in the recipe model, we create the `updateServingsAndIngredients(type)` method where the `type` parameter is the increase or decrease action.
+
+Later, in the `index.js` controller we add an event listener to the `.recipe` The element that will attend the `click` event on the increase and decrease buttons. In this case, we will implement an appropriate event delegation using the `.matches()` method of the Element object that has the next structure.
+
+    var result = element.matches(selectorString);
+
+The `Element.matches()` method returns `true` if the specified selector string would select the element; otherwise, returns `false`.
+
+Pursuant to the scenario, we call the `updateServingsAndIngredients(type)` method of the recipe Model and pass the appropriate parameter according to the button where the user clicks.
+
+Now, we call the `updateServingsAndIngredientsUI(recipe)` method of the View in our `index.js` controller.
+
+Finally, we have to add the logic in the `updateServingsAndIngredientsUI(recipe)` method that will modify the markup according to the data updates. In this case, we have to update respective values with the `textContent` method of the Node object.
