@@ -322,6 +322,35 @@ The second point to handle in our `Search` model is getting the result related t
 
 Finally, we have to import this model into our global controlled hosted in the `index.js` file. There, we instantiate a new object of the `Search` model class with their respective query argument, and later we use his respective `getRecipes()` method to retrieve our results.
 
+### Formatting ingredients description
+Now our recipe model have to format the ingredient description from:
+
+    4 ounces cream cheese, room temperature
+
+to:
+
+    {
+        count: 4,
+        unit: 'oz',
+        ingredient: 'cream cheese, room temperature'
+    }
+
+Unfourtonately, the ingredients values have next presentations:
+
+- Ingredient value has parenthesis
+- Ingredient value hasn't number
+- Ingredient value hasn't unit
+- Ingredient value has number but not unit
+- Ingredient values has the nex number presentation (4 1/2)
+- ...
+
+So, the `parseIngredients()` method have to consider all these scenarios. To reach our objective, we have to work with array and stiring manipulation. There we have two important points:
+
+- Use array methods like `map()`, `slice()`, `findIndex()` and `includes()`
+- Use `eval()` function to evaluate JavaScript code represented as a string
+
+All these modifications are stored in the `state.recipe.ingredients` object's property.
+
 Building the Search Controller
 ------------------------------
 
