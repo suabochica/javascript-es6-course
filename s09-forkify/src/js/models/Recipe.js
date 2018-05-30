@@ -71,7 +71,9 @@ export default class Recipe {
             'tsp',
             'tsp',
             'cup',
-            'pound'
+            'pound',
+            'kg',
+            'g'
         ];
 
         const newIngredientsFormat = this.ingredients.map(element => {

@@ -565,3 +565,16 @@ Finally, to add multiple events to the same event listener we change this snippe
 to:
 
     ['hashchange', 'load'].forEach((event) => window.addEventListener(event, controlRecipe));
+
+Building the Recipe View
+------------------------
+
+To create our `recipeView.js`, we can follow the steps explained in the `Search` View. To recapitalize these steps:
+
+1. Create the `recipeView.js` and import it into the `index.js` controller.
+2. Create the `renderRecipe(recipe)` method and export it.
+3. Add the mark app in the `index.html` file associated with the recipes into the `renderRecipe(recipe)` method.
+4. Create the `createIngredient(ingredient)` private method to handle the markup associated with the ingredient.
+5. Add the `recipe` property to our `DOMElements` object with the parent recipe selector.
+6. Use the `insertAdjacentHTML('afterbegin', markup)` method to insert the recipe markup in the `DOMElements.recipe` Element.
+7. Call the `recipeView.renderRecipe(state.recipe)` in the `index.js` controller.

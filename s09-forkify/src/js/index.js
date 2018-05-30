@@ -1,6 +1,7 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
+import * as recipeView from './views/recipeView';
 import { DOMElements, DOMStrings, renderLoader, clearLoader } from './views/DOMElements';
 
 /**
@@ -72,7 +73,9 @@ const controlRecipe = async () => {
     const recipeId = window.location.hash.replace('#', '');
 
     if (recipeId) {
-        // 1. TO DO: Prepare the UI
+        // 1. Prepare the UI
+        recipeView.clearRecipe()
+        renderLoader(DOMElements.recipe);
 
         // 2. Create new recipe object in the state
         state.recipe = new Recipe(recipeId);
@@ -80,7 +83,7 @@ const controlRecipe = async () => {
         try {
             // 3. Get recipe data
             await state.recipe.getRecipe();
-            console.log(state.recipe.ingredients);
+
             // 4. Parse ingredients format
             state.recipe.parseIngredients();
 
@@ -88,8 +91,10 @@ const controlRecipe = async () => {
             state.recipe.timePreparation();
             state.recipe.servingsNumber();
 
-            // 6. TO DO: Render recipe
-            console.log(state.recipe);
+            // 6. Render recipe
+            clearLoader();
+
+            recipeView.renderRecipe(state.recipe);
         } catch (error) {
             alert('Error processing the recipe');
         }
