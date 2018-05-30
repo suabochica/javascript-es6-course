@@ -1,7 +1,28 @@
+import { Fraction } from 'fractional'
 import { DOMElements } from './DOMElements';
 
 export const clearRecipe = () => {
     DOMElements.recipe.innerHTML = '';
+}
+
+const formatFractionalCount = (count) => {
+    if (count) {
+        const [integer, decimal] = count.toString().split('.').map(element => parseInt(element, 10));
+
+        if (!decimal) return count;
+
+        if (integer === 0) {
+            const fraction = new Fraction(count);
+
+            return `${fraction.numerator}/${fraction.denominator}`;
+        } else {
+            const fraction = new Fraction(count - integer);
+
+            return `${integer} ${fraction.numerator}/${fraction.denominator}`;
+        }
+    }
+
+    return '?';
 }
 
 const createIngredient = (ingredient) => {
@@ -10,7 +31,7 @@ const createIngredient = (ingredient) => {
             <svg class="recipe__icon">
                 <use href="img/icons.svg#icon-check"></use>
             </svg>
-            <div class="recipe__count">${ingredient.count}</div>
+            <div class="recipe__count">${formatFractionalCount(ingredient.count)}</div>
             <div class="recipe__ingredient">
                 <span class="recipe__unit">${ingredient.unit}</span>
                 ${ingredient.ingredient}

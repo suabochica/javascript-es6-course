@@ -578,3 +578,12 @@ To create our `recipeView.js`, we can follow the steps explained in the `Search`
 5. Add the `recipe` property to our `DOMElements` object with the parent recipe selector.
 6. Use the `insertAdjacentHTML('afterbegin', markup)` method to insert the recipe markup in the `DOMElements.recipe` Element.
 7. Call the `recipeView.renderRecipe(state.recipe)` in the `index.js` controller.
+
+Now, we have to handle the next two scenarios:
+
+- Change the count format of the ingredient `count` value from _4.5_ to _4 1/2_
+- Highlight the selected recipe in the search results panel.
+
+In the first point, we will use the [`fractional`](https://www.npmjs.com/package/fractional) npm package. This package enables us to extract the numerator and the denominator of a respective number. With this package and with the string templates we can get our desired format. The logic is in the `formatFractionalCount(count)` method of the `recipeView.js`
+
+To the second point, we have to do a call of the `searchView.js` in our `controlRecipe`, because the recipe in the search panel should be highlighted after render the recipe information. To achieve this result, we have to add the `results__link--active` class in the appropriate element.

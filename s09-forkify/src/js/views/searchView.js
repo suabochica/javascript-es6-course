@@ -61,6 +61,16 @@ export const clearPagination = () => {
     DOMElements.searchPagination.innerHTML = '';
 }
 
+export const highlightSelectedRecipe = (recipeId) => {
+    const arraySearchResult = Array.from(document.querySelectorAll('.results__link'));
+
+    arraySearchResult.forEach(element => {
+        element.classList.remove('results__link--active');
+    });
+
+    document.querySelector(`a[href*="${recipeId}"]`).classList.add('results__link--active')
+}
+
 export const renderPaginationButtons = (page, numResults, resultsPerPage) => {
     let buttonMarkup;
     const pages = Math.ceil(numResults / resultsPerPage);
