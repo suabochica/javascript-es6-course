@@ -637,3 +637,13 @@ Create the Shopping List View it is simple and again, we have repeat the next st
 5. Create the `shoppingList` element in the DOMElements file.
 6. Insert the markup to the `shoppingList` element.
 7. Create the `deleteShoppingListItem(shoppingListItemId)` method.
+
+Building the Shopping List Controller
+-------------------------------------
+
+To create the Shopping List Controller, we have to create the `controlShoppingList()` method, and call it when the user click the the `.recipe__btn--add`. This controller will have to responsabilites:
+
+1. Create a new list if ther is none yet
+2. Add each ingredient to the shopping list
+
+Additionally in the controller we have to handle the event that delete and ingredient from the shopping list and update the coutn number.

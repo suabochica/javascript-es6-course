@@ -1,10 +1,10 @@
-import { DOMElements } from './base'
+import { DOMElements } from './DOMElements';
 
-export const renderShoppingshoppingListItem = shoppingListItem => {
+export const renderShoppingListItem = shoppingListItem => {
     const shoppingListItemMarkup = `
-        <li class="shopping__item" data-item-id="${shoppingListItem.id}">
+        <li class="shopping__item" data-itemid="${shoppingListItem.id}">
             <div class="shopping__count">
-                <input type="number" value="${shoppingListItem.count}" step="${shoppingListItem.count}">
+                <input type="number" value="${shoppingListItem.count}" step="${shoppingListItem.count}" class="shopping__count--value">
                 <p>${shoppingListItem.unit}</p>
             </div>
             <p class="shopping__description">${shoppingListItem.ingredient}</p>
@@ -20,7 +20,7 @@ export const renderShoppingshoppingListItem = shoppingListItem => {
 }
 
 export const deleteShoppingListItem = (shoppingListItemId) => {
-    const shoppingListItem = document.querySelector(`[date-item-id="${shoppingListItemId}"]`);
+    const shoppingListItem = document.querySelector(`[data-itemid="${shoppingListItemId}"]`);
 
     shoppingListItem.parentElement.removeChild(shoppingListItem);
 }

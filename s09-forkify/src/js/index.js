@@ -1,9 +1,11 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
+import ShoppingList from './models/ShoppingList';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
+import * as shoppingListView from './views/shoppingListView';
 import { DOMElements, DOMStrings, renderLoader, clearLoader } from './views/DOMElements';
-import List from './models/List';
+import List from './models/ShoppingList';
 
 /**
  * Global State of the App
@@ -14,6 +16,7 @@ import List from './models/List';
  * - Liked Recipes
 **/
 const state = {};
+window.state = state;
 
 /**
  * Search Controller
@@ -117,6 +120,8 @@ DOMElements.recipe.addEventListener('click', event => {
         // increase button is clicked
         state.recipe.updateServingsAndIngredients('increase');
         recipeView.updateServingsAndIngredientsUI(state.recipe);
+    } else if (event.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+        controlShoppingList();
     }
 });
 
@@ -125,4 +130,29 @@ DOMElements.recipe.addEventListener('click', event => {
  * ------------------------
 **/
 
-window.l = new List();
+const controlShoppingList = () => {
+    // 1. Create a new list if ther is none yet
+    if (!state.shoppingList) state.shoppingList = new ShoppingList();
+
+    // 2. Add each ingredient to the shopping list
+    state.recipe.ingredients.forEach(ingredient => {
+        const shoppingListIngredient = state.shoppingList.addItem(ingredient.count, ingredient.unit, ingredient.ingredient)
+
+        shoppingListView.renderShoppingListItem(shoppingListIngredient);
+    });
+}
+
+DOMElements.shoppingList.addEventListener('click', event => {
+    const shoppingItemId = event.target.closest('.shopping__item').dataset.itemid;
+
+    // 1. Handle the delete button
+    if (event.target.matches('.shopping__delete, .shopping__delete *')) {
+        state.shoppingList.deleteItem(shoppingItemId);
+        shoppingListView.deleteShoppingListItem(shoppingItemId)
+    } else if (event.target.matches('.shopping__count--value')) {
+        // 2. Handle the update count in the modle
+        const countValue = parseFloat(event.target.value, 10);
+
+        state.shoppingList.updateCount(shoppingItemId, countValue);
+    }
+})
