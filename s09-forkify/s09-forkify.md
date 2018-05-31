@@ -615,7 +615,7 @@ Finally, we have to add the logic in the `updateServingsAndIngredientsUI(recipe)
 Building the Shopping List Model
 --------------------------------
 
-To create our Shopping List Model we will use:
+To create the Shopping List Model we will use:
 
 - Unique ids through the package [uniqid](https://www.npmjs.com/package/uniqid), to access to the items in the shopping list.
 - `Array.splice()` method to remove items from the array with the shopping list items
@@ -623,3 +623,17 @@ To create our Shopping List Model we will use:
 - `Array.find()` to find the count element that we want to update in the shopping list.
 
 All these use cases are in the `List.js` file.
+
+
+Building the Shopping List View
+-------------------------------
+
+Create the Shopping List View it is simple and again, we have repeat the next steps:
+
+1. Create the `listView.js` file.
+2. Extract the markup from the `index.html` file related to the shopping list panel.
+3. Create the method `renderShoppingListItemMarkup(l)`
+4. Replace the properties values of the shopping list items (id, count, unit and ingredient) in the respective markup places
+5. Create the `shoppingList` element in the DOMElements file.
+6. Insert the markup to the `shoppingList` element.
+7. Create the `deleteShoppingListItem(shoppingListItemId)` method.
