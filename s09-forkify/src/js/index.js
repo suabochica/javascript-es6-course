@@ -3,6 +3,7 @@ import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import { DOMElements, DOMStrings, renderLoader, clearLoader } from './views/DOMElements';
+import List from './models/List';
 
 /**
  * Global State of the App
@@ -118,3 +119,10 @@ DOMElements.recipe.addEventListener('click', event => {
         recipeView.updateServingsAndIngredientsUI(state.recipe);
     }
 });
+
+/**
+ * Shopping List Controller
+ * ------------------------
+**/
+
+window.l = new List();

@@ -589,8 +589,7 @@ In the first point, we will use the [`fractional`](https://www.npmjs.com/package
 To the second point, we have to do a call of the `searchView.js` in our `controlRecipe`, because the recipe in the search panel should be highlighted after render the recipe information. To achieve this result, we have to add the `results__link--active` class in the appropriate element.
 
 
-Transversal Feature: Updating Servings and Ingredients
-------------------------------------------------------------
+### Transversal Feature: Updating Servings and Ingredients
 
 Now it is time to follow up the development of a transversal feature. You could notice that every time that we add a transversal functionality, we execute the next steps:
 
@@ -612,3 +611,15 @@ Pursuant to the scenario, we call the `updateServingsAndIngredients(type)` metho
 Now, we call the `updateServingsAndIngredientsUI(recipe)` method of the View in our `index.js` controller.
 
 Finally, we have to add the logic in the `updateServingsAndIngredientsUI(recipe)` method that will modify the markup according to the data updates. In this case, we have to update respective values with the `textContent` method of the Node object.
+
+Building the Shopping List Model
+--------------------------------
+
+To create our Shopping List Model we will use:
+
+- Unique ids through the package [uniqid](https://www.npmjs.com/package/uniqid), to access to the items in the shopping list.
+- `Array.splice()` method to remove items from the array with the shopping list items
+- `Array.findIndex()` to find the index of the item that we want to remove.
+- `Array.find()` to find the count element that we want to update in the shopping list.
+
+All these use cases are in the `List.js` file.
