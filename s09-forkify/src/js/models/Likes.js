@@ -3,11 +3,11 @@ export default class List {
         this.likes = []
     }
 
-    addLike(recipeId, title, author, image) {
+    addLike(recipeId, title, publisher, image) {
         const like = {
             recipeId,
             title,
-            author,
+            publisher,
             image
         }
 

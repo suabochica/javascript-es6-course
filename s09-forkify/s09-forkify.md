@@ -651,7 +651,7 @@ Additionally in the controller we have to handle the event that delete and ingre
 Building the Likes Model
 ------------------------
 
-This model is similar to the Shopping list model. In the constructor we add an and empty array that will contain the list of liked recipes. So in the Likes model we need:
+This model is similar to the Shopping list model. In the constructor, we add an empty array that will contain the list of liked recipes. So in the Likes model, we need:
 
 1. Add recipes to the like list.
 2. Delete recipes in the like list.
@@ -661,14 +661,24 @@ This model is similar to the Shopping list model. In the constructor we add an a
 Building the Likes Controller
 -----------------------------
 
-To create the Likes Controller, we have to create the `controlLikes()` method, and call it when the user click the the `.recipe__love`. This controller will have to responsabilites:
+To create the Likes Controller, we have to create the `controlLikes()` method, and call it when the user clicks the `.recipe__love`. This controller will have these responsibilities:
 
 1. Create a new likes list if there is none yet
 2. If the recipe has NOT liked:
-    2.1. Add like to the state.
-    2.2. Toggle the like button.
-    2.3. Add like to the UI list.
+    - Add like to the state.
+    - Toggle the like button.
+    - Add like to the UI list.
 3. If the recipe HAS liked:
-    3.1. Remove like to the state.
-    3.2. Toggle the like button.
-    3.3. Remove like to the UI list.
+    - Remove like to the state.
+    - Toggle the like button.
+    - Remove like to the UI list.
+
+Building the Likes View
+-----------------------
+
+The Likes view will handle two toggle scenarios:
+
+1. When show and hide the like menu.
+2. When mark and unmark off the like button of a recipe.
+
+Additionally, as the other views, it should render the markup related to recipe likes list.

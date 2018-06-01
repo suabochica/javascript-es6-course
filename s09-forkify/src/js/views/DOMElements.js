@@ -5,7 +5,9 @@ export const DOMElements = {
     searchResultsList: document.querySelector('.results__list'),
     searchPagination: document.querySelector('.results__pages'),
     recipe: document.querySelector('.recipe'),
-    shoppingList: document.querySelector('.shopping__list')
+    shoppingList: document.querySelector('.shopping__list'),
+    likeMenu: document.querySelector('.likes__field'),
+    likesList: document.querySelector('.likes__list')
 }
 
 export const DOMStrings = {

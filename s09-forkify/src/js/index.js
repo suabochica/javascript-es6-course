@@ -5,6 +5,7 @@ import Likes from './models/Likes';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import * as shoppingListView from './views/shoppingListView';
+import * as likesView from './views/likesView';
 import { DOMElements, DOMStrings, renderLoader, clearLoader } from './views/DOMElements';
 
 /**
@@ -100,7 +101,10 @@ const controlRecipe = async () => {
 
             // 6. Render recipe
             clearLoader();
-            recipeView.renderRecipe(state.recipe);
+            recipeView.renderRecipe(
+                state.recipe,
+                state.likes.isLiked(recipeId)
+            );
         } catch (error) {
             alert('Error processing the recipe');
         }
@@ -165,6 +169,10 @@ DOMElements.shoppingList.addEventListener('click', event => {
  * -----------------
 **/
 
+// Testing! should go in local storage
+state.likes = new Likes();
+likesView.toggleLikeMenu(state.likes.getLikesNumber());
+
 const controlLikes = () => {
     const currentRecipeId = state.recipe.id;
     // 1. Create a new likes list if there is none yet
@@ -180,16 +188,20 @@ const controlLikes = () => {
         )
 
         // 2. Toggle the like button
+        likesView.toggleLikeButton(true);
 
         // 3. Add like to the UI list
-        console.log(state.likes);
+        likesView.renderLike(newLike);
     } else {
         // 1. Remove like to the state
         state.likes.deleteLike(currentRecipeId);
 
         // 2. Toggle the like button
+        likesView.toggleLikeButton(false);
 
         // 3. Remove like to the UI list
-        console.log(state.likes);
+        likesView.deleteLike(currentRecipeId);
     }
+
+    likesView.toggleLikeMenu(state.likes.getLikesNumber());
 }
