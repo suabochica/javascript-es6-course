@@ -1,11 +1,11 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import ShoppingList from './models/ShoppingList';
+import Likes from './models/Likes';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import * as shoppingListView from './views/shoppingListView';
 import { DOMElements, DOMStrings, renderLoader, clearLoader } from './views/DOMElements';
-import List from './models/ShoppingList';
 
 /**
  * Global State of the App
@@ -117,11 +117,14 @@ DOMElements.recipe.addEventListener('click', event => {
             recipeView.updateServingsAndIngredientsUI(state.recipe);
         }
     } else if (event.target.matches('.btn-increase, .btn-increase *')) {
-        // increase button is clicked
+        // Increase button is clicked
         state.recipe.updateServingsAndIngredients('increase');
         recipeView.updateServingsAndIngredientsUI(state.recipe);
     } else if (event.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+        // Add shopping list button is clicked
         controlShoppingList();
+    } else if (event.target.matches('.recipe__love, .recipe__love *')) {
+        controlLikes();
     }
 });
 
@@ -131,7 +134,7 @@ DOMElements.recipe.addEventListener('click', event => {
 **/
 
 const controlShoppingList = () => {
-    // 1. Create a new list if ther is none yet
+    // 1. Create a new list if there is none yet
     if (!state.shoppingList) state.shoppingList = new ShoppingList();
 
     // 2. Add each ingredient to the shopping list
@@ -156,3 +159,37 @@ DOMElements.shoppingList.addEventListener('click', event => {
         state.shoppingList.updateCount(shoppingItemId, countValue);
     }
 })
+
+/**
+ * Likes Controller
+ * -----------------
+**/
+
+const controlLikes = () => {
+    const currentRecipeId = state.recipe.id;
+    // 1. Create a new likes list if there is none yet
+    if (!state.likes) state.likes = new Likes();
+
+    if(!state.likes.isLiked(currentRecipeId)) {
+        // 1. Add like to the state
+        const newLike = state.likes.addLike(
+            currentRecipeId,
+            state.recipe.title,
+            state.recipe.publisher,
+            state.recipe.image,
+        )
+
+        // 2. Toggle the like button
+
+        // 3. Add like to the UI list
+        console.log(state.likes);
+    } else {
+        // 1. Remove like to the state
+        state.likes.deleteLike(currentRecipeId);
+
+        // 2. Toggle the like button
+
+        // 3. Remove like to the UI list
+        console.log(state.likes);
+    }
+}

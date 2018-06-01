@@ -16,14 +16,14 @@ export default class List {
         return like;
     }
 
-    deleteLike(likeId) {
-        const likeIndex = this.likes.findIndex(currentElement => currentElement.id === likeId);
+    deleteLike(recipeId) {
+        const likeIndex = this.likes.findIndex(currentElement => currentElement.recipeId === recipeId);
 
-        this.likes.splice(itemIndex, 1);
+        this.likes.splice(likeIndex, 1);
     }
 
-    isLiked(likeId) {
-        return this.likes.findIndex(currentElement => currentElement.likeId === likeId) !== -1;
+    isLiked(recipeId) {
+        return this.likes.findIndex(currentElement => currentElement.recipeId === recipeId) !== -1;
     }
 
     getLikesNumber() {
