@@ -68,7 +68,7 @@ export const highlightSelectedRecipe = (recipeId) => {
         element.classList.remove('results__link--active');
     });
 
-    document.querySelector(`results__link[href*="${recipeId}"]`).classList.add('results__link--active')
+    document.querySelector(`a[href*="${recipeId}"]`).classList.add('results__link--active')
 }
 
 export const renderPaginationButtons = (page, numResults, resultsPerPage) => {

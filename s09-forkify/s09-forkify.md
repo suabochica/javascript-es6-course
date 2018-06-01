@@ -682,3 +682,28 @@ The Likes view will handle two toggle scenarios:
 2. When mark and unmark off the like button of a recipe.
 
 Additionally, as the other views, it should render the markup related to recipe likes list.
+
+Implementing Persist Data with Local Storage
+--------------------------------------------
+The only thing that we will persist in _Forkify_ is the liked recipes. To achieve this, we are going to use the `localStorage` API. A web storage API allows us to save key/values pairs in the browser. This data will stay intact even after the page reloads. With the `localStorage` API we can:
+
+- Create data
+
+```
+localStorage.setItem('key', 'value')
+```
+- Get data stored in the local storage
+
+```
+localStorage.getItem('key')
+```
+
+- Remove an item in the local storage
+
+```
+localStorage.removeItem('key')
+```
+
+The `localStorage`is an object that lives on the `window` (global) object. So, it is available to us everywhere. Notice that the parameter of the `localStorage` methods are always strings.
+
+Now our _Forkify_ app persists the liked recipes in the local storage.

@@ -169,10 +169,6 @@ DOMElements.shoppingList.addEventListener('click', event => {
  * -----------------
 **/
 
-// Testing! should go in local storage
-state.likes = new Likes();
-likesView.toggleLikeMenu(state.likes.getLikesNumber());
-
 const controlLikes = () => {
     const currentRecipeId = state.recipe.id;
     // 1. Create a new likes list if there is none yet
@@ -205,3 +201,12 @@ const controlLikes = () => {
 
     likesView.toggleLikeMenu(state.likes.getLikesNumber());
 }
+
+window.addEventListener('load', () => {
+    state.likes = new Likes();
+    state.likes.readLocalStorage();
+
+    likesView.toggleLikeMenu(state.likes.getLikesNumber());
+
+    state.likes.likes.forEach(element => likesView.renderLike(element))
+})

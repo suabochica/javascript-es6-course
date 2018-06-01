@@ -12,6 +12,7 @@ export default class List {
         }
 
         this.likes.push(like);
+        this.persistData()
 
         return like;
     }
@@ -19,6 +20,7 @@ export default class List {
     deleteLike(recipeId) {
         const likeIndex = this.likes.findIndex(currentElement => currentElement.recipeId === recipeId);
 
+        this.persistData()
         this.likes.splice(likeIndex, 1);
     }
 
@@ -28,5 +30,15 @@ export default class List {
 
     getLikesNumber() {
         return this.likes.length;
+    }
+
+    persistData() {
+        localStorage.setItem('likes', JSON.stringify(this.likes));
+    }
+
+    readLocalStorage() {
+        const storage = JSON.parse(localStorage.getItem('likes'));
+
+        if (storage) this.likes = storage;
     }
 }
