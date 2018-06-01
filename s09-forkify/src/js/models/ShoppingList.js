@@ -15,7 +15,7 @@ export default class List {
 
         this.items.push(item);
 
-        return item
+        return item;
     }
 
     deleteItem(itemId) {

@@ -647,3 +647,13 @@ To create the Shopping List Controller, we have to create the `controlShoppingLi
 2. Add each ingredient to the shopping list
 
 Additionally in the controller we have to handle the event that delete and ingredient from the shopping list and update the coutn number.
+
+Building the Likes Model
+------------------------
+
+This model is similar to the Shopping list model. In the constructor we add an and empty array that will contain the list of liked recipes. So in the Likes model we need:
+
+- Add recipes to the like list.
+- Delete recipes in the like list.
+- Know if the recipe is liked.
+- The number of likes.
