@@ -9,6 +9,7 @@
 * change the predifined score of 100.
 * 3. Add another dice to the game, so that there are two dices now. The player losses his current
 * score when on of them is a 1.
+*
 */
 
 var scores,
@@ -16,34 +17,28 @@ var scores,
     activePlayer,
     previousDiceValue,
     isGamePlaying;
-    
+
 initializeGame();
 
 // Add event listener to the roll dice button
 document.querySelector('.btn-roll').addEventListener('click', function() {
-    if(isGamePlaying) {        
-        var diceValue;
+    if(isGamePlaying) {
+        var diceOneValue,
+            diceTwoValue;
 
-        diceValue = Math.floor(Math.random() * 6) + 1;
-        
-        document.querySelector('.dice').style.display = 'block';
-        document.querySelector('.dice').src = 'dice-'+ diceValue +'.png';
-        
+        diceOneValue = Math.floor(Math.random() * 6) + 1;
+        diceTwoValue = Math.floor(Math.random() * 6) + 1;
+
+        document.querySelector('.dice-one').style.display = 'block';
+        document.querySelector('.dice-two').style.display = 'block';
+        document.querySelector('.dice-one').src = 'images/dice-'+ diceOneValue +'.png';
+        document.querySelector('.dice-two').src = 'images/dice-'+ diceTwoValue +'.png';
+
         // Update the round score IF the rolled number was not a 1
-        if(previousDiceValue === 6 && diceValue === 6) {
-            scores[activePlayer] = 0;
-
-            // Scenario: player one holds with a 6. It's turn of player two and his next roll is 6. It's unfair that this player losses his ENTIRE score. to avoid it, you can assign the previousDiceValue to avoid interference between the dice roll of both players. 
-            previousDiceValue = -1;
-            changePlayerTurn();
-        } else if(diceValue !== 1) {
-            roundScore += diceValue;
+        if(diceOneValue !== 1 && diceTwoValue !== 1) {
+            roundScore += diceOneValue + diceTwoValue;
             document.getElementById('current-' + activePlayer).textContent = roundScore;
-            // Here is the key, assign the previousDiceValue when the games continue.
-            previousDiceValue = diceValue;
         } else {
-            // Same here.
-            previousDiceValue = -1;
             changePlayerTurn();
         }
     }
@@ -70,10 +65,11 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
             document.querySelector('#name-'+ activePlayer).textContent = 'WINNER!';
             document.querySelector('.player-'+ activePlayer +'-panel').classList.add('winner');
             document.querySelector('.player-'+ activePlayer +'-panel').classList.remove('active');
-            document.querySelector('.dice').style.display = 'none';
-            
+            document.querySelector('.dice-one').style.display = 'none';
+            document.querySelector('.dice-two').style.display = 'none';
+
             isGamePlaying = false;
-    
+
         } else {
             changePlayerTurn();
         }
@@ -96,7 +92,8 @@ function changePlayerTurn() {
     document.querySelector('.player-0-panel').classList.toggle('active');
     document.querySelector('.player-1-panel').classList.toggle('active');
 
-    document.querySelector('.dice').style.display = 'none';
+    document.querySelector('.dice-one').style.display = 'none';
+    document.querySelector('.dice-two').style.display = 'none';
 }
 
 // Don't repeat yourself: Create a function to initialize your game and call it on new game button and at the begining of this javascript file.
@@ -105,8 +102,9 @@ function initializeGame() {
     activePlayer = 0;
     roundScore = 0;
     isGamePlaying = true;
-    
-    document.querySelector('.dice').style.display = 'none';
+
+    document.querySelector('.dice-one').style.display = 'none';
+    document.querySelector('.dice-two').style.display = 'none';
 
     document.getElementById('score-0').textContent = '0';
     document.getElementById('score-1').textContent = '0';

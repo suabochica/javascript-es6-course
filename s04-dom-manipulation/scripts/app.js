@@ -13,7 +13,7 @@ var scores,
     roundScore,
     activePlayer,
     isGamePlaying;
-    
+
 initializeGame();
 
 /*
@@ -27,12 +27,12 @@ console.log(readTextContentScoreOne);
 document.querySelector('.btn-roll').addEventListener('click', function() {
     if(isGamePlaying) {
         var diceValue;
-    
+
         diceValue = Math.floor(Math.random() * 6) + 1;
-        
+
         document.querySelector('.dice').style.display = 'block';
-        document.querySelector('.dice').src = 'dice-'+ diceValue +'.png';
-        
+        document.querySelector('.dice').src = 'images/dice-'+ diceValue +'.png';
+
         // Update the round score IF the rolled number was not a 1
         if(diceValue !== 1) {
             roundScore += diceValue;
@@ -47,15 +47,15 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 document.querySelector('.btn-hold').addEventListener('click', function() {
     if(isGamePlaying) {
         scores[activePlayer] += roundScore;
-    
+
         if(scores[activePlayer] >= 20) {
             document.querySelector('#name-'+ activePlayer).textContent = 'WINNER!';
             document.querySelector('.player-'+ activePlayer +'-panel').classList.add('winner');
             document.querySelector('.player-'+ activePlayer +'-panel').classList.remove('active');
             document.querySelector('.dice').style.display = 'none';
-            
+
             isGamePlaying = false;
-    
+
         } else {
             changePlayerTurn();
         }
@@ -87,7 +87,7 @@ function initializeGame() {
     activePlayer = 0;
     roundScore = 0;
     isGamePlaying = true;
-    
+
     document.querySelector('.dice').style.display = 'none';
 
     document.getElementById('score-0').textContent = '0';
