@@ -36,3 +36,65 @@ With JavaScript run outside of the browser we can do several things like:
 All these factors togehter give us the perfect conditions for using Node.js as a web server, meaning that now we can use JavaScript on the server side of the web development in order to build fast highly scalable network applications for porwering the back-end of web apps.
 
 
+The Laptop Store Project
+------------------------
+
+The project structure is the next one:
+
+    app
+    |-- data/img/*              # Laptop images
+    |-- data/data.json          # The data that will be in the laptop store
+    |-- laptop.html             # Detailed laptop page
+    |-- overview.html           # General laptops page
+
+Now to run JavaScript outside the browser lets run node. To determine if node is installed you can run:
+
+    node -v
+
+If you get a number, then node is installed locally and the number is the respoective version. To run node just execute:
+
+    node
+
+Now we are running JavaScript outside the browser, and our terminal is now like a JavaScript console, just like you have in the browser. Of course we don't want to write all of our Node code in the command line, then we can create a new JavaScript file called `index.js`. To run it, execute:
+
+    node index.js
+
+A usefull tool to avoid turn off and turn on the node enviroment every time that we insert changes in the JavaScript files is `nodemon`. To install it we use `npm`:
+
+    npm i -g nodemon
+
+Now you when you run:
+
+    nodemon
+
+It will automatically figure out which file you want to run, and then it actually runs it. This helper will save us a ton of time.
+
+Now it is time to start and implement the code to run read the content of the `data.json` and parse it into a JavaScript object. This is something that we can´t do in the browser because it doesn't give us access to the file system. But with node, we can.
+
+To achieve that we have to be aware that node comes with a very powerfull module system and mos of the functionality that we have in Node is always in one of the node packages. So, to read a file we need to use the file system module, which is a node core module. the code show us how to use the filse system module and then read the `data.json` file.
+
+```js
+const fileSystem = require("fs");
+
+const json = fileSystem.readFileSync(`${__dirname}/data/data.json`, 'utf-8')
+const laptopData = JSON.parse(json)
+
+console.log(__dirname);
+console.log(json);
+console.log(laptopData); // data as a JavaScript object
+```
+
+> The `__dirname` is a node variable to determine the project path
+
+With the `laptopData` object we are ready to start working on implementing the laptop store.
+
+Time to use node for what was really itended to do, which is to create web servers. To get this, we have to use another core module of node, the `http` module. To create a server we can check the next code:
+
+```js
+const http = require("http");
+...
+const json = http.createServer())
+```
+
+There are different ways to create a server, but for learning this way is the easiest one. The `createServer()` receive as argument a callback function that will fired each time that someone accesses our web server.
+
