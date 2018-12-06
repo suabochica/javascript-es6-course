@@ -13,10 +13,28 @@ const server = http.createServer((req, res) => {
   if(pathname === '/products' || pathname === '/') {
     res.writeHead(200, { 'Content-Type': 'text/html' })
     res.end('This is the products page!')
-  } else if(pathname === '/laptop' && queryId < laptopData.length) {
+  }
+
+  else if(pathname === '/laptop' && queryId < laptopData.length) {
     res.writeHead(200, { 'Content-Type': 'text/html' })
-    res.end(`This is the detailed page for laptop ${queryId}!`)
-  } else {
+
+    fileSystem.readFile(`${__dirname}/templates/template-laptop.html`, 'utf-8', (err, data) => {
+      const laptop = laptopData[queryId]
+      let output = data.replace(/{%PRODUCT_NAME%}/g, laptop.productName)
+
+      output = output.replace(/{%PRODUCT_IMAGE%}/g, laptop.image)
+      output = output.replace(/{%PRODUCT_PRICE%}/g, laptop.price)
+      output = output.replace(/{%PRODUCT_SCREEN%}/g, laptop.screen)
+      output = output.replace(/{%PRODUCT_CPU%}/g, laptop.cpu)
+      output = output.replace(/{%PRODUCT_STORAGE%}/g, laptop.storage)
+      output = output.replace(/{%PRODUCT_RAM%}/g, laptop.ram)
+      output = output.replace(/{%PRODUCT_DESCRIPTION%}/g, laptop.description)
+
+      res.end(output)
+    })
+  }
+
+  else {
     res.writeHead(404, { 'Content-Type': 'text/html' })
     res.end('URL was not found on the server!')
   }
