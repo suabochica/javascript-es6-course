@@ -20,7 +20,6 @@ const server = http.createServer((req, res) => {
     res.writeHead(404, { 'Content-Type': 'text/html' })
     res.end('URL was not found on the server!')
   }
-
 })
 
 server.listen(1337, '127.0.0.1', () => {

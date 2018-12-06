@@ -69,6 +69,8 @@ Now you when you run:
 
 It will automatically figure out which file you want to run, and then it actually runs it. This helper will save us a ton of time.
 
+### FileSystem core module
+
 Now it is time to start and implement the code to run read the content of the `data.json` and parse it into a JavaScript object. This is something that we can´t do in the browser because it doesn't give us access to the file system. But with node, we can.
 
 To achieve that we have to be aware that node comes with a very powerfull module system and mos of the functionality that we have in Node is always in one of the node packages. So, to read a file we need to use the file system module, which is a node core module. the code show us how to use the filse system module and then read the `data.json` file.
@@ -88,13 +90,50 @@ console.log(laptopData); // data as a JavaScript object
 
 With the `laptopData` object we are ready to start working on implementing the laptop store.
 
+
+### HTTP core module
+
 Time to use node for what was really itended to do, which is to create web servers. To get this, we have to use another core module of node, the `http` module. To create a server we can check the next code:
 
 ```js
 const http = require("http");
 ...
-const json = http.createServer())
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/html' })
+  res.end('This is the response!')
+})
+
+server.listen(1337, '127.0.0.1', () => {
+  console.log('Listening for request now')
+});
 ```
 
-There are different ways to create a server, but for learning this way is the easiest one. The `createServer()` receive as argument a callback function that will fired each time that someone accesses our web server.
+There are different ways to create a server, but for learning this way is the easiest one. The `createServer()` receive as argument a callback function that will fired each time that someone accesses our web server. This callback function gets access to the `request` and to the `response` objects. These objects will mentioned soon in the _routing_ section. Now, let's check the last three lines of the above code. To load the server we have to listen on a specific port and a specific `IP` address. The `listen()` method will always keep listening on the port and the `IP` that are passed as arguments. Regarding the code, the used port is `1337` and the `IP` address is `127.0.0.1`, that correponds to the localhost _i.e_ the current computer. With this configuration we can running our web server, and then if we type in the browser `127.0.0.1:1337` we will send a request to the configured web server and the server will send back a response through the `response` object.
 
+### URL core module
+
+Is moment to implement _routing_. Routing is basically that the web server respond in different ways for different URLs. Right now, no matter what URL we actually have on our sever it will always send back the same response. But what we really want, and that is what routing really is, is to respond differently to these different URLs. So for example, if we have `127.0.0.1:1337/products` then we should show the overview of all the products in the store. So if we have `127.0.0.1:1337/laptop`, then we see the detail page for this specific laptop. That exactly is routing, responding in different ways to diferent URLs.
+
+To implement routing we have to use the `url` core module of node. Please check the next code and check how to implement rounting wiht the `url` module:
+
+```js
+const url = require("url")
+
+const server = http.createServer((req, res) => {
+  const pathname = url.parse(req.url, true).pathname
+  const queryId = url.parse(req.url, true).query.id
+
+  // Routing
+  if(pathname === '/products' || pathname === '/') {
+    res.writeHead(200, { 'Content-Type': 'text/html' })
+    res.end('This is the products page!')
+  } else if(pathname === '/laptop' && queryId < laptopData.length) {
+    res.writeHead(200, { 'Content-Type': 'text/html' })
+    res.end(`This is the detailed page for laptop ${queryId}!`)
+  } else {
+    res.writeHead(404, { 'Content-Type': 'text/html' })
+    res.end('URL was not found on the server!')
+  }
+```
+
+As you can see in this code we are using the `request` object of the `createServer()`. This object is the key to get the different parts of the URL. Via `req` we can get the `pathname` and the queries that are present in the URL. With this scenarion we can respond in different ways to differents URLs. Also in this example the `url` node module is used to parse the information of the `req` object. With this implementation we have a response according to the requested URL.
