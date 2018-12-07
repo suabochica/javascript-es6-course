@@ -36,6 +36,13 @@ const server = http.createServer((req, res) => {
     })
   }
 
+  else if ((/\.(jpg|jpeg|png|gif)$/i).test(pathname)) {
+    fileSystem.readFile(`${__dirname}/data/img${pathname}`, (err, data) => {
+      res.writeHead(200, { 'Content-type': 'image/jpg'});
+      res.end(data);
+    });
+  }
+
   else {
     res.writeHead(404, { 'Content-Type': 'text/html' })
     res.end('URL was not found on the server!')
