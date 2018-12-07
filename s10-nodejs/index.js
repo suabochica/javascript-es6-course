@@ -12,7 +12,17 @@ const server = http.createServer((req, res) => {
   // Routing
   if(pathname === '/products' || pathname === '/') {
     res.writeHead(200, { 'Content-Type': 'text/html' })
-    res.end('This is the products page!')
+    fileSystem.readFile(`${__dirname}/templates/template-overview.html`, 'utf-8', (err, data) => {
+      let overviewOutput = data
+
+      fileSystem.readFile(`${__dirname}/templates/template-product-card.html`, 'utf-8', (err, data) => {
+        const cardsOutput = laptopData.map(element => replaceTemplate(data, element)).join('')
+
+        overviewOutput = overviewOutput.replace('{%CARDS%}', cardsOutput)
+
+        res.end(overviewOutput);
+      })
+    })
   }
 
   else if(pathname === '/laptop' && queryId < laptopData.length) {
@@ -20,15 +30,7 @@ const server = http.createServer((req, res) => {
 
     fileSystem.readFile(`${__dirname}/templates/template-laptop.html`, 'utf-8', (err, data) => {
       const laptop = laptopData[queryId]
-      let output = data.replace(/{%PRODUCT_NAME%}/g, laptop.productName)
-
-      output = output.replace(/{%PRODUCT_IMAGE%}/g, laptop.image)
-      output = output.replace(/{%PRODUCT_PRICE%}/g, laptop.price)
-      output = output.replace(/{%PRODUCT_SCREEN%}/g, laptop.screen)
-      output = output.replace(/{%PRODUCT_CPU%}/g, laptop.cpu)
-      output = output.replace(/{%PRODUCT_STORAGE%}/g, laptop.storage)
-      output = output.replace(/{%PRODUCT_RAM%}/g, laptop.ram)
-      output = output.replace(/{%PRODUCT_DESCRIPTION%}/g, laptop.description)
+      const output = replaceTemplate(data, laptop)
 
       res.end(output)
     })
@@ -43,3 +45,18 @@ const server = http.createServer((req, res) => {
 server.listen(1337, '127.0.0.1', () => {
   console.log('Listening for request now')
 });
+
+function replaceTemplate(originalHTML, laptop) {
+  let output = originalHTML.replace(/{%PRODUCT_NAME%}/g, laptop.productName)
+
+  output = output.replace(/{%PRODUCT_IMAGE%}/g, laptop.image)
+  output = output.replace(/{%PRODUCT_PRICE%}/g, laptop.price)
+  output = output.replace(/{%PRODUCT_SCREEN%}/g, laptop.screen)
+  output = output.replace(/{%PRODUCT_CPU%}/g, laptop.cpu)
+  output = output.replace(/{%PRODUCT_STORAGE%}/g, laptop.storage)
+  output = output.replace(/{%PRODUCT_RAM%}/g, laptop.ram)
+  output = output.replace(/{%PRODUCT_DESCRIPTION%}/g, laptop.description)
+  output = output.replace(/{%PRODUCT_ID%}/g, laptop.id)
+
+  return output;
+}
