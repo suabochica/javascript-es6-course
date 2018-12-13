@@ -67,8 +67,8 @@ console.log(age) //-> 'Twenty'
 
 In this code, you change the values of the variable `age` from `20` to `twenty`. Notice that you didn't use the `var` keyword because is only used to declare the variables for the first time. It is important to know that the JavaScript compiler reads our code in a sequence of instructions line to line from up to down.
 
-Operators
----------
+Basic Operators
+---------------
 
 **Operators** are constructs which behave generally like functions, but which differ syntactically or semantically from usual functions. Common simple operator types are:
 
@@ -84,6 +84,26 @@ var randomOperationValue = 3 + 5 * 5 - 2
 
 console.log(randomOperationValue) //-> '26'
 ```
+
+Operator Precedence
+-------------------
+
+```js
+
+// Multiple Assignment
+var x, y
+
+x = y = (3 + 5) * 4 - 6 // 26
+
+// More operators
+x *= 2 // 54
+x += 10 // 64
+x++ // 65
+x-- // 64
+``
+
+//TODO: Explain associativity field
+
 
 If/Else Statement
 -----------------
