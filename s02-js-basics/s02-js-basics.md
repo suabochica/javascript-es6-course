@@ -88,6 +88,30 @@ console.log(randomOperationValue) //-> '26'
 Operator Precedence
 -------------------
 
+As I mentioned before, operator precedence is just , So to illustrate the concept lets analyse the next code where given a `birthYear` we will determine if the person is full age.
+
+```js
+var now = 2018;
+var birthYearEdward = 1991;
+var fullAge = 18;
+
+var isFullAge = now - birthYearEdward >= fullAge; // True
+```
+
+So, our attention is in the last line of code. There we are using three operators `>=`, `-` and `=`. To validate the precedence of each operator we can check the JavaScript Operator Precedence Table shared before. In that table we have:
+
+| Precedence | Operator type         | Associativity | Individual operators |
+|------------|-----------------------|---------------|----------------------|
+| 3          | Assignment            | right-to-left | `… = …`              |
+| 11         | Greater Than Or Equal | left-to-right | `… >= …`             |
+| 13         | Subtraction           | left-to-right | `… - …`              |
+
+Now, how does JavaScript know which operator execute first? Imagine that first the `birthYearEdward >= fullAge` is executed. This would return a true/false value. Then we would do `now - true` but this would be nothing significant and of course it would not be what we want.
+
+Instead we want that `now - birthYearEdward` will executed first an then compare that age with the `fullAge` value. This is the execution that follow JavaScript because as you can see the `-` operator has a higher precedence than the `>=` operator. Lastly the `=` is executed because this operator has a lower precedence that the others.
+
+Lets introduce a complex example to check what means the associativity column of the table:
+
 ```js
 
 // Multiple Assignment
@@ -100,9 +124,7 @@ x *= 2 // 54
 x += 10 // 64
 x++ // 65
 x-- // 64
-``
-
-//TODO: Explain associativity field
+```
 
 
 If/Else Statement
