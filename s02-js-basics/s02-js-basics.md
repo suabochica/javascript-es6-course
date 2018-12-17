@@ -1,5 +1,23 @@
 Introduction to JavaScript
 ==========================
+- [Introduction to JavaScript](#introduction-to-javascript)
+  - [What is JavaScript?](#what-is-javascript)
+  - [Getting Started with JavaScript](#getting-started-with-javascript)
+  - [Variables and Data Types](#variables-and-data-types)
+  - [Variable Mutation and Type Coercion](#variable-mutation-and-type-coercion)
+  - [Basic Operators](#basic-operators)
+  - [Operator Precedence](#operator-precedence)
+  - [If/Else Statement](#ifelse-statement)
+  - [Boolean Logic and Switch Statement](#boolean-logic-and-switch-statement)
+  - [Functions](#functions)
+  - [Statements and Expressions](#statements-and-expressions)
+  - [Arrays](#arrays)
+  - [Objects](#objects)
+  - [Objects and Methods](#objects-and-methods)
+  - [Loops](#loops)
+    - [While Loop](#while-loop)
+    - [For Loop](#for-loop)
+  - [Important Note: ES5, ES6/ES2015 and ES2016](#important-note-es5-es6es2015-and-es2016)
 
 What is JavaScript?
 -------------------
@@ -110,7 +128,7 @@ Now, how does JavaScript know which operator execute first? Imagine that first t
 
 Instead we want that `now - birthYearEdward` will executed first an then compare that age with the `fullAge` value. This is the execution that follow JavaScript because as you can see the `-` operator has a higher precedence than the `>=` operator. Lastly the `=` is executed because this operator has a lower precedence that the others.
 
-Lets introduce a complex example to check what means the associativity column of the table:
+Let's introduce a multiply assignment example to check what means the associativity column of the table:
 
 ```js
 
@@ -126,6 +144,17 @@ x++ // 65
 x-- // 64
 ```
 
+The next table show the descriptions for the new operators:
+
+| Precedence | Operator type         | Associativity | Individual operators |
+|------------|-----------------------|---------------|----------------------|
+| 13         | Addition              | left-to-right | `… + …`              |
+| 14         | Multiplication        | left-to-right | `… * …`              |
+| 20         | Grouping              | n/a           | `( … )`              |
+
+So, How JavaScript will execute `x = y = (3 + 5) * 4 - 6`? First it will start with `(3 + 5)` because the grouping `( … )` operator has the highest precedence. Then we got `8`. Second, JavaScript will execute `8 * 4`, because the `*` operator has a higher precedence than `-`. Then we got `32`. Third it will run `32 - 6` to get `26`.
+
+So, at this moment we have `x = y = 26` and with this step, is time to start to review the associativity property. The associativity means is the direction in which the operation is executed. If you look the `=` has a right-to-left associativity. That is the reason what we get the `26` value instead of `undefined`. If the `=` operator had left-to-right associativity JavaScript will throw `undefined`
 
 If/Else Statement
 -----------------
