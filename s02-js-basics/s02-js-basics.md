@@ -37,7 +37,7 @@ JavaScript is what made modern web development possible through dynamic effects 
 
 > ### What is the difference between library a Framework?
 > **Library**: A library is just a file with functions/methods or other reusable code that you can link and use it in your own code.
-> **Framework**: A framework is a broad term. Wikipedia says that framework is a universal, reusable software environment that provides particular functionality. Software frameworks may include support programs, compilers, code libraries, toolsets, and application programming interfaces (APIs) that bring together all the different components to enable development of a project or system.
+> **Framework**: A framework is a broad term. Wikipedia says that framework is a universal, reusable software environment that provides particular functionality. Software frameworks may include support programs, compilers, code libraries, tool sets, and application programming interfaces (APIs) that bring together all the different components to enable development of a project or system.
 
 Getting Started with JavaScript
 -------------------------------
@@ -242,7 +242,7 @@ var ageAlphonse = calculateAge(2002); //->16
 var ageHohenheim = calculateAge(1900); //-> 118
 
 
-function yearsUntileRetirement(name, year) {
+function yearsUntilRetirement(name, year) {
     var age = calculateAge(year),
         retirement = 65 - age;
     if(retirement > 0) {
@@ -252,9 +252,9 @@ function yearsUntileRetirement(name, year) {
     }
 }
 
-yearsUntileRetirement('Edward', 2000); //-> 'Edward retires in 47 years'
-yearsUntileRetirement('Alphonse', 2002); //-> 'Alphonse retires in 49 years'
-yearsUntileRetirement('Hohenheim', 1900); //-> 'Hohenheim is already retired'
+yearsUntilRetirement('Edward', 2000); //-> 'Edward retires in 47 years'
+yearsUntilRetirement('Alphonse', 2002); //-> 'Alphonse retires in 49 years'
+yearsUntilRetirement('Hohenheim', 1900); //-> 'Hohenheim is already retired'
 ```
 
 Statements and Expressions
@@ -342,7 +342,7 @@ As you can see, exist two ways to define an object. The most commonly used is th
 Objects and Methods
 ------------------
 
-**Object methods** is a specific object's feature in JavaScript. As you can see and object can hold different types of data such and `int`, a `string`, a `boleean` and inclusively an `array`. But, that's not all an object can hold, so objects can also have other objects or functions. Below you can see and code example of an object that hold an array and a function expression:
+**Object methods** is a specific object's feature in JavaScript. As you can see and object can hold different types of data such and `int`, a `string`, a `boolean` and inclusively an `array`. But, that's not all an object can hold, so objects can also have other objects or functions. Below you can see and code example of an object that hold an array and a function expression:
 
 ```javascript
 var edward = {
@@ -379,11 +379,11 @@ var edward = {
     }
 };
 edward.calculateAge();
-console.log(edward); //-> Pritnst the edward object with the age property
+console.log(edward); //-> Prints the edward object with the age property
 
 ```
 
-The `this` in this example will refer to the object `edward`. So, `edward` is the object that has the `calculateAge()` method and the `yearOfBirth` property, and the `this` keyword is able to retrieve these values rigth off its own object. In the other hand, you can automatically store the `calculateAge()` result into the edward object. The `this.age` property allow us to achieve that. In `calculateAge()` method you are creating a new property, calculate the age and assign the calculated age to this property. The profit with this structure and the use of `this` is flexibility, because if you create another object with a different `yearOfBirth` the age will be calculated with this value, excluding the context of the edward object.
+The `this` in this example will refer to the object `edward`. So, `edward` is the object that has the `calculateAge()` method and the `yearOfBirth` property, and the `this` keyword is able to retrieve these values right off its own object. In the other hand, you can automatically store the `calculateAge()` result into the edward object. The `this.age` property allow us to achieve that. In `calculateAge()` method you are creating a new property, calculate the age and assign the calculated age to this property. The profit with this structure and the use of `this` is flexibility, because if you create another object with a different `yearOfBirth` the age will be calculated with this value, excluding the context of the edward object.
 
 Loops
 -----
@@ -454,7 +454,7 @@ It's important to talk about JavaScript version because every modern developer s
 - **1996**: Change from LiveScript to JavaScript to attract Java developers –a marketing action–. But, **Java has almost nothing to do with Java**.
 - **1997**: ECMAScript 1 became the first version of the JavaScript language standard. This means that ECMA Script is the language standard and JavaScript is the language in practice. ECMA is an international organization.
 - **2009**: ECMAScript 5 (ES5) was released with lots of new features. However, it took many years for browsers to implement all these changes, and until few years ago developers can use ES5 without any restrictions.
-- **2015**: ECMAScript 2015 (ES2015) was release as the **the biggest update ever** with a lot of new features. These version updates are a really big deal for JavaScript and the whole community. You will listen that this versio is also called ES6, but it's better use ES2015 because the ECMA organization will realease each year new version with a few minor updates.
+- **2015**: ECMAScript 2015 (ES2015) was release as the **the biggest update ever** with a lot of new features. These version updates are a really big deal for JavaScript and the whole community. You will listen that this version is also called ES6, but it's better use ES2015 because the ECMA organization will release each year new version with a few minor updates.
 
 So, how is JavaScript today and which version should and we can use?
 
