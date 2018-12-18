@@ -1,5 +1,5 @@
 //-------------------------------------
-// Coding Challange Two
+// Coding Challenge Two: Print full age
 //-------------------------------------
 
 /**
