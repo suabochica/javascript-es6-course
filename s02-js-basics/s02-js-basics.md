@@ -9,6 +9,7 @@ Introduction to JavaScript
   - [Operator Precedence](#operator-precedence)
   - [If/Else Statement](#ifelse-statement)
   - [Boolean Logic and Switch Statement](#boolean-logic-and-switch-statement)
+  - [Falsy and Truthy Values](#falsy-and-truthy-values)
   - [Functions](#functions)
   - [Statements and Expressions](#statements-and-expressions)
   - [Arrays](#arrays)
@@ -222,6 +223,45 @@ switch:
 
 JavaScript will now look at each of these cases one-by-one and decide which one is the correct one. The `break` keyword is needed in case that JavaScript decides that this is the correct case, then after this, it needs to break out and to finish the switch statement without a look at the other different cases.
 
+
+Falsy and Truthy Values
+-----------------------
+
+In JavaScript, a _Falsy_ value is a value that is considered `false` when evaluated in and `if/else` statement condition. These values are:
+
++ `undefined`
++ `null`
++ `0`
++ `''`
++ `NaN`
+
+So to illustrate this concept let's review the next example:
+
+```js
+var height;
+
+if (height) {
+    console.log('Variable is defined')
+} else {
+    console.log('Variable has NOT been defined') // Printed value
+}
+```
+
+In the above code, we declared the variable `height` but we never defined it. So when JavaScript evaluate the value in the `if/else` statement we got `undefined` and convert it in `false`. That is why we call them _Falsy_, because they are not exactly false, but they will turn out to be `false` when evaluated in a `if/else` condition.
+
+Also, we have _Truthy_ values and are values that are considered `true` when evaluated in an `if/else` statement condition. So, basically, it is all the values that are not _Falsy_. To illustrate it, let fix the last example:
+
+```js
+var height = 20;
+
+if (height) {
+    console.log('Variable is defined') // Printed value
+} else {
+    console.log('Variable has NOT been defined')
+}
+```
+
+Here, `height` is defined and then is evaluated as `true` in the `if/else` statement.
 
 Functions
 ---------
