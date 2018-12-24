@@ -23,8 +23,8 @@ const johnMass = 78
 const johnHeight = 1.82
 let isMarkBMIHigher = false;
 
-const markBMI = markMass/(markHeight*markHeight)
-const johnBMI = johnMass/(johnHeight*johnHeight)
+const markBMI = markMass / (markHeight * markHeight)
+const johnBMI = johnMass / (johnHeight * johnHeight)
 
 isMarkBMIHigher = markBMI > johnBMI ? true : false
 

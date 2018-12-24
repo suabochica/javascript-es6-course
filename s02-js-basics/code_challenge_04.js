@@ -24,10 +24,10 @@ if(johnTeamScoreAverage > mikeTeamScoreAverage && johnTeamScoreAverage > maryTea
   console.log(`John's Team is the winner with a score average of ${johnTeamScoreAverage}`)
 } else if(maryTeamScoreAverage > mikeTeamScoreAverage && maryTeamScoreAverage > johnTeamScoreAverage) {
   console.log(`Mary's Team is the winner with a score average of ${maryTeamScoreAverage}`)
-} else if (johnTeamScoreAverage === mikeTeamScoreAverage && johnTeamScoreAverage === maryTeamScoreAverage) {
-  console.log(`We have a draw in the score average of ${johnTeamScoreAverage}`)
-} else {
+} else if(mikeTeamScoreAverage > johnTeamScoreAverage && mikeTeamScoreAverage > maryTeamScoreAverage) {
   console.log(`Mike's Team is the winner with a score average of ${mikeTeamScoreAverage}`)
+} else {
+  console.log(`We have a draw in the score average of ${johnTeamScoreAverage}`)
 }
 
 console.log('-------------------------------------------------')
