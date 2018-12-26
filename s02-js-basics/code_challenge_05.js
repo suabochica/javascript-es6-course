@@ -68,6 +68,10 @@ tips = [tipCalculatorWithoutLoop(bills[0]),
         tipCalculatorWithoutLoop(bills[1]),
         tipCalculatorWithoutLoop(bills[2])]
 
+totalBills = [tipCalculatorWithoutLoop(bills[0] + tips[0]),
+        tipCalculatorWithoutLoop(bills[1] + tips[1]),
+        tipCalculatorWithoutLoop(bills[2] + tips[2])]
+
 console.log(tips)
 
 console.log('-------------------------------------------------')
