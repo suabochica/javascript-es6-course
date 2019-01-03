@@ -2,6 +2,16 @@
 Asynchronous JavaScript: Promises, Async/Await, and AJAX
 ========================================================
 
+- [Asynchronous JavaScript: Promises, Async/Await, and AJAX](#asynchronous-javascript-promises-asyncawait-and-ajax)
+  - [An Example of Asynchronous JavaScript](#an-example-of-asynchronous-javascript)
+  - [Understanding Asynchronous JavaScript: The Event Loop](#understanding-asynchronous-javascript-the-event-loop)
+  - [The Old Way: Asynchronous Code in JavaScript](#the-old-way-asynchronous-code-in-javascript)
+  - [From Callback Hell to Promises](#from-callback-hell-to-promises)
+  - [From Promises to Async/Await](#from-promises-to-asyncawait)
+  - [AJAX and APIs](#ajax-and-apis)
+  - [Making AJAX Calls with Fetch and Promises](#making-ajax-calls-with-fetch-and-promises)
+  - [Making AJAX Calls with Fetch and Async/Await](#making-ajax-calls-with-fetch-and-asyncawait)
+
 An Example of Asynchronous JavaScript
 -------------------------------------
 
@@ -9,13 +19,13 @@ All the contents reviewed until now in this course are **synchronous** JavaScrip
 
 ```javascript
 const second = () => {
-    console.log('Second');
+    console.log('Second')
 }
 
 const first = () => {
-    console.log('Hey There');
-    second();
-    console.log('The end');
+    console.log('Hey There')
+    second()
+    console.log('The end')
 }
 
 first() // 1. Hey There 2. Second 3. The end
@@ -26,14 +36,14 @@ Now, let's add an **asynchronous** code. To do that we are going to use the `set
 ```javascript
 const second = () => {
     setTimeout(() => {
-        console.log('Async Hey There');
+        console.log('Async Hey There')
     }, 2000)
 }
 
 const first = () => {
-    console.log('Hey There');
-    second();
-    console.log('The end');
+    console.log('Hey There')
+    second()
+    console.log('The end')
 }
 
 first() // 1. Hey There 2. The end 3. Async Hey There
@@ -52,11 +62,11 @@ Understanding Asynchronous JavaScript: The Event Loop
 
 The next scheme illustrates the elements that are part of the JavaScript make up runtime:
 
-![JavaScript Make Up Runtime](https://cdn.scotch.io/4974/xCkAPcmuQNqQCGpO2avR_Event-loop.png.jpg)
+![JavaScript Make Up Runtime](https://cdn-images-1.medium.com/max/1600/1*TozSrkk92l8ho6d8JxqF_w.gif)
 
 - **Execution Stack:** Explained in section five.
 - **Web APIs:** Live outside the JavaScript engine itself. Stuff like DOM manipulation methods, Set Timeout, AJAX, Geolocation, and Storage are Web APIs.
-- **Message Queue:**: Queue that determines which function will pass to the Execution Stack.
+- **Message Queue:** Queue that determines which function will pass to the Execution Stack.
 - **Event Loop:** Mechanism that continuously monitors the Message Queue and the Execution Stack to push the first callback function in line onto the Execution Stack, as soon as the stack is empty. His job allow us asynchronous code in JavaScript.
 
 The Old Way: Asynchronous Code in JavaScript
@@ -68,7 +78,7 @@ To review the old way to create asynchronous code in JavaScript lets create a sm
 function getRecipe() {
     setTimeout(() => {
         const recipeId = [123, 456, 789, 147, 852]
-        console.log(recipeId);
+        console.log(recipeId)
 
         setTimeout(id => {
             const recipe = {
@@ -76,7 +86,7 @@ function getRecipe() {
                 publisher: 'Edward'
             }
 
-            console.log(`${id}: ${recipe.title}`);
+            console.log(`${id}: ${recipe.title}`)
 
             setTimeout(publisher => {
                 const recipeTwo = {
@@ -84,10 +94,10 @@ function getRecipe() {
                     publisher: 'Edward'
                 }
 
-                console.log(recipe);
-            }, 1500, recipe.publisher);
-        }, 1500, recipeId[3]);
-    }, 1500);
+                console.log(recipe)
+            }, 1500, recipe.publisher)
+        }, 1500, recipeId[3])
+    }, 1500)
 }
 ```
 
@@ -98,15 +108,15 @@ From Callback Hell to Promises
 
 To start let's answer the question *What is a Promise?*
 
-- A Promise is an object that keeps track of whether a particular event has happened already or not;
-- Determines what happens after the event has happened;
+- A Promise is an object that keeps track of whether a particular event has happened already or not
+- Determines what happens after the event has happened
 - Implements the concept of a future value that we're expecting. It's like saying, hey, get me some data from the server in the background and the promise then promises us to get that data so that we can handle it in the future.
 
 A promise can have different states:
 
 - Pending
 - Settled/Resolved
-    - The promise was succesfully which means that a result is available -> Fulfilled
+    - The promise was successfully which means that a result is available -> Fulfilled
     - The promise was an error -> Rejected
 
 The connection between the Pending and Settled/Resolved states is when the event happens. With this context we are ready to put the logic of the recipes handled with callbacks regarding promises:
@@ -115,9 +125,9 @@ The connection between the Pending and Settled/Resolved states is when the event
 ```javascript
 const getIds = new Promise((resolve, reject) => {
     setTimeout(() => {
-        resolve([123, 456, 789, 147, 852]);
-    }, 1500);
-});
+        resolve([123, 456, 789, 147, 852])
+    }, 1500)
+})
 
 const getRecipe = recipeId => {
     return new Promise((resolve, reject) => {
@@ -127,9 +137,9 @@ const getRecipe = recipeId => {
                 publisher: 'Edward'
             }
 
-            resolve(`${id}: ${recipe.title}`);
-        }, 1500, recipeId);
-    });
+            resolve(`${id}: ${recipe.title}`)
+        }, 1500, recipeId)
+    })
 }
 
 const getRelatedByPublisher = publisher => {
@@ -140,26 +150,26 @@ const getRelatedByPublisher = publisher => {
                 publisher: 'Edward'
             }
 
-            resolve(`${publisher}: ${recipeTwo.title}`);
+            resolve(`${publisher}: ${recipeTwo.title}`)
         }, 1500, publisher)
-    });
+    })
 }
 
 getIds
 .then( ids => {
     console.log(ids)
-    return getRecipe(ids[2]);
+    return getRecipe(ids[2])
 })
 .then(recipeId => {
-    console.log(recipeId);
-    return getRelatedByPublisher(`Edward`);
+    console.log(recipeId)
+    return getRelatedByPublisher(`Edward`)
 })
 .then(recipeByPublisher => {
-    console.log(recipeByPublisher);
+    console.log(recipeByPublisher)
 })
 .catch(error => {
     console.log('Error!')
-});
+})
 ```
 
 This code is more extended but is more maintainable. The key to avoiding the callback hell is returned a promise and chain it with the `.then()` method.
@@ -172,9 +182,9 @@ Until this section, we learned how to construct and how to consume promises. The
 ```javascript
 const getIds = new Promise((resolve, reject) => {
     setTimeout(() => {
-        resolve([123, 456, 789, 147, 852]);
-    }, 1500);
-});
+        resolve([123, 456, 789, 147, 852])
+    }, 1500)
+})
 
 const getRecipe = recipeId => {
     return new Promise((resolve, reject) => {
@@ -184,9 +194,9 @@ const getRecipe = recipeId => {
                 publisher: 'Edward'
             }
 
-            resolve(`${id}: ${recipe.title}`);
-        }, 1500, recipeId);
-    });
+            resolve(`${id}: ${recipe.title}`)
+        }, 1500, recipeId)
+    })
 }
 
 const getRelatedByPublisher = publisher => {
@@ -197,34 +207,34 @@ const getRelatedByPublisher = publisher => {
                 publisher: 'Edward'
             }
 
-            resolve(`${publisher}: ${recipeTwo.title}`);
+            resolve(`${publisher}: ${recipeTwo.title}`)
         }, 1500, publisher)
-    });
+    })
 }
 
 async function getRecipeAwait() {
-    const ids = await getIds;
-    console.log(ids);
+    const ids = await getIds
+    console.log(ids)
 
-    const recipe = await getRecipe(ids[1]);
-    console.log(recipe);
+    const recipe = await getRecipe(ids[1])
+    console.log(recipe)
 
     const related = await getRelatedByPublisher('Edward')
-    console.log(related);
+    console.log(related)
 
-    return recipe;
+    return recipe
 }
 
 getRecipeAwait()
 .then(result => {
     console.log(`${result} is delicious!`)
-});
+})
 ```
 
 Three essential things in the last code:
 
-1. The `async` keyword gives the property to run the function in the background;
-2. The `async` function returns a promise;
+1. The `async` keyword gives the property to run the function in the background
+2. The `async` function returns a promise
 3. Inside the `async` function we can have one or more `await` expression to consume promises.
 
 Async/Await makes it so much easier to work with promises thanks to the fact that it looks like the standard synchronous code.
@@ -232,12 +242,12 @@ Async/Await makes it so much easier to work with promises thanks to the fact tha
 AJAX and APIs
 -------------
 
-**AJAX** stands for Asynchronous JavaScript and XML and is a technology that allows us to communicate with remote servers through **HTTP** request asynchronously. In practice, there are many ways in which we can do AJAX in JavaScript. In this course, we are gonna look at the **Fetch Web API** to make some AJAX calls easily.
+- **AJAX** stands for Asynchronous JavaScript and XML and is a technology that allows us to communicate with remote servers through
+- **HTTP** request asynchronously. In practice, there are many ways in which we can do AJAX in JavaScript. In this course, we are gonna look at the **Fetch Web API** to make some AJAX calls easily.
+- **API** stands for Application Programming Interface, and at a high level, it is a piece of software that can be used by another piece of software to allow applications to talk to each other. The API concept is a general concept in programming. Now, let's distinguish between two types of APIs that you can use in JavaScript:
 
-**API** stands for Application Programming Interface, and at a high level, it is a piece of software that can be used by another piece of software to allow applications to talk to each other. The API concept is a general concept in programming. Now, let's distinguish between two types of APIs that you can use in JavaScript:
-
-- Your API, for data coming from your server;
-- Third Party APIs (Google Maps, Embed Youtube Videos, Weather Data, Movies Data, ...)
+> - Your API, for data coming from your server
+> - Third Party APIs (Google Maps, Embed YouTube Videos, Weather Data, Movies Data, ...)
 
 
 Making AJAX Calls with Fetch and Promises
@@ -247,25 +257,25 @@ We will make an AJAX call to request weather data from [MetaWeather API](https:/
 
 ```javascript
 function getWeather(woeid) {
-    const proxy = 'https://cors-anywhere.herokuapp.com/';
+    const proxy = 'https://cors-anywhere.herokuapp.com/'
 
     fetch(`${proxy}https://www.metaweather.com/api/location/${woeid}/`)
     .then(result => {
-        console.log(result);
-        return result.json();
+        console.log(result)
+        return result.json()
     })
     .then(data =>{
-        const today = data.consolidated_weather[0];
+        const today = data.consolidated_weather[0]
 
         console.log(`Temperatures in ${data.title} stay between ${today.min_temp} and ${today.max_temp}`)
     })
     .catch(error => {
-        console.log(error);
-    });
+        console.log(error)
+    })
 }
 
-getWeather(2487956);
-getWeather(44418);
+getWeather(2487956)
+getWeather(44418)
 ```
 
 Every time you try to do an AJAX call you face the **No Access Control Allow Origin** errors. The reason for this error is the so-called **Same Origin Policy** in JavaScript, which prevents us from making AJAX request to a domain different than our own. Right now we don't have any domain, we're just opening the JavaScript file, and the domain we are requesting this resource is MetaWeather API. So because of this same origin policy, we cannot access this resource.
@@ -282,28 +292,28 @@ Now we can put the last code regarding Async/Await.
 ```javascript
 async function getWeatherAwait(woeid) {
     try {
-        const proxy = 'https://cors-anywhere.herokuapp.com/';
+        const proxy = 'https://cors-anywhere.herokuapp.com/'
         const result = await fetch(`${proxy}https://www.metaweather.com/api/location/${woeid}/`)
-        const data = await result.json();
-        const tomorrow = data.consolidated_weather[1];
+        const data = await result.json()
+        const tomorrow = data.consolidated_weather[1]
 
         console.log(`Temperatures tomorrow in ${data.title} stay between ${tomorrow.min_temp} and ${tomorrow.max_temp}`)
 
-        return data;
+        return data
     } catch(error) {
-        alert(error);
+        alert(error)
     }
 }
 
-getWeatherAwait(2487956);
+getWeatherAwait(2487956)
 
-let dataLondon;
+let dataLondon
 
 getWeatherAwait(44418)
 .then( data => {
-    dataLondon - data;
-    console.log(dataLondon);
-});
+    dataLondon - data
+    console.log(dataLondon)
+})
 ```
 
 Here we are reviewing and applying the benefits of async/await. The code is written synchronously, by behind the scenes is running in the background, so the code its familiar to us. Also, remember that an async expression always returns a promise. It is for that reason that we have to resolve the promise with the data to store the data in the `dataLondon` variable. For another hand, you can see that to handle errors we use a `try/catch` scheme.
