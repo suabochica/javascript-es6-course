@@ -1,11 +1,12 @@
 //-------------------------------------
-// Coding Challenge Five: Basketball average
+// Coding Challenge Five: Tip Calculator
 //-------------------------------------
+
 /**
  * John and his family went on a holiday and went to 3 different restaurants.
  * The bills were $124, $48 and $268.
  *
- * To tip the waite a fair amount, John created a simple tip calculator (as a function).
+ * To tip the waiter a fair amount, John created a simple tip calculator (as a function).
  * He likes to tip:
  *
  * - 20% of the bill when the bill is less than $50
@@ -13,6 +14,7 @@
  * - 10% of the bill when the bill is greater than $200
  *
  * In the end John would like to have two arrays:
+ *
  * 1. Containing all three tips (one for each bill)
  * 2. Containing all three final paid amounts (bill + tip)
  */

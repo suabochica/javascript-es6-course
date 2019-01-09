@@ -1,6 +1,7 @@
 //-------------------------------------
 // Coding Challenge One: Height okay
 //-------------------------------------
+
 /**
  * John and a friend invented a simple game where the player with the highest value of his height (in centimeters)
  * plus five times his age wins.
