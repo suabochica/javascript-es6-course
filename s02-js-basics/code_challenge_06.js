@@ -1,58 +1,56 @@
 //-------------------------------------
-// Coding Challenge Six: BMI score with Functions and Objects
+// Coding Challenge Seven: Super Tip Calculator
 //-------------------------------------
 
 /**
- * Let's remember the coding challenge where Mark and John use a tip calculator,
- * Let's now implement a more advanced version of using everything we learned
+ * Let's remember the coding challenge where Mark and John compared their BMIs.
+ * Let's now implement the same functionality with objects and methods,
+ * BMI = mass / height^2
+ * mass in "kg" and height in "meters"
  *
- * This time, John and his family went to 5 different restaurants. The bills were:
+ * 1. For each of them, create and object with the properties fo their full name, mass, and height.
+ * 2. Then add a method to each object to calculate the BMI. Save the BMI to the object and also return it from the method.
+ * 3. In the end, log to the console who has the highest BMI. Don't forget they might have the same BMI.
  *
- * - $124, $48, $268, $180, and $42
- *
- * Again, the John´s distribution is:
- *
- * - 20% of the bill when the bill is less than $50
- * - 15% of the bill when the bill is less is between $50 and $200
- * - 10% of the bill when the bill is greater than $200
- *
- * Implement a tip calculator using objects and loops:
- *
- * 1. Create an object with an array for the bill values
- * 2. Add a method to calculate the tip
- * 3. This method should include a loop to iterate over all the paid bills and do the tip calculations
- * 4. As an output, create:
- *  4.1. A new array containing all the tips
- *  4.2. An carry containing all the final paid amounts (bill + tip)
- *
- * Hint: Start with two empty arrays as properties and then fill them up in the loop.
- *
- * EXTRA
- * Mark's family also went on a holiday, going to 4 different restaurants. The bills were:
- *
- * - $77, $375, $110, and $45
- *
- * Marks´s tip distribution is:
- *
- * - 20% of the bill when the bill is less than $100
- * - 10% of the bill when the bill is less is between $100 and $300
- * - 25% of the bill when the bill is greater than $300
- *
- * 1. Implement the same functionality as before, this time using Mark´s tipping rules.
- * 2. Create a function (not a method) to calculate the average og a given array of tips.
- * 3. Calculate the average tip for each family
- * 4. Log to the console which family paid the highest tip on average
- *
- * Hint: For the point two, loop over the array, and in each iteration store the current sum in a variable (starting from 0).
- * After you have the sum of the array, divide it by the number of elements in it (that is how you calculate the average)
  */
 
 console.log('-------------------------------------------------')
-console.log('Coding Challenge Seven - Start')
+console.log('Coding Challenge Six - Start')
 console.log('-------------------------------------------------')
 
+let isMarkBMIHigher = false;
+
+const john = {
+  fullName: 'John James',
+  mass: 78,
+  height: 1.82,
+  calculateBMI: function() {
+    this.bmi = this.mass / (this.height * this.height)
+
+    return this.bmi
+  }
+}
+
+const mark = {
+  fullName: 'Mark Miller',
+  mass: 80,
+  height: 1.64,
+  calculateBMI: function() {
+    this.bmi = this.mass / (this.height * this.height)
+
+    return this.bmi
+  }
+}
+
+if(john.calculateBMI() > mark.calculateBMI()) {
+  console.log(`${john.fullName} has a higher BMI of ${john.bmi}`)
+} else if(mark.bmi > john.bmi) {
+  console.log(`${mark.fullName} has a higher BMI of ${mark.bmi}`)
+} else {
+  console.log(`They have the same BMI`)
+}
 
 
 console.log('-------------------------------------------------')
-console.log('Coding Challenge Seven - End')
+console.log('Coding Challenge Six - End')
 console.log('-------------------------------------------------')
