@@ -70,7 +70,7 @@
       const $$ = el => document.querySelectorAll(el)
 
       const ROWS = 10
-      const COLUMNS = 3
+      const COLUMNS = 6
       const FIRST_CHAR_CODE = 65
 
       const $table = $('table')
@@ -85,9 +85,10 @@
 
       function updateCell ({x, y, value}) {
         const newState = structuredClone(STATE)
+        const cellsConstants  = generateCellsConstants(newState)
         const cell = newState[x][y]
 
-        cell.computedValue = computeValue(value)
+        cell.computedValue = computeValue(value, cellsConstants)
         cell.value = value
 
         newState[x][y] = cell
@@ -97,14 +98,28 @@
         renderSpreadSheet()
       }
 
-      function computeValue (value) {
+      function generateCellsConstants (cells) {
+        return cells.map((rows, x) => {
+          return rows.map((cell, y) => {
+            const letter = getColumnTitle(x)
+            const cellId = `${letter}${y + 1}`     
+
+            return `const ${cellId} = ${cell.computedValue};`
+          }).join('\n')
+        }).join('\n')
+      }
+
+      function computeValue (value, constants) {
         if (!value.startsWith('=')) return value
 
         const formula = value.slice(1)
         let computedValue
 
         try {
-          computedValue = eval(formula)
+          computedValue = eval(`(() => {
+            ${constants}
+            return ${formula}
+          })()`)
         } catch (err) {
           computedValue = `!ERROR: ${err.message}` 
         }
