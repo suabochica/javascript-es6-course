@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spreadsheet</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      img {
+        max-width: 20px;
+        height: auto;
+      }
+
+      table  {
+        border-collapse: collapse;
+      }
+
+      thead,
+      tr td:first-child  {
+        background-color: #eee;
+      }
+
+      th, td {
+        border: 1px solid #ccc;
+        font-style: 12px;
+        text-align: center;
+        vertical-align: middle;
+        position: relative;
+
+      }
+
+      span,
+      input {
+        position: absolute;
+        inset: 0;
+        vertical-align: center;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      input {
+        border: 0;
+        opacity: 0;
+        pointer-events: none;
+        width: 100%;
+      }
+
+    </style>
+    <script type="module">
+      const $ = el => document.querySelector(el)
+      const $$ = el => document.querySelectorAll(el)
+
+      const ROWS = 10
+      const COLUMNS = 3
+      const FIRST_CHAR_CODE = 65
+
+
+      const getColumnTitle = i => String.fromCharCode(FIRST_CHAR_CODE + i)
+      const range = length => Array.from({ length }, (_, i) => i)
+
+      let STATE = range(COLUMNS)
+        .map(i => range(ROWS).map(j => ({ computedValue: j, value: j })))
+
+      const renderSpreadSheet = () => {
+        const $table = $('table')
+        const $head = $('thead')
+        const $body = $('tbody')
+
+
+        const headerHTML = `<tr>
+            <th></th>
+            ${range(COLUMNS).map(i => `<th>${getColumnTitle(i)}</th>`).join('')}
+          </tr>`
+
+        $head.innerHTML = headerHTML
+
+        const bodyHTML = range(ROWS).map(row => {
+          return `<tr>
+            <td>${row + 1}</td>
+            ${range(COLUMNS).map(column => `
+              <td data-x="${column}" data-y="${row}">
+                <span>${STATE[column][row].computedValue}</span>
+                <input type="text" value="${STATE[column][row].value}"/>
+              </td>
+            `).join('')}
+          </tr>`
+        }).join('')
+
+        $body.innerHTML = bodyHTML
+      }
+
+      renderSpreadSheet()
+    </script>
+  </head>
+  <body>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAt1BMVEX///8AAADs7/GA4p2xsbXR0dbx8fHW1tutra0WFhfz9viE6qIcHByDg4bp7O62trpnZ2nc3+DBwcZubnCoqKzNz9HT1tdzdHV5enw0XEAeNSV93JkRHhU1XUEGCwhpuoFhq3dKg1tZnW1EeFNPjGEYKR0tTzeioqKUlJQ2Njanm6dCQkS9vcI9OT2PhY+I8Kd9dH1cXF4NFxAmQy5sv4UrKytOTk9kXWQgOSc8akkNGBCLi4tKSkpB1Fp/AAAD4ElEQVR4nO3d7VbaQBSFYUAaJIRgQAQppn4hWmwpWCy23v911TaDYk6SSTBzJhn2+/cshWfhYpIxgUoFoT2oc1iE1PmsVbUQOa4qYU83bdNCEdAuyEv4kqVGaDm6Ya9BCKFEeNTTl88iPO7oq8kjrOsLQgghhBBCCCGEEMJQthXKE8LpMVv1jjqhNVg54cSpS5Mv5/FYmfCuWowcVcKOXtdWw44a4VQva6sjRcJbvaytIIRQIhx29TVkEbYbn3TVaEMIIYQQQgghhBBCKGu6ESqJX9ifhlsEv+mxraROCmOeQuu5yl1PTsxTqONCoIWUmKPQ0gBMQSy9UEosv1BGNEAoIeYv9AcsLdIS8xc6Nkv9tK+iAqFb46ib9g/VEGEC0RRhPLHswqaUWHbhtx8yYumFX2XE8gtlRAOEEqIJwmSiEcJEohnCJKIhwgRi6YXfRb/iiGUXRvWeaKLw/f6zkcKVEa9hPxr3v2bXBKFnvNBOuBbJDGHNrj+SC1cdo4S1iO0p1yxhRB6EEGYT2t4JU56tRegOot/KVdTWIbRZ/1/atvmFLiew2vT4hUnHjQo6gRDC3YXrUaj1JBgs6WQcTMZ0sgwmk/BgNPJ1C8etg1Cty2BySidXweSaTk6DyRcy+TwxTBgeQAghhBBCCCGEEEIIIYQQQlgW4TxOeEYnscK5EP4MT1oH2oXLc5JwPNCJcDzRyYOw08lYt5ArCCGEEEKThf4ZSbzzT+hkFEzWdCJWvRsyONW/5z1vhZq/rvhkslnx6WSz4pOJ/hV/D47aIIQQQgghhBBCCCGEEEIIIUwj3OUMODx4OwMmE/1nwP71RTjxbEd0IvY3bsjgWuxvPJHJxW/dQq4ghBBCCE0W+vT9fbNa0EnsanERu1pcLXUL6Yrf+siedwFX/D04aoMQQgghhBBCCCGEEEIIIYQwjTDfq74KeAbs35DWwk4n4tmO6ERczf1AJ9qv3OMKQgghhNBkoeq7gi613xWU5c6ueewxTZHv7NqDozYIIYQQQgghLJGwd9/ZykTharZd1UBhZBBCCKF24TATsITChZ2HkO5fnweTTHveZ8GE3Ok8T38G/H49/JeXzRe3T+PTYic7/MhmIhfeZvWkFTIFIYQ7CAv3ieW5C23Gj9VP9anzuQtr7pARGDwks7Bmux5Tbppvf1Ag1BCEEJZI2DBdWL9/qzswUBgZhBBCqF94b7pw9nFgkYR34WZ/cgAWSOhk2waFEEIIIYQQQgghhNBIYdQXZjPFI/SH+hqwCAsQhBAWX7hSA6xUWL+JO6mMFwKlz5rJH5yjZ1XAl7qHBaivEIhQYfoLS2LGk/SnTzcAAAAASUVORK5CYII=" alt="">
+    <table>
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+  </body>
+</html>
