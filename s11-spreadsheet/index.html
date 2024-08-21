@@ -17,7 +17,7 @@
       }
 
       img {
-        max-width: 20px;
+        max-width: 48px;
         height: auto;
       }
 
@@ -81,7 +81,22 @@
       const range = length => Array.from({ length }, (_, i) => i)
 
       let STATE = range(COLUMNS)
-        .map(i => range(ROWS).map(j => ({ computedValue: j, value: j })))
+        .map(i => range(ROWS).map(() => ({ computedValue: 0, value: 0 })))
+
+      function updateCell ({x, y, value}) {
+        const newState = structuredClone(STATE)
+        const cell = newState[x][y]
+        const computedValue = Number(value)
+
+        cell.computedValue = computedValue
+        cell.value = value
+
+        newState[x][y] = cell
+
+        STATE = newState
+
+        renderSpreadSheet()
+      }
 
       const renderSpreadSheet = () => {
         const headerHTML = `<tr>
@@ -119,8 +134,17 @@
 
         input.setSelectionRange(end, end)
         input.focus()
+        input.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') input.blur()
+        })
 
-        console.log(x, y)
+        input.addEventListener('blur', () => {
+          console.log({ value: input.value, state: STATE[x][y].value })
+
+          if (input.value === STATE[x][y].value) return
+
+          updateCell({ x,y, value: input.value })
+        }, {once: true})
       })
 
       renderSpreadSheet()
