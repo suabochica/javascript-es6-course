@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -93,8 +91,8 @@
 
         newState[x][y] = cell
 
+        computeAllCells(newState, generateCellsConstants(newState))
         STATE = newState
-
         renderSpreadSheet()
       }
 
@@ -109,7 +107,18 @@
         }).join('\n')
       }
 
+      function computeAllCells(cells, constants) {
+        return cells.map((rows, x) => {
+          return rows.map((cell, y) => {
+            const computedValue = computeValue(cell.value, constants)
+
+            cell.computedValue = computedValue
+          })
+        })
+      }
+
       function computeValue (value, constants) {
+        if (typeof value === 'number') return value
         if (!value.startsWith('=')) return value
 
         const formula = value.slice(1)
