@@ -219,6 +219,16 @@
         }
       })
 
+      document.addEventListener('copy', event => {
+        if (selectedColumn !== null) {
+          const columnValues = range(ROWS)
+          .map(row => STATE[selectedColumn][row].computedValue)
+
+          event.clipboardData.setData('text/plain', columnValues.join('\n'))
+          event.preventDefault()
+        }
+      })
+
       renderSpreadSheet()
     </script>
   </head>
