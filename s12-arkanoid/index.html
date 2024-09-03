@@ -86,11 +86,16 @@
 
     if (y + dy < ballRadius) {
       dy = -dy
-    } 
+    }
 
-    // game over
+    const isBallInXPaddle = x > paddleX && x < paddleX + paddleWidth;
+    const isBallInYPaddle = y + dy > paddleY;
 
-    if (y + dy > canvas.height - ballRadius) {
+    // bound the ball in the paddle && game over
+
+    if (isBallInXPaddle && isBallInYPaddle) {
+      dy = -dy
+    } else if (y + dy > canvas.height - ballRadius) {
       console.log('Game Over');
       document.location.reload();
     }
