@@ -49,6 +49,29 @@
   function collisionDetection() {}
   function paddleMovement() {}
   function ballMovement() {
+
+    // bound the ball in the lateral walls
+
+    if (
+      x + dx > canvas.width - ballRadius || // right wall
+      x + dx < ballRadius // left wall
+    ) {
+      dx = -dx
+    }
+
+    // bound the ball in the top wall
+
+    if (y + dy < ballRadius) {
+      dy = -dy
+    } 
+
+    // game over
+
+    if (y + dy > canvas.height - ballRadius) {
+      console.log('Game Over');
+      document.location.reload();
+    }
+
     x = x + dx;
     y = y + dy;
   }
