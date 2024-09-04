@@ -79,9 +79,9 @@
 
   const brickRowCount = 6;
   const brickColumnCount = 12;
-  const brickWidth = 30;
-  const brickHeight = 14;
-  const brickPadding = 2;
+  const brickWidth = 32;
+  const brickHeight = 16;
+  const brickPadding = 0;
   const brickOffsetTop = 80;
   const brickOffsetLeft = 30;
   const bricks = []
@@ -109,17 +109,19 @@
         if (currentBrick.status === BRICK_STATUS.DESTROYED)
           continue;
 
-        ctx.fillStyle = 'yellow'
-        ctx.rect(
-          currentBrick.x,
-          currentBrick.y,
-          brickWidth,
-          brickHeight
-        )
+        const clipX = currentBrick.color * brickWidth
 
-        ctx.strokeStyle = 'black'
-        ctx.stroke()
-        ctx.fill()
+        ctx.drawImage(
+          $bricks, // image
+          clipX, // clipX: The x coordinate where to start clipping
+          0, // clipY: The y coordinate where to start clipping
+          brickWidth, // cilp width size
+          brickHeight, // clip height size
+          currentBrick.x, // x: The x coordinate where to place the image on the canvas
+          currentBrick.y, // y: The y coordinate where to place the image on the canvas
+          brickWidth, // width: The width of the image to use (stretch or reduce the image)
+          brickHeight // height: The height of the image to use (stretch or reduce the image
+        )
       }
     }
   }
