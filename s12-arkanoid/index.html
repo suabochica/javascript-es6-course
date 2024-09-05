@@ -40,8 +40,8 @@
   let y = canvas.height - 30;
 
   // Ball speed
-  let dx = 2;
-  let dy = -2;
+  let dx = 3;
+  let dy = -3;
 
   function drawBall() {
     ctx.beginPath();
@@ -184,12 +184,25 @@
     if (isBallInXPaddle && isBallInYPaddle) {
       dy = -dy
     } else if (y + dy > canvas.height - ballRadius) {
+      gameOver = true; 
       console.log('Game Over');
       document.location.reload();
     }
 
+    // Move the ball  
     x = x + dx;
     y = y + dy;
+  }
+
+  const framesPerSecond = 60;
+  let msPrevious = window.performance.now();
+  let msFPSPrevious = window.performance.now() + 1000;
+  const msPerFrame = 1000 / framesPerSecond;
+  let frames = 0;
+  let gameOver = false; 
+
+  function drawFPS() {
+    ctx.fillText(`FPS: ${framesPerSecond}`, 5, 10)
   }
 
   function cleanCanvas() {
@@ -222,12 +235,33 @@
   }
 
   function draw() {
-    console.log('draw');
+    if (gameOver) {
+      return;
+    } 
+
+    window.requestAnimationFrame(draw);
+    const msNow = window.performance.now();
+    const msPassed = msNow - msPrevious;
+
+    if (msPassed < msPerFrame) {
+      return;
+    }
+
+    const excessTime = msPassed % msPerFrame
+    msPrevious = msNow - excessTime;
+    frames++
+
+    if (msFPSPrevious < msNow) {
+      msFPSPrevious = msNow + 1000;
+      framesPerSecond = frames;
+      frames = 0
+    }
 
     cleanCanvas()
 
     // Draws
     // -----
+    drawFPS()
     drawBall()
     drawPaddle()
     drawBricks()
@@ -238,7 +272,6 @@
     ballMovement()
     paddleMovement()
 
-    window.requestAnimationFrame(draw);
   }
 
   draw();
