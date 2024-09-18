@@ -2,11 +2,11 @@
 <div class="shadow">
   <main>
     <section>
-      <div class="white-background">
-        <header>
-          <img src="./tinder-logo.webp" alt="Tinder Logo">
-        </header>
-      </div>
+      <div class="white-background"></div>
+
+      <header>
+        <img src="./tinder-logo.webp" alt="Tinder Logo">
+      </header>
 
       <div class="cards">
         <article>
@@ -30,7 +30,11 @@
       </div>
 
       <footer>
-          <!-- TODO: add actions -->
+        <button class="is-undo" aria-label="undo"></button>
+        <button class="is-remove is-big" aria-label="remove"></button>
+        <button class="is-star" aria-label="star"></button>
+        <button class="is-fav is-big" aria-label="fav"></button>
+        <button class="is-zap" aria-label="zap"></button>
       </footer>
     </section>
   </main>
@@ -84,6 +88,53 @@
     & img {
       width: 24px;
       height: 24px;
+    }
+  }
+
+  footer {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    padding: 0 24px;
+    justify-content: center;
+    align-items: center;
+
+    & button {
+      background: url('./tinder-icons.webp') no-repeat;
+      background-position: 0 0;
+      background-size: 175px;
+      height: 32px;
+      width: 32px;
+      border-radius: 50%;
+      border: 0;
+      cursor: pointer;
+      transition: scale 0.3s ease;
+
+      &:hover {
+        scale: 1.4
+      }
+
+      &.is-big {
+        background-size: 250px;
+        width: 48px;
+        height: 48px;
+      }
+
+      &.is-undo {
+        background-position: -140px 0;
+      }
+
+      &.is-remove {
+        background-position: -150px 0;
+      }
+
+      &.is-fav {
+        background-position: -50px 0;
+      }
+
+      &.is-star {
+        background-position: -70px 0;
+      }
     }
   }
 
