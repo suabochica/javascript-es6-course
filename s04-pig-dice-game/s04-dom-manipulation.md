@@ -37,7 +37,7 @@ What you will learn in this lecture?
 - How to read from the DOM  (Use of the `document` object and his method `querySelector` and `textContent`)
 - How to change the CSS styles  (Use of the `document` object and his method `style`)
 
-Please check all these tasks in the file `../s04-dom-manipulation/app.js`
+Please check all these tasks in the file `../s04-pig-game/app.js`
 
 Events and Event Handling: Rolling the Dice
 -------------------------------------------
