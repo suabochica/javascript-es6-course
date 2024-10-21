@@ -2,17 +2,17 @@
 How JavaScript Works Behind Scenes
 ==================================
 
-How Our Code Is Executed: JavaScript Parsers and Engines
---------------------------------------------------------
+JavaScript Parsers and Engines
+-------------------------------
 
 JavaScript is always hosted in **some environment** (most typically a browser). The _browser_ is where JavaScript runs. There can also be other hosts such as _NodeJS_ web server or even some applications that accept JavaScript code input. But for now, we will always focus on the browser. So, when you write our JavaScript code, and you want to run it, there's a lot of stuff happening behind the scenes explained in brief in the next list:
 
 1. Our JavaScript host has a **JavaScript Engine** that takes our code an executes it. There are many different engines out there according to the browser. Chrome uses _V8 engine_ and Firefox use _SpiderMonkey_, for example.
 2. The first thing that happens inside the engine is that the JavaScript code is parsed by a **Parser** which reads our code line by line and checks if the syntax of the code that you gave it is correct. So, the parser knows the JavaScript rules and how it has to be written in order to be valid.
-	- The parser doesn't find mistakes,
-		- The parser produce a data structure called _Abstract Syntax Tree_ which is then translated into _machine code_.
-	- The parser find mistakes.
-		- Throws an error and stops the execution.
+
+The parser doesn't find mistakes, The parser produce a data structure called _Abstract Syntax Tree_ which is then translated into _machine code_.
+
+If the parser find mistakes; Throws an error and stops the execution.
 
 _Machine Code_ is no longer JavaScript code, it's a set of instructions that can be executed directly by the computer's processor. It's only when your code already converted to machine code, actually run and does it works. That is the basic idea of what actually happens one you choose to run your code.
 
@@ -54,8 +54,8 @@ first();                // 2. Push the first() function in the execution stack
 
 We're talking about that the code that is not inside of any function it's executed in the global context. But, what about the code inside a function?. It's actually very simple because _each time you call a function it gets its own brand-new execution context_. It is in this scenario when the **Execution Stack** structure enters to stage and its responsibility is to organize the different execution context and determines what is the active execution context. For the last code, the commented lines indicate the order in which each context it's add/remove to the execution stack.
 
-Execution Context in Detail: Creation and Execution Phases and Hoisting
------------------------------------------------------------------------
+Execution Phases and Hoisting
+-----------------------------
 
 Before, you have seen when a new execution context is created but what about how exactly that happens?. To understand the creation of an execution context, in the next list I will group the three properties of an **execution context object**:
 
@@ -80,15 +80,14 @@ Now is time to enter into detail with the creation of the **Variable Object** in
 
 The last two points is what developers commonly call **hoisting** in JavaScript. Functions and variables are hoisted in JavaScript, _which means that they are available before the execution phase actually starts_. They are hoisted in a different way. The difference between functions and variables is that functions are already **defined** and variables are set up to `undefined` before the execution phase start and these varialbe only be defined in the execution phase.
 
-### Execution Context Recap
-Each execution context has an object which stores a lot of important data that the function will use while it's running, and this happens even before the code is executed.
+> Each execution context has an object which stores a lot of important data that the function will use while it's running, and this happens even before the code is executed.
 
 Hoisting in Practice
 --------------------
 
-Hoisting may sound a bit confusing initially, but after some examples and some practice will be simple to understand. With the next example, you going to use very simple functions because we want to focus on how everything works and not exactly what the code is doing. Before to start, it´s important to highlight that hoisting is applied to functions and variables in a different way:
+Hoisting may sound a bit confusing initially, but after some examples and some practice will be simple to understand. With the next example, you going to use very simple functions because we want to focus on how everything works and not exactly what the code is doing. Before to start, it´s important to highlight that hoisting is applied to **functions** and **variables** in a different way:
 
-### Function Hoisting
+For hoisting in functions let's review the next code:
 
 ```javascript
 calculateAge(1989) //-> 29: By hoisting this call also works! despite not having declared the function yet
@@ -111,11 +110,10 @@ var retirement = function(year) {
 
 retirement(1991) //-> 38: This is the expected behavior. Call the function after his declaration
 ```
+
 If we try to use hoisting in function expressions, it doesn't work, so we have to call the function expressions after the function is declared.
 
 > Hoisting only works for function declaration.
-
-### Variables Hoisting
 
 To review hoisting in variables please check the next code:
 
@@ -207,7 +205,6 @@ The execution stack of the last code is the next one:
 3. Execution Context `second()`
 4. Execution Context `third()`
 
-
 So basically, the execution context determines the order in which functions are _called_.
 
 The scope chain of the last code is listed next:
@@ -222,7 +219,6 @@ So, the scope chain is determined by the order in which functions are _written l
 > The order in which functions are called does not determine the scope of the variables within these functions.
 
 The the variables `b` and `c` defined in the `first()` and `second()` functions are out of the scope of the `third()`. Then the JavaScript engine throws a Reference Error on `c`. The execution contexts that store the scope chain of each function in the variable object, but they do not have an effect on the scope chain itself.
-
 
 The `this` Keyword
 ------------------

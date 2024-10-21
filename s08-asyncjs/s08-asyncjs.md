@@ -116,11 +116,10 @@ A promise can have different states:
 
 - Pending
 - Settled/Resolved
-    - The promise was successfully which means that a result is available -> Fulfilled
-    - The promise was an error -> Rejected
+  - The promise was successfully which means that a result is available -> Fulfilled
+  - The promise was an error -> Rejected
 
 The connection between the Pending and Settled/Resolved states is when the event happens. With this context we are ready to put the logic of the recipes handled with callbacks regarding promises:
-
 
 ```javascript
 const getIds = new Promise((resolve, reject) => {
@@ -249,7 +248,6 @@ AJAX and APIs
 > - Your API, for data coming from your server
 > - Third Party APIs (Google Maps, Embed YouTube Videos, Weather Data, Movies Data, ...)
 
-
 Making AJAX Calls with Fetch and Promises
 -----------------------------------------
 
@@ -280,7 +278,7 @@ getWeather(44418)
 
 Every time you try to do an AJAX call you face the **No Access Control Allow Origin** errors. The reason for this error is the so-called **Same Origin Policy** in JavaScript, which prevents us from making AJAX request to a domain different than our own. Right now we don't have any domain, we're just opening the JavaScript file, and the domain we are requesting this resource is MetaWeather API. So because of this same origin policy, we cannot access this resource.
 
-To allow developers to request different domains you can use CORS that stands for **Cross-Origin Resource Sharing**. The CORS should be implemented by the API's developers, and unfortunately, the developers of MetaWeather skip this feature. Then the alternative is to proxy the request through their server to do the AJAX call and avoid the same origin policy. But this is another topic. For now, we can use a proxy called https://crossorigin.me/. This proxy is a service that allows us to access from other websites, without having to own that website. All we have to do is prefix our request URL with `https://crossorigin.me/.`
+To allow developers to request different domains you can use CORS that stands for **Cross-Origin Resource Sharing**. The CORS should be implemented by the API's developers, and unfortunately, the developers of MetaWeather skip this feature. Then the alternative is to proxy the request through their server to do the AJAX call and avoid the same origin policy. But this is another topic. For now, we can use a proxy called [crossorigin](https://crossorigin.me/). This proxy is a service that allows us to access from other websites, without having to own that website. All we have to do is prefix our request URL with [crossorigin](https://crossorigin.me/).
 
 The `fetch()` function returns a promise that retrieves the data from the URL passed as a parameter. This response is a JSON file. Is for that reason that we have to use the `json()` function to convert the JSON into a JavaScript Object. Now we this context we can apply the syntax of promises reviewed in couple section before.
 

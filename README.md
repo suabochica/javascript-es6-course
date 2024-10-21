@@ -33,18 +33,18 @@ Topics
 ✅ TO DO
 --------
 
-[ ] Actualizar el README en la carpeta raíz.
-[ ] Mover los módulos teóricos al blog:
+- [ ] Actualizar el README en la carpeta raíz.
+- [ ] Mover los módulos teóricos al blog:
+  - [X] s02-js-basics
+  - [X] s03-how-js-works
+  - [ ] s05-advanced-js
+  - [ ] s07-es-2015
+  - [ ] s08-async-js
+- [ ] Mover los proyectos al nodejs:
   - [ ] s02-js-basics
   - [ ] s03-how-js-works
   - [ ] s05-advanced-js
   - [ ] s07-es-2015
   - [ ] s08-async-js
-[ ] Mover los proyectos al nodejs:
-  - [ ] s02-js-basics
-  - [ ] s03-how-js-works
-  - [ ] s05-advanced-js
-  - [ ] s07-es-2015
-  - [ ] s08-async-js
-[ ] Add steps to run s09-forkify
-[ ] Add steps to run s10-nodejs
+- [ ] Add steps to run s09-forkify
+- [ ] Add steps to run s10-nodejs

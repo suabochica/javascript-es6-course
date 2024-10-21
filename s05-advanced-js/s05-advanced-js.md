@@ -58,7 +58,6 @@ But an athlete is also a person because an athlete also has a `name` a `yearOfBi
 |`job`              |
 |`calculateAge()`   |
 
-
 This allows us to reuse code and create more logical programs. Inheritance concept is traversal to different programming languages because they have OO features.
 
 Now, let's see how JavaScript handle inheritance. JavaScript is a **Prototype-Based** language which means that inheritance works by using `prototypes`. In practice, it means that each and every JavaScript object has a prototype property which makes inheritance possible in JavaScript. Let's look how inheritance is executed in JavaScript behind the scenes with our `Person` constructor and the `edward` instance.
@@ -220,9 +219,9 @@ Creating Objects: `Object.create`
 
 ```javascript
 var homunculusProto = {
-	calculateAge: function() {
-		console.log(2018 - yearOfBirth); //I know, yearOfBirth is not defined yet, but...
-	}
+    calculateAge: function() {
+        console.log(2018 - yearOfBirth); //I know, yearOfBirth is not defined yet, but...
+    }
 }
 
 var wrath = Object.create(homunculusProto);
@@ -234,11 +233,11 @@ wrath.job = "Furher";
 
 // A better way using the second parameter in the Object.create method, but is weird the form as the properties are defined
 var pride = Object.create(homunculusProto,
-	{
-		name: {value: "Selim"},
-		yearOfBirth: {value: 1800},
-		job: {value: "Shadowhunter"}
-	}
+    {
+        name: {value: "Selim"},
+        yearOfBirth: {value: 1800},
+        job: {value: "Shadowhunter"}
+    }
 );
 
 ```
@@ -394,7 +393,6 @@ Immediately Invoked Function Expressions (IIFE)
 
 **IIFE** is a typical pattern in JavaScript, and to illustrate it, we can follow the next example. You want to create a silly game where we win the game if a random score from zero to nine is greater or equal to five, and lost if it's smaller. But we want to keep the score hidden in this game. So, the first approach is the next one:
 
-
 ```javascript
 function game() {
     var score = Math.random() * 10;
@@ -462,7 +460,7 @@ Now comes the cool part, and is that the anonymous function can use the `retirem
 
 Now that we know what a closure is let's see how and why it works behind the scenes. A formal summary of closures is:
 
-_An inner function has always access to the variables and the parameters of its outer function, even after the outer function has returned_
+> An inner function has always access to the variables and the parameters of its outer function, even after the outer function has returned
 
 Now let´s what is happens when you call the `retirement()` function. Be aware that JavaScript has the execution stack and scope chain concepts running:
 
