@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +13,7 @@
 
       color-scheme: dark light;
       color: rgba(255, 255, 255, 0.87);
-      background-color: #242424;
+      background: #242424;
 
       font-synthesis: none;
       text-rendering: optimizeLegibility;
@@ -26,11 +27,16 @@
       padding: 0;
       display: grid;
       place-content: center;
+      height: 100vh;
+    }
+
+    canvas {
+      border: 2px solid #efefef;
     }
 
     section {
       position: absolute;
-      background: black;
+      background: #242424;
       width: 100vw;
       height: 100hw;
       top: 0;
@@ -41,15 +47,19 @@
     }
   </style>
 </head>
+
 <body>
   <div id="app">
-    <section>Haz click aquí para jugar</section>
-    <canvas></canvas>  
+    <!-- <section>Haz click aquí para jugar</section> -->
+    <canvas></canvas>
   </div>
   <strong>Puntuación: <span></span></strong>
 
   <script>
-     /* constantes */
+
+    // Constants
+    // ---------
+    
     const BLOCK_SIZE = 20
     const BOARD_WIDTH = 14
     const BOARD_HEIGHT = 30
@@ -60,6 +70,184 @@
       RIGHT: 'ArrowRight'
     }
 
+    const canvas = document.querySelector('canvas')
+    const context = canvas.getContext('2d')
+
+    canvas.width = BLOCK_SIZE * BOARD_WIDTH
+    canvas.height = BLOCK_SIZE * BOARD_HEIGHT
+
+    context.scale(BLOCK_SIZE, BLOCK_SIZE)
+
+    // 3. Board
+    // --------
+
+    const board = [
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0,
+        0, 0
+      ],
+      [
+        1, 1, 0, 0, 1, 1,
+        1, 1, 1, 1, 1, 1,
+        0, 0
+      ],
+      [
+        1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1,
+        0, 0
+      ]
+    ]
+    
+    // 4. Pieces
+    // --------
+
+    const pieces = {
+      position: { x: 5, y: 5 },
+      shape: [
+        [1, 1],
+        [1, 1]
+      ]
+    }
+
+    // 2. Game loop
+    // ------------
+
     function update() {
       draw()
       window.requestAnimationFrame(update)
@@ -68,7 +256,35 @@
     function draw() {
       context.fillStyle = 'black'
       context.fillRect(0, 0, canvas.width, canvas.height)
+
+      board.forEach((row, y) => {
+        row.forEach((value, x) => {
+          if (value === 1) {
+            context.fillStyle = 'yellow'
+            context.fillRect(x, y, 1, 1)
+          }
+        })
+      })
+
+      pieces.shape.forEach((row, y) => {
+        row.forEach((value, x) => {
+          if (value) {
+            context.fillStyle = 'red'
+            context.fillRect(x + pieces.position.x, y + pieces.position.y, 1, 1)
+          }
+        })
+      })
     }
+
+    // Move the piece
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') pieces.position.x--
+      if (event.key === 'ArrowRight') pieces.position.x++
+      if (event.key === 'ArrowDown') pieces.position.y++
+    })
+
+    update()
   </script>
 </body>
+
 </html>
