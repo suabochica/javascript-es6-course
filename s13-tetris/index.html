@@ -297,11 +297,12 @@
 
         if (checkCollision()) {
           pieces.position.y--
+          solidifyPiece()
         }
       }
     })
 
-    function checkCollision() {
+    function checkCollision () {
       return pieces.shape.find((row, y) => {
         return row.find((value, x) => {
           return (
@@ -310,6 +311,19 @@
           )
         })
       })
+    }
+
+    function solidifyPiece () {
+      pieces.shape.forEach((row, y) => {
+        row.forEach((value, x) => {
+          if (value === 1) {
+            board[y + pieces.position.y][x + pieces.position.x] = 1
+          }
+        })
+      })
+
+      pieces.position.x = 0
+      pieces.position.y = 0
     }
 
     update()
