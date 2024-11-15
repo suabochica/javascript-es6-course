@@ -59,7 +59,7 @@
 
     // Constants
     // ---------
-    
+
     const BLOCK_SIZE = 20
     const BOARD_WIDTH = 14
     const BOARD_HEIGHT = 30
@@ -233,7 +233,7 @@
         0, 0
       ]
     ]
-    
+
     // 4. Pieces
     // --------
 
@@ -278,10 +278,39 @@
 
     // Move the piece
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowLeft') pieces.position.x--
-      if (event.key === 'ArrowRight') pieces.position.x++
-      if (event.key === 'ArrowDown') pieces.position.y++
+      if (event.key === 'ArrowLeft') {
+        pieces.position.x--
+
+        if (checkCollision()) {
+          pieces.position.x++
+        }
+      }
+      if (event.key === 'ArrowRight') {
+        pieces.position.x++
+
+        if (checkCollision()) {
+          pieces.position.x--
+        }
+      }
+      if (event.key === 'ArrowDown') {
+        pieces.position.y++
+
+        if (checkCollision()) {
+          pieces.position.y--
+        }
+      }
     })
+
+    function checkCollision() {
+      return pieces.shape.find((row, y) => {
+        return row.find((value, x) => {
+          return (
+            value !== 0 &&
+            board[y + pieces.position.y]?.[x + pieces.position.x] !== 0
+          )
+        })
+      })
+    }
 
     update()
   </script>
