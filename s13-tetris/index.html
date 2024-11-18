@@ -72,11 +72,14 @@
 
     const canvas = document.querySelector('canvas')
     const context = canvas.getContext('2d')
+    const $score = document.querySelector('span')
 
     canvas.width = BLOCK_SIZE * BOARD_WIDTH
     canvas.height = BLOCK_SIZE * BOARD_HEIGHT
 
     context.scale(BLOCK_SIZE, BLOCK_SIZE)
+
+    let score = 0
 
     // 3. Board
     // --------
@@ -235,18 +238,18 @@
     ]
 
     const pieces = [
-      [ 
+      [
         [1, 1],
         [1, 1]
       ],
       [
         [1, 1, 1, 1]
       ],
-      [ 
+      [
         [0, 1, 0],
         [1, 1, 1]
       ],
-      [ 
+      [
         [1, 1, 0],
         [0, 1, 1]
       ],
@@ -265,6 +268,7 @@
         [1, 1]
       ]
     ]
+
     // 4. Pieces
     // --------
 
@@ -324,6 +328,8 @@
           }
         })
       })
+
+      $score.textContent = score
     }
 
     // Move the piece
@@ -343,7 +349,7 @@
         }
       }
       if (event.key === 'ArrowDown') {
-       square.position.y++
+        square.position.y++
 
         if (checkCollision()) {
           square.position.y--
@@ -351,9 +357,30 @@
           removeRows()
         }
       }
+
+      if (event.key === 'ArrowUp') {
+        const rotated = []
+
+        for (let i = 0; i < square.shape[0].length; i++) {
+          const row = []
+
+          for (let j = square.shape.length - 1; j >= 0; j--) {
+            row.push(square.shape[j][i])
+          }
+
+          rotated.push(row)
+        }
+
+        const previousPiece = square.shape;
+        square.shape = rotated;
+
+        if (checkCollision()) {
+          square.shape = previousPiece;
+        }
+      }
     })
 
-    function checkCollision () {
+    function checkCollision() {
       return square.shape.find((row, y) => {
         return row.find((value, x) => {
           return (
@@ -364,7 +391,7 @@
       })
     }
 
-    function solidifyPiece () {
+    function solidifyPiece() {
       square.shape.forEach((row, y) => {
         row.forEach((value, x) => {
           if (value === 1) {
@@ -373,18 +400,23 @@
         })
       })
 
-      square.shape = pieces[Math.floor(Math.random() * pieces.length)]
+      resetPiece()
+    }
 
-      square.position.x = Math.floor(Math.random() * BOARD_WIDTH / 2 - 2)
+    function resetPiece() {
+      square.position.x = 0
       square.position.y = 0
+
+      square.shape = pieces[Math.floor(Math.random() * pieces.length)]
 
       if (checkCollision()) {
         window.alert('Game Over')
         board.forEach(row => row.fill(0))
+        score = 0
       }
     }
 
-    function removeRows () {
+    function removeRows() {
       const rowsToRemove = []
 
       board.forEach((row, y) => {
@@ -397,6 +429,7 @@
         board.splice(y, 1)
         const newRow = Array(BOARD_WIDTH).fill(0)
         board.unshift(newRow)
+        score += 10
       })
     }
 
