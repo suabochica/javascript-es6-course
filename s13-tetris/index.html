@@ -375,8 +375,13 @@
 
       square.shape = pieces[Math.floor(Math.random() * pieces.length)]
 
-      square.position.x = 0
+      square.position.x = Math.floor(Math.random() * BOARD_WIDTH / 2 - 2)
       square.position.y = 0
+
+      if (checkCollision()) {
+        window.alert('Game Over')
+        board.forEach(row => row.fill(0))
+      }
     }
 
     function removeRows () {
